@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .container{
+            height:580; 
+            width:100%;
+            grid-gap:5px;
+            display: grid;   
+            grid-template-columns: repeat(12, 1fr) ; 
+            grid-template-rows: 50px auto auto 40px;
+            grid-template-areas:"h h h h h h h h h h h h"
+                                "m m c c c c c c c c c c"
+                                "s s s s s s s s s s s s"
+                                "f f f f f f f f f f f f";
+            }
+            .header{
+                color:white;
+                background-color:rgb(25, 65, 8);
+                text-align: center;
+                grid-area: h;
+                padding:10px;
+            }
+            .menu{
+                color:white;
+                background-color:rgb(2, 110, 44);
+                grid-area: m;
+                padding:10px;
+            }
+            .content{
+                color:white;
+                background-color:rgb(78, 136, 56);
+                grid-area: c;
+                padding:10px;
+            }
+            .stanza{
+                color:rgb(7, 7, 7);
+                background-color:rgb(124, 230, 120);
+                grid-area: s;
+                padding:10px;
+            }
+            .footer{
+                color:black;
+                background-color:rgb(109, 153, 92);
+                text-align: center;
+                grid-area: f;
+                padding:10px;
+            }
+            .list{
+                
+                list-style-type:none;
+            }
+            p{
+                justify-content: center;
+                font-family:Lucida;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+                <div class="header">GOVERNMENT OF TAMILNADU<br>
+                *Vaazhga Tamizh*</div>
+                <div class="menu">
+                    <li class="list">
+                        <ul>Home</ul>
+                        <ul>Notification</ul>
+                        <ul>Important dates</ul>
+                        <ul>About</ul>
+                    </li>
+                </div>
+                <div class="content">Status Check:<br>
+                <li class="list">
+                    <ol>NEW APPLICANT</ol>
+                    <ol>APPLICANT HAVING AN ACCOUNT</ol>
+                    <ol>NEW OPENINGS IN PUBLIC SECTOR</ol>
+                    <ol>TNPSC RESULT UPDATES</ol>
+                </li>
+            </div>
+            <div class="stanza">
+                <p>
+                   <center> Welcome to TNPSC...<br></center>
+                        In the year 1923, the British Government established a Public Service Commission to examine the salary structure of the Indian Civil Service. The Commission was composed of four Englishmen and four Indian with Lord Lee of Fareham serving as its Chairman. The Commission also addressed the rate of Indianization of the Indian Civil Service and the Indian Police. It determined a rate which in fifteen years would make the Indian Civil Service with a fifty per cent Indian membership and the same in twenty-five years for the Indian Police. 
+                </p>
+            </div>
+                <div class="footer">Thanks!!!   Visit us again</div>
+            </div>
+
+    </body>     
+</html>
