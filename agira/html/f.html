@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+        .container {
+            height: 100%;
+            width: 100%;
+            grid-gap: 5px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto auto auto auto auto auto auto auto;
+            grid-template-areas: "h h h h h h h h h h h h"
+                "i i i i i i i i i i i i"
+                "c c c c c c c c c c c c"
+                "d d d d d d d d d d d d"
+                "n n n n n n n n n n n n"
+                "p p p p p p p p f f f f"
+                "z z z z z z z z z z z z";
+        }
+
+        body {
+            margin: 0px;
+        }
+
+        header {
+            grid-area: h;
+            background-color: white;
+        }
+
+        header img {
+            float: left;
+            width: 200px;
+            height: 100px;
+            padding-right: 10em;
+            padding-left: 25px;
+            padding-top: 7px;
+        }
+
+        header h4 {
+            padding-left: 300px;
+            float: right;
+            padding-right: 20px;
+            color: gray;
+        }
+
+        header li {
+            border-left: 3px solid gray;
+            border-radius: 6px;
+            margin-bottom: 0;
+            float: left;
+            list-style-type: none;
+            padding: 15px 18px;
+        }
+
+        header a {
+            text-decoration: none;
+            display: inline;
+            text-align: center;
+            color: gray;
+        }
+        .image {
+            grid-area: i;
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content{
+                grid-area:c;
+                padding:0 200px;
+                background: lightgray;
+        }
+
+        .content > h6{
+                font-family: 'Exo', sans-serif;
+                align-content: center;
+                text-align:justify;
+                color:gray;
+                font-size:21px;
+                text-indent: 100px;
+        }
+
+        .detail{
+                grid-area:d;
+                background: lightgray;
+        }
+        
+        .detail>h1{
+            font-family: 'Exo', sans-serif;
+            font-size:50px;
+            color:darkslategray;
+            text-align:center;
+        }
+        .det{
+            grid-area:n;
+            display:flex;
+            flex-wrap:wrap; 
+            background: gray;
+    
+        }
+        
+        .box{
+            display:flex;
+            flex-direction: column;
+            width: 300px;
+            align-items: center;
+            padding: 0 63px;
+            color:white;
+        }
+        .box>h2{
+            font-family: 'Exo', sans-serif;
+            text-align:center; 
+            font-size: 100px;
+            margin:0;
+            
+        }
+        .box>h4{
+            font-family: 'Exo', sans-serif;
+            text-align:center;
+            font-size:25px;
+        }
+
+        .area{
+            grid-area: p ;
+            background: darkslategray;
+            color:whitesmoke;
+        }
+
+        .area > h1{
+            color:whitesmoke;
+            font-size:30px;
+            padding-left: 40px;
+        }
+
+        .area >h5{
+            color:whitesmoke;
+            font-size:20px;
+            padding-left:40px;
+        }
+
+        .form{
+            grid-area:f;
+            background: darkslategray;
+            padding: 20px;
+
+        }
+
+        .form > form{
+            margin-top:60px;
+            align-content: center;
+            font-size:20px;
+            
+        }        
+
+        .end{
+            grid-area: z;
+            background:lightgray;
+        }
+        .end > h6{
+            color:darkslategray;
+            font-size:15px;
+            text-align: center;
+            align-content:center; 
+        } 
+        .fix{
+            position :fixed;
+            bottom: 50px;
+            right: 20px;
+            color:white;
+            background: crimson;
+            border-radius:30px;
+            border:3px solid rgb(202, 106, 106);
+        }
+        .fix> h3{
+            text-align: center;
+            font-size: 15px;
+            padding:0 30px;
+        }
+       
+
+</style>
+</head>
+<body>
+                <div class="container">
+ <header>
+     <img src="/home/nihashini/Documents/training/agira/image/2.png">
+     <h4>info@agiratech.com &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         Contact:+1 888 50 AGIRA (+1 888-502-4472)</h4>
+     <br><br><br>
+     <ul>
+         <li> <a href="/home/nihashini/Documents/training/agira/html/a2.html">HOME</a> </li>
+         <li> <a href="#COMPANY">COMPANY</a> </li>
+         <li> <a href="https://www.agiratech.com/ruby-on-rails-development/">SERVICES</a> </li>
+         <li> <a href="https://www.agiratech.com/golang-development/">GOLANG</a> </li>
+         <li> <a href="https://www.agiratech.com/devops-development/">DEVOPS</a> </li>
+         <li> <a href="https://www.agiratech.com/blockchain-development/">BLOCKCHAIN</a> </li>
+         <li> <a href="https://www.agiratech.com/blog/">BLOG</a> </li>
+         <li> <a href="https://www.agiratech.com/contact-us/">CONTACT US</a> </li>
+     </ul>
+ </header>
+ <div class="image">
+ <img src="/home/nihashini/Documents/training/agira/image/company.jpg">
+ </div> 
+ <div class="content">
+                 <h6> One of the fastest growing technology company, Agira Technologies specializes in crafting solutions for entrepreneurs, medium sized organizations,
+                          agencies and start-ups. With a blend of ingenuous expertise, system prowess, and cloud compatibility Agira Technologies endeavors to maximize 
+                          the profit that clients educe from their IT investment. We deliver full-cycle product development, from scoping through production to deployment 
+                          and support, with a keen attention to detail.<br><br>
+                          Having a solid presence in India with the help of multitudinous web development services, our major 
+                          aim is to offer seamless solutions to our clients with 100% satisfaction and error-free assurance. Expert in RoR, Laravel, Symfony and a few other 
+                          open source platforms.<br><br>
+                 
+                         Every project we undertake receives careful attention of our experts from various fields such as Business Research, Business analysis, User 
+                         interface design, User experience planning, User Interaction, Application architecture, Software Development, Security Control, Performance Tuning,
+                         Quality Control, Deployment, Round-the-clock Support and Maintenance.<br><br>
+                         We are passionate about Startups; we understand them. We understand the life of 
+                         high ambitions, scarce resources, limited time and an unparalleled excitement. We are in it with you as much as you are. We provide solutions and 
+                         help the small & medium business owners to the most successful established big business owners to achieve their IT visions.
+                         
+         </h6>        
+                 </div>
+                 <div class=detail>
+                       
+                            <h1> STATISTICS OF THE LAST YEAR</h1>
+                     </div>
+                     <div class="det">
+                     <div class="box">
+                        <h2>52</h2>
+                        <h4>Custom Projects</h4>
+                     </div>
+                     <div class="box">
+                         <h2>6</h2>
+                         <h4>Domains</h4>
+                        </div>
+                        <div class="box">
+                         <h2>25</h2>
+                         <h4>Happy Clients</h4>
+                            </div>
+                                                   
+                 </div>
+ <div class ="area">
+                 <h1>CONTACT US</h1>
+                 <h5>
+                         INDIA :<br><br>
+         
+                         Agira Technologies Pvt Ltd,<br>
+                         1st Floor, Taas Mahal, 10, Montieth Rd,<br>
+                         Egmore, Chennai, Tamil Nadu 600008, India.<br><br>
+                         
+                         USA :<br><br>
+                         
+                         Agira Technologies Inc,<br>
+                         1604 US Highway 130,<br>
+                         North Brunswick, New Jersey 08902.<br><br>
+                         
+                         SALES PARTNER :<br><br>
+                         
+                         Iteron AG,<br>
+                         Picassoplatz 4,CH-4052 Basel,<br>
+                         Switzerland.<br><br>
+                         
+                         PHONE :<br><br>
+                         
+                         India:+91 44 4357 4451<br>
+                         USA:+1 888 50 AGIRA(+1-888-502-4472)<br>
+                         Swiss:+41 76 475 36 65<br><br>
+                         
+                         E-MAIL:<br><br>
+                         
+                         info@agiratech.com        
+                 </h5>
+             </div>
+             <div class="form">
+                     <form>
+                             <input type="text" placeholder="First name" style="font-size:20px;" > <br><br>
+                             <input type="text" placeholder="Last name" style="font-size:20px;">  <br><br>
+                             <input type="email" placeholder="e-mail id" style="font-size:20px;" >  <br><br>
+                             <input type="text" placeholder="Subject" style="font-size:20px;" ><br><br>
+                             <textarea type="text" rows=10 cols=30 placeholder="Leave your message" style="font-size:20px;" ></textarea><br><br>
+                             <input type="submit" name="Submit" >
+                             </form>
+                 
+                     </div>
+                 <div class="end">
+                     <h6>copyrights  Agira Technologies</h6>
+                 </div>
+                 <div class="fix">
+                 <h3>Let's Talk</h3>
+                 </div>     
+                                               
+</div>                                
+</body>
+</html> 

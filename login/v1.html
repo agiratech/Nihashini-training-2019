@@ -3,26 +3,28 @@
     <head>
         <style>
             .container{
-            height:580; 
+            height:100%; 
             width:100%;
-            grid-gap:5px;
+            grid-gap:0px;
             display: grid;   
             grid-template-columns: repeat(12, 1fr) ; 
-            grid-template-rows: 50px auto auto 40px;
+            grid-template-rows: auto auto auto auto 40px;
             grid-template-areas:"h h h h h h h h h h h h"
-                                "m m c c c c c c c c c c"
+                                "m m m c c c c c c c c c"
+                                "n n n n n n n n n n n n"
                                 "s s s s s s s s s s s s"
                                 "f f f f f f f f f f f f";
             }
             .header{
-                color:white;
-                background-color:rgb(25, 65, 8);
+                color:darkred;
+                background-color:rgb(199, 100, 100);
                 text-align: center;
                 grid-area: h;
                 padding:10px;
+                font-size:50px;
             }
             .menu{
-                color:white;
+            
                 background-color:rgb(2, 110, 44);
                 grid-area: m;
                 padding:10px;
@@ -32,6 +34,13 @@
                 background-color:rgb(78, 136, 56);
                 grid-area: c;
                 padding:10px;
+                margin:0;
+            }
+            .notification{
+                color: white;
+                background-color:rgb(84, 126, 68);
+                grid-area: n;
+                padding: 10px;
             }
             .stanza{
                 color:rgb(7, 7, 7);
@@ -47,40 +56,94 @@
                 padding:10px;
             }
             .list{
-                
-                list-style-type:none;
+                font-size:20px;
+            }
+            span.h1{
+                font-size:30px;
+            }
+            span.note1{
+                color:rgb(160, 53, 53);
+                font-size:15px;
+            }
+            span.note2{
+                color:rgb(160, 53, 53);
+                font-size:15px;
+            }
+            span.note3{
+                color:darkred;
+                font-size:30px;
             }
             p{
-                justify-content: center;
+                justify-content:center;
                 font-family:Lucida;
+            }
+            a{
+                color: white;
+                text-decoration : none;
+            }
+            a.l1{
+                color:darkred;
+            }
+            .img1{
+                height:130px;
+                width:140px;
+                float:left;
+            }
+            .img2{
+                height:130px;
+                width:140px;
+                float :right;
+            }
+            button{
+                background-color:rgb(124, 230, 120);
+                border-style: none;
+                border-radius: 2em;
+                text-decoration: none;
             }
         </style>
     </head>
     <body>
         <div class="container">
-                <div class="header">GOVERNMENT OF TAMILNADU<br>
-                *Vaazhga Tamizh*</div>
+                <div class="header">
+                    <img class="img1" src="images/tnlogo.png">
+                    <img  class="img2" src="images/jobs.jpg">
+                    GOVERNMENT OF TAMILNADU<br>
+                <span class=h1>Truth Alone Triumphs</span></div>
                 <div class="menu">
-                    <li class="list">
-                        <ul>Home</ul>
-                        <ul>Notification</ul>
-                        <ul>Important dates</ul>
-                        <ul>About</ul>
-                    </li>
+                    <ul style="list-style-type: none;">
+                        <li class="list"><a class="l1" href="# home"><br>Home</a></li>
+                        <li class="list"><a class="l1" href="http://tnpsc.gov.in/latest-notification.html">Notification</a></li>
+                        <li class="list"><a class="l1" href="http://tnpsc.gov.in/regulation-tnpsc.pdf">TNPSC Regulations</a></li>
+                        <li class="list"><a class="l1" href="http://tnpsc.gov.in/ruleof-procedure.html">Rules & Regulations</a></li>
+                        <li class="list"><a class="l1" href="http://tnpsc.gov.in/annualreport.html">Annual Reports</a></li>
+                        <li class="list"><a class="l1" href="http://tnpsc.gov.in/reforms.html">Reforms</a></li>
+                    </ul>
                 </div>
-                <div class="content">Status Check:<br>
-                <li class="list">
-                    <ol>NEW APPLICANT</ol>
-                    <ol>APPLICANT HAVING AN ACCOUNT</ol>
-                    <ol>NEW OPENINGS IN PUBLIC SECTOR</ol>
-                    <ol>TNPSC RESULT UPDATES</ol>
-                </li>
+                <div class="content"><p><span class="note3">Status Check:</span></p>
+                <ol class="list">
+                    <li>NEW APPLICANT<a href="http://tnpscexams.in/"> <span class="note1"> &nbsp; ---click here</span></a></li>
+                    <li>INSTRUCTIONS TO APPLY<a href="http://www.tnpsc.gov.in/instructions%20to%20candiates.pdf"><span class="note1"> &nbsp; ---click here</span></a></li>
+                    <li>TNPSC EXAMINATION RESULTS<a href="http://tnpsc.gov.in/results.html"><span class="note1"> &nbsp; ---click here</span></a></li>
+                    <li>TNPSC EXAMINATION ANSWER KEYS<a href="http://tnpsc.gov.in/answerkeys.html"> <span class="note1"> &nbsp; ---click here</span></a></li>
+                    <li>COUNSELLING<a href="http://tnpsc.gov.in/counselling.html"><span class="note1"> &nbsp; ---click here</span></a></li>
+                </ol>
             </div>
+            <div class="notification"><marquee>
+                <a href="http://tnpsc.gov.in/press/2019_0704_PressRelease%20_4Examsdate_rescheduled.pdf">
+                    >> REVISED SCHEDULE OF FOUR EXAMINATION DATES</a>
+                    &nbsp;   &nbsp;   &nbsp;   &nbsp;  &nbsp; <a href="http://tnpsc.gov.in/DEHT-get_may2k19.html">
+                    >> DOWNLOAD THE HALL TICKET</a>
+            </marquee></div>
             <div class="stanza">
-                <p>
-                   <center> Welcome to TNPSC...<br></center>
-                        In the year 1923, the British Government established a Public Service Commission to examine the salary structure of the Indian Civil Service. The Commission was composed of four Englishmen and four Indian with Lord Lee of Fareham serving as its Chairman. The Commission also addressed the rate of Indianization of the Indian Civil Service and the Indian Police. It determined a rate which in fifteen years would make the Indian Civil Service with a fifty per cent Indian membership and the same in twenty-five years for the Indian Police. 
+                <p><center><span class="note3"> Welcome to TNPSC...</span><br></center>
+                      <p style="text-indent:20%">  In the year 1923, the British Government established a Public Service Commission to examine the 
+                        salary structure of the Indian Civil Service. The Commission was composed of four Englishmen and four Indian with Lord Lee 
+                        of Fareham serving as its Chairman. The Commission also addressed the rate of Indianization of the Indian Civil Service and
+                        the Indian Police. It determined a rate which in fifteen years would make the Indian Civil Service with a fifty per cent 
+                        Indian membership and the same in twenty-five years for the Indian Police. 
+                        <button type="button" ><a href="http://tnpsc.gov.in/welcome.html"><span class="note2"> &nbsp;>>more</span></a></button>
                 </p>
+                    </p>
             </div>
                 <div class="footer">Thanks!!!   Visit us again</div>
             </div>

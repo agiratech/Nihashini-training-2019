@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+        .container{
+            height: 100%;
+            width: 100%;
+            display:grid;
+            grid-gap:5px;   
+            grid-template-columns:repeat(10,1fr); 
+            grid-template-rows:80px auto auto auto auto auto ;
+            grid-template-areas:"i i i i i i i i i i"
+                                "i i i i i i i i i i"
+                                "i i i i i i i i i i"
+                                "i i i i i i i i i i"
+                                "i i i i i i i i i i"
+                                "i i i i i i i i i i";            
+        }
+        .im{
+            grid-area: i;
+            padding:10px;
+        }
+        img{
+            height:100px;
+            width:100px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="im"><img src="images/1.jpg"></div>
+            <div class="im"><img src="images/2.jpg"></div>
+            <div class="im"><img src="images/3.jpg"></div>
+            <div class="im"><img src="images/4.jpg"></div>
+            <div class="im"><img src="images/5.jpg"></div>
+            <div class="im"><img src="images/6.jpg"></div>
+            <div class="im"><img src="images/7.jpg"></div>
+            <div class="im"><img src="images/8.jpg"></div>
+            <div class="im"><img src="images/9.jpg"></div>
+            <div class="im"><img src="images/10.jpg"></div>
+            <div class="im"><img src="images/11.jpg"></div>
+            <div class="im"><img src="images/12.jpg"></div>
+            <div class="im"><img src="images/13.jpg"></div>
+            <div class="im"><img src="images/14.jpg"></div>
+            <div class="im"><img src="images/15.jpg"></div>
+            <div class="im"><img src="images/16.jpg"></div>
+        </div>
+    </body>
+</html>

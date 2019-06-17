@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .container {
+            height: 100%;
+            width: 100%;
+            grid-gap: 5px;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto auto auto auto auto auto auto auto;
+            grid-template-areas: "h h h h h h h h h h h h"
+                "i i i i i i i i i i i i"
+                "c c c c c c c c c c c c"
+                "l l l l l l l l l l l l"
+                "d d d d d d d d d d d d"
+                "s s s s s s s s s s s s"
+                "t t t t t t t t t t t t"
+                "p p p p p p p p f f f f"
+                "z z z z z z z z z z z z";
+        }
+
+        body {
+            margin: 0px;
+        }
+
+        header {
+            grid-area: h;
+            background-color: white;
+        }
+
+        header img {
+            float: left;
+            width: 200px;
+            height: 100px;
+            padding-right: 10em;
+            padding-left: 25px;
+            padding-top: 7px;
+        }
+
+        header h4 {
+            padding-left: 300px;
+            float: right;
+            padding-right: 20px;
+            color: gray;
+        }
+
+        header li {
+            border-left: 3px solid gray;
+            border-radius: 6px;
+            margin-bottom: 0;
+            float: left;
+            list-style-type: none;
+            padding: 15px 18px;
+        }
+
+        header a {
+            text-decoration: none;
+            display: inline;
+            text-align: center;
+            color: gray;
+        }
+        
+        .image {
+            grid-area: i;
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+
+        .image>h1 {
+            position: absolute;
+            font-family: 'Exo', sans-serif;
+            color: gray;
+            bottom: 259px;
+            left: 10px;
+            font-size: 78px;
+        }
+
+        .image>p {
+            position: absolute;
+            font-family: 'Exo', sans-serif;
+            color: gray;
+            bottom: 222px;
+            left: 20px;
+            font-size: 30px;
+        }
+
+        .image>button {
+            position: absolute;
+            font-family: 'Exo', sans-serif;
+            border-style: none;
+            border-radius: 35px;
+            background-color: gray;
+            color: white;
+            bottom: 150px;
+            left: 20px;
+            font-size: 25px;
+            padding: 20px 40px;
+            text-decoration:none;
+        }
+
+        button>a {
+            text-decoration: none;
+            color: white
+        }
+
+        .clients {
+            grid-area: c;
+            padding-left: 70px;
+
+        }
+
+        .clients>h1 {
+            font-family: 'Exo', sans-serif;
+            color: darkslategray;
+            font-size: 50px;
+            text-align: center;
+            align-items: center;
+        }
+
+        .clients>img {
+            width: 150px;
+            height: 80px;
+            padding: 30px 40px;
+        }
+
+        .l{
+            grid-area: l;
+            padding-top: 30px;
+            padding-bottom:30px;
+        }
+        .l > h1 {
+            text-align: center;
+            color: darkslategray;
+            font-size: 50px;
+            font-family: 'Exo', sans-serif;
+            margin: 2px;
+        }
+
+        .l > h4 {
+            text-align: center;
+            color: darkslategray;
+            font-family: 'Exo', sans-serif;
+            font-size: 30px;
+            margin: 0;
+        }
+        
+        .do {
+            grid-area: d;
+            display: flex;
+            flex-wrap:wrap;
+
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            align-items: center;
+            padding: 10px;
+
+        }
+
+        .box>img {
+            width: 62px;
+        }
+
+        .box>h2 {
+            color: darkslategray;
+            font-size: 28px;
+           text-align:center;
+        }
+
+        .box>h5 {
+        
+            color:darkslategrey;
+            font-size: 18px;
+            padding:0 25px;
+            margin:0;
+        }
+
+        .l2{
+            grid-area:s;
+            padding-top: 30px;
+            padding-bottom:30px;
+        }
+
+        .l2 > h1{
+            text-align: center;
+            color: darkslategray;
+            font-size: 50px;
+            font-family: 'Exo', sans-serif;
+            margin: 2px;
+        }
+
+        .l2 > h4{
+            text-align: center;
+            color: darkslategray;
+            font-family: 'Exo', sans-serif;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .serve{
+            grid-area:t;
+            display: flex;
+            flex-wrap:wrap;
+        }
+
+        .box1 {
+            display: flex;
+            flex-direction: column;
+            width: 620px;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+        }
+        
+        .box1>img {
+            width: 62px;
+        }
+
+        .box1>h2 {
+            color:darkslategray;
+            font-size: 30px;
+            text-align:center;
+        }
+       
+        .box1>h5 {
+            color: darkslategrey;
+            font-size: 17px;
+            padding:0 25px;
+            margin:0;
+        }
+
+        .area{
+            grid-area: p ;
+            background: darkslategray;
+            color:whitesmoke;
+        }
+
+        .area > h1{
+            color:whitesmoke;
+            font-size:30px;
+            padding-left: 40px;
+        }
+
+        .area >h5{
+            color:whitesmoke;
+            font-size:20px;
+            padding-left:40px;
+        }
+
+        .form{
+            grid-area:f;
+            background: darkslategray;
+            padding: 20px;
+
+        }
+
+        .form > form{
+            margin-top:60px;
+            align-content: center;
+            font-size:20px;
+            
+        }        
+
+        .end{
+            grid-area: z;
+            background:lightgray;
+        }
+        .end > h6{
+            color:darkslategray;
+            font-size:15px;
+            text-align: center;
+            align-content:center; 
+        } 
+        .fix{
+            position :fixed;
+            bottom: 50px;
+            right: 20px;
+            color:white;
+            background: crimson;
+            border-radius:30px;
+            border:3px solid rgb(202, 106, 106);
+            align-items: center;
+        }
+       
+        .fix> h3{
+            text-align: center;
+            font-size: 15px;
+            padding:0 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="/home/nihashini/Documents/training/agira/image/2.png">
+            <h4>info@agiratech.com &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Contact:+1 888 50 AGIRA (+1 888-502-4472)</h4>
+            <br><br><br>
+            <ul>
+                <li> <a href="#HOME">HOME</a> </li>
+                <li> <a href="/home/nihashini/Documents/training/agira/html/f.html" target="_blank">COMPANY</a> </li>
+                <li> <a href="https://www.agiratech.com/ruby-on-rails-development/">SERVICES</a> </li>
+                <li> <a href="https://www.agiratech.com/golang-development/">GOLANG</a> </li>
+                <li> <a href="https://www.agiratech.com/devops-development/">DEVOPS</a> </li>
+                <li> <a href="https://www.agiratech.com/blockchain-development/">BLOCKCHAIN</a> </li>
+                <li> <a href="https://www.agiratech.com/blog/">BLOG</a> </li>
+                <li> <a href="https://www.agiratech.com/contact-us/">CONTACT US</a> </li>
+            </ul>
+        </header>
+        <div class="image">
+            <img src="/home/nihashini/Documents/training/agira/image/5.jpg" width="100%">
+            <h1>You dream it.<br> We code & ship it.</h1>
+            <p>Transform your Business through the power of customer-centric web solutions</p><br><br><br>
+            <button type="button"><a href="https://www.agiratech.com/mobile-development/">Talk to our experts</a>
+            </button>
+        </div>
+        <div class="clients">
+            <h1>
+                SOME OF OUR PROUD CLIENTS
+            </h1><br>
+            <img src="/home/nihashini/Documents/training/agira/image/6.png">
+            <img src="/home/nihashini/Documents/training/agira/image/7.png">
+            <img src="/home/nihashini/Documents/training/agira/image/8.png">
+            <img src="/home/nihashini/Documents/training/agira/image/9.png">
+            <img src="/home/nihashini/Documents/training/agira/image/10.png"><br>
+            <img src="/home/nihashini/Documents/training/agira/image/11.png">
+            <img src="/home/nihashini/Documents/training/agira/image/12.png">
+            <img src="/home/nihashini/Documents/training/agira/image/13.jpg">
+            <img src="/home/nihashini/Documents/training/agira/image/14.png">
+            <img src="/home/nihashini/Documents/training/agira/image/16.png">
+        </div>
+    <div class="l">
+                <h1>THIS IS WHAT WE DO </h1>
+                <h4>We provide customised solutions for your needs</h4>
+    </div>
+        <div class="do">    
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/comp.svg">
+                <caption>
+                    <h2>Website Development </h2>
+                    <h5>Our expertise in Open Source Technologies (Ruby On Rails, Golang, Javascript & PHP Frameworks)
+                        will help up you greatly on your custom product development.</h5>
+                </caption>
+            </div>
+
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/mob.svg">
+                <h2>Mobile Development</h2>
+                <h5>Accelerate growth by using mobile assets to increase productivity & business placeholder through
+                    our gamut of services including iOS, Android, PhoneGap & Ionic.</h5>
+            </div>
+        
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i4.png">
+                <h2>Strategy & Consulting</h2>
+                <h5>Be it Web or Mobile; We help you build your brand; we look at the big picture with an eye
+                for detail; Our goal is to achieve your goals and we have the wherewithal to achieve this.</h5>
+            </div>
+
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i2.png">
+            <h2>Internet of Things</h2>
+            <h5>Our “Internet of Things” Services and Consultancy Team will help you stay ahead of your
+                competitors as early adapters of future technologies will always have an edge over others.</h5>
+            </div>
+        
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i3.jpg">    
+            <h2>Business Development</h2>
+            <h5>We helps you to identify the core purpose of the business and defines the best approach to
+                succeed. We help you to define your priorities, give you a clear plan of how to spend the
+                available resources to achieve the goals.</h5>
+            </div>
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i1.png">    
+            <h2> Strategy Planning</h2>
+            <h5>We strongly believe that perfect strategy planning is the first step to build a great product
+                and meet your goals. Besides static & traditional methodologies, we follow dynamic planning
+                process which allows you to meet the ever changing market needs.</h5>
+                </div>
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i5.png">
+            <h2>Business Services</h2>
+            <h5>We have done extensive research on new business development and opportunities.
+                We helped many companies across the industry to define and achieve their goals.
+                We provide cutting-edge solutions to your business needs.</h5>
+            </div>
+            <div class="box">
+                <img src="/home/nihashini/Documents/training/agira/image/i6.png">
+            <h2>Devops Services</h2>
+            <h5>In a fast paced software era, We need an instant solution for everything.
+                DevOps is a development & delivery process which helps you to achieve this.
+                DevOps also assures you lower failure rates. With immense knowledge in DevOps,
+                we help you to release your software faster.</h5>
+                </div>
+        </div>
+        <div class="l2">
+            <h1> SERVICES </h1>
+            <h4> We are Experts in the following services </h4>
+        </div>
+        <div class="serve">
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/ruby.png">    
+        <h2>Ruby On Rails </h2>
+        <h5>We have a bunch of passionate, innovative and experienced Ruby On Rails Developers 
+            to build your products and find solutions for yours.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/golang.png">    
+        <h2> Golang &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+        <h5>     The modern world expects everything fast and trendy. Agiratech takes the effort 
+            to provide bespoke solutions using the latest advancements. Our Golang expert team at 
+            agira helps you to develop software and web based projects using google go language.            
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/js.png">    
+        <h2>JavaScript Frameworks</h2>
+        <h5>        World is moving towards Single Page Application Frameworks. 
+            We are here to take care of your AngularJs, ReactJs & BackBoneJs 
+            requirements. JQuery is always in our toolkit.        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/php.png">    
+        <h2>PHP Frameworks</h2>
+        <h5>  Be it Drupal, WordPress, Laravel or Zend. Our team is highly 
+            qualified and experienced in the PHP frameworks to deliver the best code.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/mob.png">    
+        <h2>Mobile Platforms</h2>
+        <h5> With our extensive hands-on experience in building and deploying cutting-edge 
+            mobile applications on iOS, Android, PhoneGap & RubyMotion platforms, your 
+            business can leverage the mobile benefits to reach the market faster and wider.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/ecom.png">    
+        <h2>eCommerce Frameworks</h2>
+        <h5>  We help our eCommerce clients on enabling and customizing the open source
+             platforms. Spree, Shopify, Magento, opencart, Solidus are our specialities.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/web.png">    
+        <h2> Web 2.0 & Social Media</h2>
+        <h5> Web 2.0 changes the way the web works & social media activities are inevitable 
+            for any web product. We have excellent knowledge on integrating all leading 
+            social media platforms with your product.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/api.png">    
+        <h2> APIs - Service Integrators   </h2>
+        <h5> The loosely coupled API components of SOA (Service Oriented Architecture) 
+            revolutionize the application architecture. Web services are the key component 
+            of any product development and we are an expert on this
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/cloud.png">    
+        <h2> Cloud Oriented Architecture & Services   </h2>
+        <h5>  A cloud-oriented architecture (COA) is a conceptual model evolved, which ensures 
+            encompassing all beneficial elements in a cloud environment. We help you with cloud 
+            services of Amazon Web Services (AWS), Heroku, Linode & Rackspace.
+        </h5>
+        </div>
+        <div class="box1">
+        <img src="/home/nihashini/Documents/training/agira/image/dev.png">    
+        <h2> DevOps   </h2>
+        <h5> Practicing DevOps at your organization can significantly shorten the product release 
+            time and improve the product quality. We at agira help you to achieve this and improve 
+            your software development process.
+        </h5>
+    </div>
+    </div>
+    <div class ="area">
+        <h1>CONTACT US</h1>
+        <h5>
+                INDIA :<br><br>
+
+                Agira Technologies Pvt Ltd,<br>
+                1st Floor, Taas Mahal, 10, Montieth Rd,<br>
+                Egmore, Chennai, Tamil Nadu 600008, India.<br><br>
+                
+                USA :<br><br>
+                
+                Agira Technologies Inc,<br>
+                1604 US Highway 130,<br>
+                North Brunswick, New Jersey 08902.<br><br>
+                
+                SALES PARTNER :<br><br>
+                
+                Iteron AG,<br>
+                Picassoplatz 4,CH-4052 Basel,<br>
+                Switzerland.<br><br>
+                
+                PHONE :<br><br>
+                
+                India:+91 44 4357 4451<br>
+                USA:+1 888 50 AGIRA(+1-888-502-4472)<br>
+                Swiss:+41 76 475 36 65<br><br>
+                
+                E-MAIL:<br><br>
+                
+                info@agiratech.com        
+        </h5>
+    </div>
+    <div class="form">
+            <form>
+                    <input type="text" placeholder="First name" style="font-size:20px;" > <br><br>
+                    <input type="text" placeholder="Last name" style="font-size:20px;">  <br><br>
+                    <input type="email" placeholder="e-mail id" style="font-size:20px;" >  <br><br>
+                    <input type="text" placeholder="Subject" style="font-size:20px;" ><br><br>
+                    <textarea type="text" rows=10 cols=30 placeholder="Leave your message" style="font-size:20px;" ></textarea><br><br>
+                    <input type="submit" name="Submit" >
+                    </form>
+        
+            </div>
+        <div class="end">
+            <h6>copyrights  Agira Technologies</h6>
+        </div> 
+        <div class="fix">
+            <h3>Let's Talk</h3>
+        </div>   
+    </div>
+
+</body>
+
+</html>
+	
+

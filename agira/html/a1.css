@@ -1,0 +1,82 @@
+/*body{
+    
+}
+.container{
+    height:100%;
+    width:100%;
+    display: grid;
+    grid-gap:10px;
+    grid-template-columns: repeat(4,1fr);
+    grid-auto-rows: 1fr;
+    grid-template-areas: h h h h;
+    margin:0;
+}
+header{
+    grid-area: h;
+}
+img{
+    height:100px;
+    width:200px;
+    float:left;
+    padding-right: 11.625em;
+}
+.image img{
+    position :relative;
+
+
+}
+.image h2{
+    position :absolute;
+    padding:30px 20px;
+    text-align: left;
+}
+li{
+    margin-top:200px;
+    margin-bottom:0;
+    float: left;
+    list-style-type: none;
+}
+li a{
+    display: inline;
+    text-align: center;
+    padding: 15px 20px;
+    color: black;
+    text-decoration: none;
+    text-align: right;
+    background-color:blue;
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%*/
+
+.container{
+    height:100%; 
+    width:100%;
+    grid-gap:0px;
+    display: grid;   
+    grid-template-columns: repeat(12, 1fr) ; 
+    grid-template-rows: auto auto auto auto 40px;
+    grid-template-areas:"h h h h h h h h h h h h"
+                        "i i i i i i i i i i i i"
+                        "d d d d d d d d d d d d"
+                        "s s s s s s s s s s s s"
+                        "f f f f f f f f f f f f";           
+}
+header{
+    grid-area:h;
+    background-color:white;
+}
+header img{
+    float:left;
+    width:200px;
+    height:100px;    
+}
+header li{
+    margin-bottom:0;
+    float: left;
+    list-style-type: none;   
+    display: inline;
+    text-align: center;
+    padding: 15px 20px;
+    color: black;
+    text-decoration: none;
+    background-color:white;
+}

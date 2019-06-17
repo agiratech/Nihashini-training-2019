@@ -1,0 +1,77 @@
+        body {
+            background-color: whitesmoke;
+            margin:4px;    
+        }
+        .container{
+            display: grid;
+            grid-gap: 20px;
+            grid-template-columns:repeat(4,1fr);
+            grid-template-rows: auto auto auto auto;
+            grid-auto-flow: dense;
+        }
+        caption{
+            caption-side: bottom;
+        }
+        p{
+            color:rgb(88, 88, 88);
+            font-family: 'Exo', sans-serif;
+            padding-left:25px;
+            padding-right:25px;
+            padding-bottom:0px;
+            padding-top:0px;
+            margin-bottom: 0;
+            margin-top: 0px;
+            font-size:15px;
+            justify-content: center;
+        }
+        img{
+            width:100%;
+            border-radius:0.5em;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .img-box {
+            height: 189px;
+            overflow: hidden;
+        }
+        h2.note{
+            font-family: 'Exo', sans-serif;
+            color:rgb(5, 5, 5);
+            font-size:23px;
+            text-align: center;
+            padding-left:10px;
+            padding-right:10px;
+            padding-bottom:0px;
+            padding-top:0px;
+        }
+        h6.note1{
+            font-family: 'Exo', sans-serif;
+            color: rgb(88, 88, 88);
+            font-size:12px;
+            text-align: center;
+            padding-left:10px;
+            padding-right:10px;
+            padding-bottom:0px;
+            padding-top:0px;
+        }
+        .box {
+            box-sizing:border-box;
+            border: 3px solid rgba(255,255, 255, 0);
+            border-radius:0.8em;
+            -webkit-box-shadow: 0px 15px 25px -4px rgba(179,173,179,1);
+            -moz-box-shadow: 0px 15px 25px -4px rgba(179,173,179,1);
+            box-shadow: 0px 15px 25px -4px rgba(179,173,179,1);
+        }
+        .box:hover{ 
+           
+            border: 3px solid rgba(0,0, 0, 255);
+               }
+        @media only screen and (max-width: 800px){
+            img{
+                height:auto;
+                max-width:100%;
+            }
+            .container {
+                grid-template-columns:repeat(1,1fr);
+            }
+        } 
