@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <body>
+   <center>
+    <h1> LOG IN FORM </h1>
+
+
+    <img id="demo" src="/home/nihashini/Documents/training/firstjs/image/male.png" width="200" height="200"><br>
+
+    USER NAME :<br>
+    <INPUT TYPE="text" name="USER NAME"><br>
+    GENDER :<br>
+    <input type="radio" name="gender" onchange="fun1()" value="male"> Male
+  <input type="radio" name="gender" onchange="fun2()" value="female"> Female
+  <script>
+        function fun1() {
+              document.getElementById("demo").src = "male.png" ;
+            }
+            function fun2() {
+              document.getElementById("demo").src = "female.png" ;
+            }
+    </script>
+    </center>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+<body>
+<h1> LOG IN FORM </h1>
+<img id="demo" src="male.png" width="200px" height="200px"><br>
+
+USER NAME :<br>
+<INPUT TYPE="text" name="USER NAME"><br>
+GENDER :<br>
+<input type="radio" name="gender" onchange="male()">Male
+<input type="radio" name="gender" onchange="female()"> Female
+<script>
+function male(){
+document.getElementById("demo").src="male.png";
+}
+function female(){
+document.getElementById("demo").src="female.png";
+}
+</script>
+</body>
+</html> -->
