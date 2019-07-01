@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <style>
+        form{
+            text-align : center;
+        }
+        </style>
+    </head>
+        <body>
+            
+        <script>
+            function validateForm() {
+                var x = document.forms["myForm"]["name"].value;
+                if (x == "") {
+                alert("enter your name");
+                return false;
+            }
+            var y = document.forms["myForm"]["email"].value;
+            var patt = new RegExp("@");
+            var res = patt.test(y);
+  
+            if (y == ""){
+                alert("email cannot be empty");
+                return false;
+            }
+                if(res == false){
+                    alert("your email is invalid");
+                    return false;
+                }
+
+
+            var z = document.forms["myForm"]["num"].value;
+            var n = z.length;
+            if (z == ""){
+                alert("enter your phone number");
+                return false;
+            }
+            if(n != 10){
+                alert("enter the valid mobile number");
+                return false;
+            }
+
+            var a = document.forms["myForm"]["DOB"].value;
+            if (a == ""){
+                alert("enter your date of birth");
+                return false;
+            }
+            var b = document.forms["myForm"]["gender"].value;
+            if (b == ""){
+                alert("select an option to submit the form");
+                return false;
+            }
+        }
+        </script>
+           
+    <form name="myForm" onsubmit="return validateForm()">
+    
+        <h1>REGISTRATION FORM</h1>
+        NAME:
+        <input type="text" name="name"><br><br>
+        EMAIL:
+        <input type="text" name ="email"><br><br>
+        PHONE NUMBER:
+        <input type="string" name="num"><br><br>
+        DATE OF BIRTH:
+        <input type="date"  name="DOB"><br><br>
+        GENDER:
+        <select name ="gender">
+            <option value="female">Female</option>
+            <option value="Male">Male</option>
+        </select><br><br>
+        <input type="submit" value="submit">
+
+    </form>
+    </body>
+    </html>

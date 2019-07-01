@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form name ="myForm" onsubmit="return myFunction()">
+email address:
+<input type ="text" name ="email">
+        <input type="submit" value="submit">
+
+</form>
+<script>
+function myFunction() {
+ 
+  var y = document.forms["myForm"]["email"].value;
+  var patt = new RegExp("@");
+  var res = patt.test(y);
+  
+            if (y == ""){
+                alert("email cannot be empty");
+                return false;
+            }
+                if(res == false){
+                    alert("your email is invalid");
+                    return false;
+                }
+
+            }  
+</script>
+</body>
+</html>
