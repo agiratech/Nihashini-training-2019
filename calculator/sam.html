@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script>
+function divide()
+{
+    document.calculator.output.value += "/";
+}
+function add()
+{
+    document.calculator.output.value += "+";
+}
+function num9()
+{
+    document.calculator.output.value += "9";
+}
+function num8()
+{
+    document.calculator.output.value += "8";
+}
+function num7()
+{
+    document.calculator.output.value += "7";
+
+}
+function multiply()
+{
+    document.calculator.output.value += "*";
+}
+function percent()
+{
+    document.calculator.output.value += "%";
+}
+function num6()
+{
+    document.calculator.output.value += "6";
+}
+function num5()
+{
+    document.calculator.output.value += "5";
+}
+
+function num4()
+{
+    document.calculator.output.value += "4";
+}
+
+
+function subtr()
+{
+    document.calculator.output.value += "-";
+}
+
+function num3()
+{
+    document.calculator.output.value += "3";
+}
+
+function num2()
+{
+    document.calculator.output.value += "2";
+}
+
+function num1()
+{
+    document.calculator.output.value += "1";
+}
+
+function numZero()
+{
+    document.calculator.output.value += "0";
+}
+
+function buildFormula()
+{
+var evalu= alert(eval(document.calculator.output.value)) + document.clear();
+document.calculator.output.value= evalu;
+}
+
+
+</script>
+</head>
+<body>
+<form name="calculator">
+
+<table>
+<tr>
+<td colspan=4><input type=text readonly=true name="output" size = 25></td>
+</tr>
+<tr>
+<td><input type=button value= "   7   "  onClick="num7()"></td>
+<td><input type=button value= "   8   " onClick="num8()"></td>
+<td><input type=button value= "   9   " onClick="num9()"></td>
+<td><input type=button value= "    /  " onClick="divide()"></td>
+<td><input type=button value= "     + " onClick="add()"></td>
+</tr>
+<tr>
+<td><input type=button value= "   4  " onClick="num4()"></td>
+<td><input type=button value= "   5  " onClick="num5()"></td>
+<td><input type=button value= "   6  " onClick= "num6()"></td>
+<td><input type=button value= "   *  " onClick= "multiply()"></td>
+<td><input type=button value= "   %  " onClick="percent()"></td>
+</tr>
+<tr>
+<td><input type=button value = "   1   " onClick="num1()"></td>
+<td><input type=button value = "   2   " onClick="num2()"></td>
+<td><input type=button value = "   3   " onClick="num3()"></td>
+<td><input type=button value = "  -  " onClick="subtr()"></td>
+<td><input type=button value = "  =  " onClick="buildFormula()"></td>
+</tr>
+<tr>
+<td colspan=5><input type=button value = "0"onClick="numZero()"></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
