@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      width: 100%;
+      height: 400px;
+      background-color: #333;
+
+    }
+    #thing {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    #thing:hover {
+      cursor: pointer;
+    }
+    </style>
+    </head>
+    <body class="container">
+        <img src="balloon.png" id ="thing">
+
+    <script>
+        var dragItem = document.querySelector("#thing");
+        var container = document.querySelector(".container");
+            
+        // var active = false;
+        var X;
+        var Y;
+        var currentX;
+        var currentY;
+        var xOffset = 0;
+        var yOffset = 0;
+
+        container.addEventListener("touchstart", dragStart);
+        container.addEventListener("touchend", dragEnd);
+        container.addEventListener("touchmove", drag);
+
+        container.addEventListener("mousedown", dragStart);
+        container.addEventListener("mouseup", dragEnd);
+        container.addEventListener("mousemove", drag);
+
+        function dragStart(e) {
+          if (e.type === "touchstart") {
+            X = e.touches[0].clientX - xOffset;
+            Y = e.touches[0].clientY - yOffset;
+          } else {
+            X = e.clientX - xOffset;
+            Y = e.clientY - yOffset;
+          }
+
+          if (e.target === dragItem) {
+            active = true;
+          }
+        }
+
+        function dragEnd(e) {
+          X = currentX;
+          Y = currentY;
+
+          active = false;
+        }
+
+        function drag(e) {
+          if (active) {
+        
+            e.preventDefault();
+        
+            if (e.type === "touchmove") {
+              currentX = e.touches[0].clientX - X;
+              currentY = e.touches[0].clientY - Y;
+            } else {
+              currentX = e.clientX - X;
+              currentY = e.clientY - Y;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            setTranslate(currentX, currentY, dragItem);
+          }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+          el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+        }
+    </script>
+    </body>
+    </html> 
