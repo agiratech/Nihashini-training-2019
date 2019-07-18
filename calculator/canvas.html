@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        *{
+            margin:0;
+            box-sizing: border-box;
+            padding:0;
+        }
+        #canvas{
+            background-color:white;
+            border:2px solid black;
+            border-radius:5px;
+        }
+        .apply{
+            align-content: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size:30px;
+        }
+    </style>    
+    
+</head>
+<body>
+    <div>
+    <canvas id="canvas"></canvas></div>  
+    <script src = "canvas.js"></script>
+    <div class = "apply"> 
+            Choose your color:<input id = "colour" type = "color"><br>
+            Choose your brush size:<input id ="brushsize" type = "range" ><br>
+            <input type="button" onclick="erase()" id="erase" value="erase">
+    </div> 
+</body>
+</html>
