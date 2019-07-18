@@ -2,8 +2,8 @@
        
        var canvas = document.querySelector("#canvas");
         var c = canvas.getContext('2d');
-        canvas.height = 500;
-        canvas.width = 1000;
+        canvas.height = 600;
+        canvas.width = 1285;
         var painting = false;
 
         function startPoint(e){
@@ -15,9 +15,7 @@
 
             if(!painting) return;
             c.strokeStyle = document.getElementById("colour").value;
-            console.log(document.getElementById("colour").value);
             c.lineWidth = document.getElementById("brushsize").value;
-            c.lineCap = "round";
             c.lineTo(e.clientX, e.clientY);  
             c.stroke();
             c.beginPath();
@@ -35,5 +33,11 @@
 function erase(){
             document.getElementById("colour").value = "#ffffff";
 
+}
+function rd(){
+    c.lineCap = "round";
+}
+function sq(){
+    c.lineCap = "square";
 }
         
