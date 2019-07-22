@@ -1,6 +1,4 @@
-       
-       
-       var canvas = document.querySelector("#canvas");
+        var canvas = document.querySelector("#canvas");
         var c = canvas.getContext('2d');
         canvas.height = 600;
         canvas.width = 1285;
@@ -40,4 +38,12 @@ function rd(){
 function sq(){
     c.lineCap = "square";
 }
+function save(){
+    var data =  canvas.toDataURL();
+    console.log(data);
+    saveImg.href = data;
+    saveImg.download = "myart.png";
+}
+// saveImg.addEventListener("click", save);
+
         

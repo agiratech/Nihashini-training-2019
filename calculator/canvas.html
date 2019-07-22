@@ -29,6 +29,11 @@
             width: 40px;
             height: 30px; 
         }
+        button{
+            font-size:20px;
+            width: 100px;
+            height: 30px;
+        }
     </style>    
     
 </head>
@@ -38,11 +43,11 @@
     <script src = "canvas.js"></script>
     <div class = "apply"> 
             Color:<input id = "colour" type = "color">&nbsp;&nbsp;
-            Brush:<input type="button" onclick="rd()" value = "round"> &nbsp;&nbsp;
-            <input type="button"  onclick="sq()" value="square">&nbsp;&nbsp;
+            Brush:<input type="button" onclick="rd()" value = "Round"> &nbsp;&nbsp;
+            <input type="button"  onclick="sq()" value="Square">&nbsp;&nbsp;
             Size:<input id ="brushsize" type = "range" >&nbsp;&nbsp;
             Erase:<img onclick="erase()" src = "/home/nihashini/Documents/training/calculator/eraser.svg">
-           
-    </div> 
+            <a href="" id ="saveImg"><button onclick = "save()" id = "save">Save</button></a>
+        </div> 
 </body>
 </html>
