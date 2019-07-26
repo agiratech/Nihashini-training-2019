@@ -1,5 +1,5 @@
 .container{
-    height:300px;
+    height:100%;
     width:100%;
     align-items: center;
 }
@@ -15,4 +15,11 @@
 }
 .button > button{
     margin:10px;
+}
+.list{
+    text-align : center;
+    font-size : 30px;
+}
+ul{
+    list-style : none;
 }

@@ -44,6 +44,4 @@ function save(){
     saveImg.href = data;
     saveImg.download = "myart.png";
 }
-// saveImg.addEventListener("click", save);
-
-        
+// saveImg.addEventListener("click", save);   

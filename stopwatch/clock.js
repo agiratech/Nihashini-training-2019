@@ -6,6 +6,9 @@ let displaySeconds = 0;
 let displayMinutes = 0;
 let displayHours = 0;
 
+let interval = null;
+let status = "stopped";
+
 function stopWatch(){
     seconds++;
 
@@ -39,4 +42,35 @@ function stopWatch(){
     }
     document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
 }
-window.setInterval(stopWatch, 1);
+
+function startStop(){
+    if(status === "stopped"){
+        interval = window.setInterval(stopWatch, 10);
+        document.getElementById("startStop").innerHTML = "Stop";
+        status = "started";
+    }
+    else{
+        window.clearInterval(interval); 
+        document.getElementById("startStop").innerHTML = "Start";
+        status = "stopped";
+
+    }
+}
+
+function count(){
+    var node = document.createElement("LI");
+    var textnode = document.createTextNode(displayHours + ":" + displayMinutes + ":" + displaySeconds);
+    node.appendChild(textnode);
+    document.getElementById("myList").appendChild(node);
+}
+
+function reset(){
+    // window.clearInterval(interval);
+    // seconds = 0;
+    // minutes = 0;
+    // hours = 0;
+    // document.getElementById("display").innerHTML = "00:00:00";
+    // document.getElementById("startStop").innerHTML = "Start";
+    // above codes for just to restart and will never erase the entries but then the next line reload it as before
+    window.location.reload();
+}
