@@ -7,45 +7,55 @@ form{
     max-width: 30em; 
     margin: 4em auto; 
     position: relative; 
-    background: #f4f4f4; 
+    background: #fa7d00; 
     padding: 2em 3em;
 }
 .heading{
     font-size : 40px;
 }
 .box{
-    font-size : 30px;
-    padding : 10px;
-}
-.key{
-    font-size : 22px;
-    border-radius : 15px;
-    border-style : none;
-    background-color: orangered;
-    padding : 10px;
-}
-.list{
-    margin-top: 1em;
-
-}
-.items{
-    margin:10px;
-    padding-left: 40px;
-    text-align: left;
-    list-style: none;
-    font-size: 30px;
-    border-left: 2px solid red;
-    
-}
-
-/* form h1{    
-    font-family: "Raleway";    
-    color:#F97300; 
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 0.5px solid  
+    ;
 }
 form input[type=text]::placeholder{   
     font-family: "Raleway";   
     color:#666; 
 }
+.key{
+    cursor: pointer;
+    font-size : 22px;
+    border-radius : 15px;
+    border-style : none;
+    background-color:  #ff9933;
+    padding : 10px;
+}
+.list{
+    margin-top: 1em;
+}
+.items{
+    position: relative;
+    margin-top: 25px;
+    padding-left: 15px;
+    text-align: left;
+    list-style: none;
+    font-size: 30px;
+    border-left: 2px solid #ff9933;
+    background-color: white;
+    width: 380px;
+    height: 40px;
+    
+}
+ .items > .material-icons{
+    position: absolute;
+    cursor:pointer;
+    right: 20px;
+    top: 7px;
+}
+/* 
+
 form .data{    
         margin-top: 1em;
     }

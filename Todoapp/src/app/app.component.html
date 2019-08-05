@@ -1,16 +1,16 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <div class = "container">
-  <form>
+  <form #myForm="ngForm" (submit)="addTodo(myForm.value); myForm.reset()">
   <h1 class = "heading">TODO list</h1>
 <div>
-  <input #todo class = "box" type = "text" placeholder = " Add to do">
-  <input class = "key" type = "submit" (click)="addTodo(todo.value)" value = "Add">
+  <input class = "box" [(ngModel)]="title" name="title" placeholder = " Add to do">
+  <input type = "submit" class = "key" value = "Add">
 </div>
 
 <ul class = "list">
   <li class = "items" *ngFor = "let todo of todoArray">
-    {{todo}} &nbsp;<i class="material-icons">delete</i>
+    {{todo.title}} &nbsp;<i (click)="deleteItem(todo)" class="material-icons">delete</i>
 
     </li>
 </ul>
