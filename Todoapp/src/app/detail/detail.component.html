@@ -1,8 +1,9 @@
 <div class="container">
     <form>
-        <h1 [(ngModel)]="data.title">{{data.title}}</h1>
+        <p [(ngModel)]="data.title" name="title">{{data.title}}</p>
         <h3>NOTE:</h3>
-        <textarea class="details" [(ngModel)]="data.note"></textarea>
-        <input type = "submit" value="save">
+        <textarea class="details" [(ngModel)]="data.note" name="note"></textarea>
+        <button mat-button [mat-dialog-close]=data >Save</button>
+
     </form>
 </div>

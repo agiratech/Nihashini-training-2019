@@ -4,14 +4,17 @@
   <form #myForm="ngForm" (submit)="addTodo(myForm.value); myForm.reset()">
   <h1 class = "heading">TODO list</h1>
 <div>
-  <input class = "box" [(ngModel)]="title" name="title" placeholder = " Add to do">
-  <input type = "submit" class = "key" value = "Add">
+  <input class = "box" [(ngModel)]="title" name="title" placeholder = "Add to do">
+  &nbsp; &nbsp; 
+  <input type = "submit" class = "key" value = "Add" [disabled]="!title">
 </div>
 
 <ul class = "list">
   <li class = "items" *ngFor = "let todo of todoArray">
-    {{todo.title}} &nbsp;<i (click)="deleteItem(todo)" class="material-icons">delete</i>
-
+    {{todo.title}} &nbsp; 
+    <span fxFlex="1 1 auto"></span>
+    <i (click) = "openDialog(todo)" class = "material-icons">edit</i> 
+    <i (click) = "deleteItem(todo)" class="material-icons">delete</i>
     </li>
 </ul>
 

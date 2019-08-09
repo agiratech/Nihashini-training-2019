@@ -1,7 +1,10 @@
 .container{
     background-color: rgb(218, 217, 216); 
 }
-h1{
+form{
+    max-width: 15em; 
+}
+p{
     font-size : 25px;
     color : #ffffff;
     background-color:  #ff9933;
@@ -9,4 +12,13 @@ h1{
 h3{
     margin:0px;
     font-size:20px;
-}
+} 
+form textarea {
+    font-size: 15px;
+    border-radius: 3px;
+    background-color: rgb(255, 255, 255); 
+    border-style: none;
+    margin: 0px; 
+    height: 92px; 
+    width: 194px;
+} 

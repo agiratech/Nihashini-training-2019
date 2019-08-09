@@ -1,29 +1,30 @@
 .container{
     text-align : center;
-    background-color: 
 }
 
 form{
     max-width: 30em; 
     margin: 4em auto; 
     position: relative; 
-    background: #fa7d00; 
+    background-color: rgb(218, 217, 216); 
     padding: 2em 3em;
 }
 .heading{
-    font-size : 40px;
+    font-size : 45px;
+    color: #ff9933;
 }
 .box{
     font-size: 25px;
     padding: 10px;
     border-radius: 10px;
-    border: 0.5px solid  
-    ;
-}
+    border: 0.5px solid;
+    outline: none;
+    }
 form input[type=text]::placeholder{   
     font-family: "Raleway";   
     color:#666; 
 }
+
 .key{
     cursor: pointer;
     font-size : 22px;
@@ -31,26 +32,26 @@ form input[type=text]::placeholder{
     border-style : none;
     background-color:  #ff9933;
     padding : 10px;
+    color:#ffffff; 
+    outline: none;
 }
 .list{
     margin-top: 1em;
 }
 .items{
-    position: relative;
-    margin-top: 25px;
+    margin-top: 20px;
     padding-left: 15px;
     text-align: left;
     list-style: none;
     font-size: 30px;
     border-left: 2px solid #ff9933;
     background-color: white;
-    width: 380px;
+    width: 400px;
     height: 40px;
-    
+    color:#666; 
 }
  .items > .material-icons{
-    position: absolute;
     cursor:pointer;
-    right: 20px;
-    top: 7px;
+    margin-top: 8px;
+    margin-right: 6px;
 }
