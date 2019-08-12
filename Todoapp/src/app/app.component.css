@@ -12,9 +12,11 @@ form{
 .heading{
     font-size : 45px;
     color: #ff9933;
+    font-family: "Raleway";   
 }
 .box{
     font-size: 25px;
+    font-family: "Raleway";   
     padding: 10px;
     border-radius: 10px;
     border: 0.5px solid;

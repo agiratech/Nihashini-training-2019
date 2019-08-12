@@ -10,7 +10,6 @@ export class DetailComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<DetailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
- console.log("dfg",data);
   }
 
   ngOnInit() {

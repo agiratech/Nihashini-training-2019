@@ -14,19 +14,20 @@ export class AppComponent {
   todoArray=[];
   title:string;
   note:string;
+  dialogRef:any;
  
   constructor(private dialog:MatDialog ){}
 
     openDialog(todo): void {
       const dialogRef = this.dialog.open(DetailComponent, {
         width: '250px',
-        data: todo
-
-              
+        data: todo,
+        closeOnNavigation: true
+        // hasBackdrop: true        
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
+        //console.log('The dialog was closed');
         this.note = result;
 
        });
