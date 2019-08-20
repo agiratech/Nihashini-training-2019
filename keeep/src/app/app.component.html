@@ -1,0 +1,21 @@
+<div class = "container" fxLayout = "row">
+  <i class="material-icons">menu</i>
+  <img class="keepimage" src="../assets/image/keep.png">
+  <h3>Keep</h3>
+  <div class="search" fxLayout = "row">
+    <input type ="text" placeholder="Search">
+    <div class="button"><img class="searchkey" src="../assets/image/search.svg"></div>
+  </div>
+  <i class="material-icons" (click)="refresh()">refresh</i>
+  <i class="material-icons">settings</i>
+  <i class="material-icons">account_box</i>
+</div>
+<div fxLayout ="row">
+  <app-menu></app-menu>
+  <div fxLayout="column">
+  <app-note></app-note>
+  <router-outlet></router-outlet>
+  </div>
+  </div>
+  
+  

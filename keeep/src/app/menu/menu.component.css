@@ -1,0 +1,21 @@
+.container{
+    padding: 10px;
+    width: 220px;
+}
+.material-icons{
+    padding: 15px;
+}
+.label{
+    padding:15px;
+}
+.menu{
+    font-size: 20px;
+    padding:2px;
+}
+.first{
+    border-bottom:1px solid gray;
+}
+.second{
+    border-bottom:1px solid gray;
+
+}

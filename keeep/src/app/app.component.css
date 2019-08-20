@@ -1,0 +1,47 @@
+.container{
+    padding: 10px 10px 1px;
+    border-bottom: 1px solid gray;
+}
+i.material-icons{
+    padding:15px; 
+}
+h3{
+    margin:10px;
+    font-size:26px;
+    font-style: none;
+    font-family: 'Dosis', sans-serif;
+    padding-right:15px;
+}
+.keepimage{
+    width:auto;
+    height:50px;
+    padding-right:15px;
+}
+.search{
+    position: relative;
+    padding-right:15px;
+    margin-right: 70px;
+    margin-left: 60px;
+}
+input{
+    font-family: 'Dosis', sans-serif;
+    width: 700px;
+    height: 30px;
+    border-radius: 15px;
+    border: none;
+    background: lightgray;
+    text-indent: 40px;
+    font-size: 22px;    
+    padding: 10px;
+    outline: none;
+}
+div > .button {
+    position: absolute;
+    left: 20px;
+    cursor: pointer;
+} 
+.searchkey{
+    margin-top:13px;
+}
+
+
