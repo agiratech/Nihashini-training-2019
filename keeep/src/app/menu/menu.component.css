@@ -8,9 +8,11 @@
 .label{
     padding:15px;
 }
-.menu{
-    font-size: 20px;
+.menu > a{
+    font-size: 16px;
     padding:2px;
+    text-decoration: none;
+    color:black;
 }
 .first{
     border-bottom:1px solid gray;

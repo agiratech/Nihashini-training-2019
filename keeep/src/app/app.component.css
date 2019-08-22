@@ -5,17 +5,16 @@
 i.material-icons{
     padding:15px; 
 }
-h3{
+span{
     margin:10px;
     font-size:26px;
-    font-style: none;
     font-family: 'Dosis', sans-serif;
     padding-right:15px;
 }
 .keepimage{
     width:auto;
     height:50px;
-    padding-right:15px;
+    padding-right:10px;
 }
 .search{
     position: relative;
