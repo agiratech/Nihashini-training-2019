@@ -3,7 +3,8 @@
     border-bottom: 1px solid gray;
 }
 i.material-icons{
-    padding:15px; 
+    padding:15px;
+    cursor: pointer; 
 }
 span{
     margin:10px;

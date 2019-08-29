@@ -1,23 +1,42 @@
 .container{
-    padding: 10px;
+    padding: 10px 10px 10px 0px;
     width: 220px;
 }
 .material-icons{
-    padding: 15px;
+    padding: 10px;
 }
 .label{
     padding:15px;
 }
-.menu > a{
+.menu{
     font-size: 16px;
     padding:2px;
+    color:black;
+}
+a{
     text-decoration: none;
+}
+i{
     color:black;
 }
 .first{
     border-bottom:1px solid gray;
 }
-.second{
-    border-bottom:1px solid gray;
 
+ul{
+    list-style: none;
+    padding-left: 0px;
+    /* border-bottom:1px solid gray; */
+}
+ol{
+    list-style: none;
+    padding-left: 0px; 
+}
+li{
+    padding: 0px 0px 0px 15px;
+}
+li:hover{
+    background-color:gray;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
