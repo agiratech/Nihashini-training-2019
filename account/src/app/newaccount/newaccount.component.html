@@ -1,0 +1,15 @@
+<div>
+  <div>
+  <label>Account Name</label>
+  <input type="text" #accountName>
+  </div>
+  <div>
+    <select #status>
+      <option value="active"> Active </option>
+      <option value="inactive"> Inactive </option>
+      <option value="hidden"> Hidden </option>
+    </select>
+  </div>
+  <button (click)="onCreateAccount(accountName.value, status.value)">
+    Add Account</button>
+</div>
