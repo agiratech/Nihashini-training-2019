@@ -10,8 +10,10 @@
 .material-icons{
     padding: 3px;
     cursor: pointer;
+    opacity: 0.5;
 }
 .input{
+    font-size: 18px;
     width:500px;
     padding:10px;
     border:0px solid gray;

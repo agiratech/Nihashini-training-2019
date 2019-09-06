@@ -5,12 +5,14 @@
 i.material-icons{
     padding:15px;
     cursor: pointer; 
+    opacity: 0.5;
 }
 span{
     margin:10px;
     font-size:26px;
     font-family: 'Dosis', sans-serif;
     padding-right:15px;
+    opacity: 0.5;
 }
 .keepimage{
     width:auto;
@@ -42,6 +44,7 @@ div > .button {
 } 
 .searchkey{
     margin-top:13px;
+    opacity: 0.5;
 }
 
 

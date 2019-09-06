@@ -1,28 +1,28 @@
 <div class="container">
     
-        <ul class="first"><li><a routerLink="/noteplace">
+        <ul class="first"><li><a>
             <i class = "material-icons">note_add</i> 
             <span class="menu">Notes</span></a></li>
 
-            <li><a routerLink="/reminder">
+            <li><a>
             <i class="material-icons">notifications_none</i>
             <span class="menu">Reminder</span></a></li><br>
         </ul> 
     
         <span class="label">Label</span><br>
-        <ul class ="first">
-            <li><a routerLink="/edit">
+        <ul class ="first" >
+            <li (click)= "openDialog()"><a>
             <i class="material-icons">edit</i>
             <span class="menu">Edit</span></a></li><br>
         </ul>
    
     
         <ol>
-            <li><a routerLink="/archive">
+            <li><a>
             <i class="material-icons">archive</i>
             <span class="menu">Archive</span></a></li>
     
-            <li><a routerLink="/trash">
+            <li><a>
             <i class="material-icons">delete</i>
             <span class="menu">Trash</span></a></li>
         </ol><br>        
