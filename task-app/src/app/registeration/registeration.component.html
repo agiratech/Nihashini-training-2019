@@ -1,0 +1,33 @@
+<form (submit)="registerformSubmit(f)" #f="ngForm">
+  <div fxLayoutAlign="center" fxLayout="row wrap">
+    <mat-card class="cardsize1">
+      <mat-card-header fxLayoutAlign="center">
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header><br>
+      <mat-card-content>
+        <div fxLayout="column wrap">
+         <mat-form-field>
+            <input matInput placeholder="Name" [(ngModel)]="name"   name="name" required>
+          
+          </mat-form-field><br>
+        
+          <mat-form-field>
+            <input matInput placeholder="Emailid" [(ngModel)]="email"   name="email" required email>
+        
+          </mat-form-field><br>
+
+          <mat-form-field>
+            <input matInput placeholder="Password" [(ngModel)]="password"  name="password"  minlength="6" maxlength="15"
+            required> 
+          
+          </mat-form-field>
+        </div>
+
+      </mat-card-content><br><br><br>
+      <mat-card-actions align="center" class="buttonalign">
+        <button mat-raised-button type="submit" value="Submit" color="primary">Submit</button>
+        <button mat-raised-button color="primary"><a routerLink="" routerLinkActive="active-list-item">Login</a></button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</form>

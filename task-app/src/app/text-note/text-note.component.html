@@ -1,0 +1,29 @@
+
+<form (submit)="formsubmit(f)" #f="ngForm">
+  <div class="keep">
+    <button mat-raised-button type="button" (click)="logout()">LogOut</button>
+  </div>
+  <div class="keepcolor">
+    <h2>Keep Google Example</h2>
+  </div>
+  <div>
+    <div fxLayoutAlign="center" fxLayout="row wrap">
+      <mat-card class="example-card1">
+        <div fxLayout="column wrap">
+          <mat-form-field>
+            <input matInput placeholder="Title" [(ngModel)]="title" name="title">
+          </mat-form-field><br>
+          <mat-form-field>
+            <textarea matInput placeholder="Take a note" [(ngModel)]="description" name="description"></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-card-actions fxLayoutAlign="end">
+          <button mat-raised-button type="submit" value="Submit" [disabled]="!title && !description">Save</button>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</form>
+<app-note></app-note>

@@ -1,0 +1,47 @@
+mat-form-field {
+    font-size: 20px;
+   
+  }
+  body {
+    background-image: url('https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');
+     }
+  h2 {
+    font-family: 'Times New Roman';
+  }
+  .example-card1 {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      border-radius: 30px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      align-items: flex-start;
+      width:750px;
+   }
+   .mat-icon {
+    font-size: 16px;
+  }
+ 
+  
+  .example-card1:hover{
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.363);
+  }
+  
+  .keep{
+    position: relative;
+    text-align: right;
+    margin-right: 15px;
+   
+  }
+   .keep > button{
+    position: absolute;
+    right:1px;
+   }
+   .keepcolor{
+    color: blue;
+    text-align: center;
+    
+   }
+
+ 

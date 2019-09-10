@@ -1,0 +1,17 @@
+
+.itemsalign{
+    position: relative;
+    text-align: right;
+}
+
+.itemsalign > button{
+position: absolute;
+right: 1px;
+margin-top: 40px;
+}
+
+
+mat-icon{
+cursor: pointer;
+}
+

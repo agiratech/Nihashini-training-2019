@@ -10,6 +10,11 @@
         </ul> 
     
         <span class="label">Label</span><br>
+
+        <li *ngFor="let label of labels">
+            <mat-icon>label_outlined</mat-icon>&nbsp;&nbsp;&nbsp;
+            <span>{{label.name}}</span></li>
+            
         <ul class ="first" >
             <li (click)= "openDialog()"><a>
             <i class="material-icons">edit</i>

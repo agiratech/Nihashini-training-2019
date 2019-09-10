@@ -1,8 +1,33 @@
-<div class = "container" fxLayout="row">
-    <input class="input" type ="text">
-    <div class="icons">
-    <i appHighlight class="material-icons">check_box</i>&nbsp;&nbsp;
-    <i appHighlight class="material-icons">brush</i>&nbsp;&nbsp;
-    <i appHighlight class="material-icons">image</i>
-    </div>
-</div>
+<mat-accordion>
+    <br>
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+          <mat-panel-title>            
+              <input class="input" type ="text" placeholder="Take a note">
+          </mat-panel-title>
+            <mat-panel-description>
+                    <mat-icon appHighlight>check_box</mat-icon>&nbsp;&nbsp;
+                    <mat-icon appHighlight>brush</mat-icon>&nbsp;&nbsp;
+                    <mat-icon appHighlight>image</mat-icon>
+            </mat-panel-description>
+
+        </mat-expansion-panel-header>
+  
+      <mat-form-field class="notes">
+        <input matInput placeholder="Notes">
+      </mat-form-field>
+    
+      <mat-action-row>
+            <div  class="one"><mat-icon appHighlight>notifications_active</mat-icon>
+            <mat-icon appHighlight>person_add</mat-icon>
+            <mat-icon appHighlight>color_lens</mat-icon>
+            <mat-icon appHighlight>image</mat-icon>
+            <mat-icon appHighlight>archive</mat-icon>
+            <mat-icon appHighlight>more_vert</mat-icon>
+            </div>
+        <button mat-button>Close</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  
+</mat-accordion>
+  

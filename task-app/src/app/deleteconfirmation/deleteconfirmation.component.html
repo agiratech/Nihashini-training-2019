@@ -1,0 +1,8 @@
+<div class="confirm">
+<h1 mat-dialog-title>Confirm</h1>
+<div mat-dialog-content>{{confirmMessage}}</div><br><br><br><br>
+<div md-dialog-actions fxLayoutAlign="center" fxLayoutGap="20px">
+  <button mat-raised-button color="primary" (click)="dialogRef.close(true)">Confirm</button>
+  <button mat-raised-button color="danger" matDialogClose (click)="onClose()">Cancel</button>
+</div>
+</div>

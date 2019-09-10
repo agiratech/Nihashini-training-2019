@@ -1,0 +1,18 @@
+
+
+  <div fxLayout="column wrap" [style.background]="data.color" class="mat-dialog-container">
+   <mat-form-field>
+    <input matInput placeholder="Title" [(ngModel)]="data.title" name="title">
+  </mat-form-field><br>
+  <mat-form-field>
+    <textarea matInput placeholder="description" [(ngModel)]="data.description" name="description"></textarea>
+  </mat-form-field>
+   <div mat-dialog-actions class="itemsalign">
+    <button mat-raised-button  (click)="onClose()">Cancel</button>
+   </div>
+  
+  <div mat-dialog-actions fxAlignGap="10px"> 
+    <mat-icon mat-button [(colorPicker)]="data.color">color_lens</mat-icon>
+    <button mat-raised-button  [mat-dialog-close]="data">Ok</button>
+    </div>
+ </div>

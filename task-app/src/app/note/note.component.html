@@ -1,0 +1,47 @@
+<div class="pinned" *ngIf="arr?.length > 0">
+  <h5>PINNED</h5>
+</div>
+<div class="masonry">
+  <div *ngFor="let data of arr">
+    <mat-card class="example-card" [style.background]="data.color">
+      <div class="pin-icon">
+        <mat-icon matSuffix (click)="unpin(data)">attach_file</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title (click)="OnMatCard(data)">{{data.title}}</mat-card-title>
+       </mat-card-header>
+       <mat-card-content (click)="OnMatCard(data)">
+          {{data.description}}
+        </mat-card-content>
+      <mat-card-actions>
+        <div>
+          <mat-icon mat-button [(colorPicker)]="data.color">color_lens</mat-icon>
+          <mat-icon (click)="removepin(data)">delete</mat-icon>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div class="pinned" *ngIf="arr?.length > 0">
+  <h5>OTHERS</h5>
+</div>
+<div class="masonry">
+  <div *ngFor="let data of val">
+    <mat-card class="example-card" [style.background]="data.color">
+      <div class="pin-icon">
+        <mat-icon (click)="myclick(data)">attach_file</mat-icon>
+      </div>
+      <mat-card-header>
+        <mat-card-title (click)="OnMatCard(data)">{{data.title}}</mat-card-title>
+       </mat-card-header>
+      <mat-card-content (click)="OnMatCard(data)">
+        {{data.description}}
+      </mat-card-content>
+      <mat-card-actions>
+       <mat-icon mat-button  [(colorPicker)]="data.color">color_lens</mat-icon>
+       <mat-icon mat-button (click)="remove(data)">delete</mat-icon>
+      </mat-card-actions>
+    </mat-card>
+</div>
+</div>

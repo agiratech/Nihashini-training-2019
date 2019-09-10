@@ -1,0 +1,75 @@
+
+  .mat-icon {
+    font-size: 15px;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .mat-card:hover .mat-icon {
+    opacity: 1;
+  }
+
+  .mat-card-content {
+    padding-left: 18px;
+  }
+
+  .example-card:hover{
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.363);
+  }
+  .pin-icon {
+    position: relative;
+    text-align: right;
+  } 
+
+  .pin-icon > mat-icon {
+    position: absolute;
+    right: 1px;
+  }
+ 
+  .example-card{
+    border-radius: 18px;
+    display: inline-block;
+    margin-bottom: 10px;
+    width: 300px;
+} 
+
+  .masonry { 
+    display: inline-block;
+    column-count: 3;
+    column-gap:10px;
+    margin-left: 60px;
+    margin-bottom: 10px;
+   }
+
+  @media screen and (min-width: 480px) {
+    .masonry {
+      column-count: 1;
+    }
+}
+
+
+  @media screen and (min-width: 768px) {
+    .masonry {
+      column-count: 2;
+    }
+}
+
+  @media screen and (min-width: 900px) {
+    .masonry {
+      column-count: 3;
+    }
+  }
+
+  @media screen and (min-width:1024px){
+.masonry{
+  column-count: 3;
+}
+  }
+
+.pinned{
+  margin-left: 62px;
+}
+
+.mat-card-header{
+  font-size: 14px;
+}
