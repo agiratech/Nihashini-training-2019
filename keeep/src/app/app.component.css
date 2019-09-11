@@ -7,6 +7,9 @@ i.material-icons{
     cursor: pointer; 
     opacity: 0.5;
 }
+.layout{
+    margin:10px;
+}
 span{
     margin:10px;
     font-size:26px;

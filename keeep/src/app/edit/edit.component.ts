@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
-import {LabelsService} from '../labels.service'
+import {LabelsService} from '../labels.service';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent {
-  
+  labels;
   label: { name }={ name : ""};
+  
+  ngOnInit(){
+    this.labels= this.labelService.getlabel();
+  }
   
   constructor(
     public editDialog: MatDialogRef <EditComponent>,

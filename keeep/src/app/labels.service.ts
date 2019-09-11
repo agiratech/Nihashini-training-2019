@@ -7,7 +7,7 @@ export class LabelsService {
 
   constructor() { }
 
-  labels=[]
+  labels=[];
 
   public createLabel(label :{name}){
     this.labels.push(label);

@@ -1,10 +1,14 @@
 <h1 mat-dialog-title>Edit</h1>
 <div mat-dialog-content>
   <mat-form-field>
-    <input matInput placeholder="Create new label">
+    <input matInput placeholder="Create new label" [(ngModel)]="label.name" name="name" >
   </mat-form-field>
+  <li *ngFor="let label of labels">
+    <span>{{label.name}}</span></li>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()"> No Thanks </button>
-  <button mat-button (click)="createLabel()"> Save </button>
+  <button mat-button (click)="onNoClick()" > No Thanks </button>
+  <button mat-button (click)="createLabel()" > Save </button>
 </div>
+ 

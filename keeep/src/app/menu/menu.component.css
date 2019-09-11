@@ -27,13 +27,13 @@ i{
 ul{
     list-style: none;
     padding-left: 0px;
-    /* border-bottom:1px solid gray; */
 }
 ol{
     list-style: none;
     padding-left: 0px; 
 }
 li{
+    list-style: none;
     padding: 0px 0px 0px 15px;
     opacity: 0.8;
 }
