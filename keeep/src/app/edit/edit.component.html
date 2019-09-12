@@ -4,7 +4,10 @@
     <input matInput placeholder="Create new label" [(ngModel)]="label.name" name="name" >
   </mat-form-field>
   <li *ngFor="let label of labels">
-    <span>{{label.name}}</span></li>
+    <span>{{label.name}}</span>
+    <mat-icon appHighlight>delete_outline</mat-icon>
+
+  </li>
 </div>
 
 <div mat-dialog-actions>
