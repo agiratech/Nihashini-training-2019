@@ -5,7 +5,7 @@
   </mat-form-field>
   <li *ngFor="let label of labels">
     <span>{{label.name}}</span>
-    <mat-icon appHighlight>delete_outline</mat-icon>
+    <mat-icon appHighlight (click)="deleteItem(label)">delete_outline</mat-icon>
 
   </li>
 </div>

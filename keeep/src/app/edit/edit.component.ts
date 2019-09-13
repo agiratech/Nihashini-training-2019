@@ -27,5 +27,10 @@ export class EditComponent {
   onNoClick(): void {
     this.editDialog.close();
   }
-
+  deleteItem(label){   
+    const index: number = this.labels.indexOf(label);
+    if (index !== -1) {
+      this.labels.splice(this.labels.indexOf(label),1);
+    }
+  }
 }
