@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {EditComponent} from '../edit/edit.component';
+import { MatDialog } from '@angular/material/dialog';
+import { EditComponent } from '../edit/edit.component';
 import { LabelsService } from '../labels.service'
 @Component({
   selector: 'app-menu',
@@ -9,8 +9,8 @@ import { LabelsService } from '../labels.service'
 })
 export class MenuComponent implements OnInit{
   labels;
-  title:string;
-  note:string;
+  title: string;
+  subTitle: string; 
   dialogRef:any;
     constructor(public dialog: MatDialog, public labelService: LabelsService) { }
     

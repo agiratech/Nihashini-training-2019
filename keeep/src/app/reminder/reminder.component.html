@@ -25,9 +25,11 @@
             <mat-icon appHighlight>archive</mat-icon>
             <mat-icon appHighlight>more_vert</mat-icon>
             </div>
-        <button mat-button (click)="save()">Close</button>
+        <button mat-button (click)="addCard()">Close</button>
       </mat-action-row>
     </mat-expansion-panel>
   
 </mat-accordion>
-  
+  <div fxLayout="row">
+  <app-card></app-card>  
+  </div>

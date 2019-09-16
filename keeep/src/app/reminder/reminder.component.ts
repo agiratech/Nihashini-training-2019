@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reminder.component.css']
 })
 export class ReminderComponent implements OnInit {
-
+  
+  note=[];
+  title: string;
+  subTitle: string;
   constructor() { }
 
   ngOnInit() {
   }
-
+addCard() {
+  return this.title;
+  this.subTitle;
+}
 }

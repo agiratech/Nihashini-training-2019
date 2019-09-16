@@ -1,0 +1,17 @@
+<mat-card *ngFor= "let note of notes" >
+    <mat-card-title>
+       {{note.title}}
+       <mat-icon>attach_file</mat-icon>
+    </mat-card-title>
+    <mat-card-subtitle>
+        {{note.subTitle}}
+    </mat-card-subtitle>
+    <mat-card-actions>
+            <mat-icon>notifications_active</mat-icon>
+            <mat-icon>person_add</mat-icon>
+            <mat-icon>color_lens</mat-icon>
+            <mat-icon>photo</mat-icon>
+            <mat-icon>archive</mat-icon>
+            <mat-icon>more_vert</mat-icon>
+    </mat-card-actions>
+</mat-card>

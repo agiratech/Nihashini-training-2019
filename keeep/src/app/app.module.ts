@@ -20,6 +20,7 @@ import { EditComponent } from './edit/edit.component';
 import { MatIconModule  } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
     ArchiveComponent,
     TrashComponent,
     EditComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,

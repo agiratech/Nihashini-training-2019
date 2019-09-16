@@ -1,11 +1,15 @@
-<div class="container">
-  <mat-accordion>
+  <form (submit)=" createNote(f)" #f = "ngForm">
+    <mat-accordion>
     <br>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
-          <mat-panel-title>            
-              <input class="input" type ="text" placeholder="Take a note">
-          </mat-panel-title>
+          <mat-form-field>         
+              <input matInput 
+              class="input"
+              placeholder="Take a note"
+              [(ngModel)]= "title" 
+              name="title">
+          </mat-form-field>
             <mat-panel-description>
                     <mat-icon appHighlight>check_box</mat-icon>&nbsp;&nbsp;
                     <mat-icon appHighlight>brush</mat-icon>&nbsp;&nbsp;
@@ -15,7 +19,9 @@
         </mat-expansion-panel-header>
   
       <mat-form-field class="notes">
-        <input matInput placeholder="Notes">
+        <input matInput placeholder="Notes"
+        [(ngModel)]="subTitle"
+        name="subTitle">
       </mat-form-field>
     
       <mat-action-row>
@@ -26,9 +32,12 @@
             <mat-icon appHighlight>archive</mat-icon>
             <mat-icon appHighlight>more_vert</mat-icon>
             </div>
-        <button mat-button>Close</button>
+        <button mat-button (click) = "createNote(formData)">Close</button>
       </mat-action-row>
     </mat-expansion-panel>
   
 </mat-accordion>
-</div>  
+</form>
+<div fxLayout="row">
+<app-card></app-card>
+</div>

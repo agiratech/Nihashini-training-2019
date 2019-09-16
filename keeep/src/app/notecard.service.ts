@@ -6,6 +6,21 @@ import { Injectable } from '@angular/core';
 export class NotecardService {
 
   constructor() { }
+  notes=[]
+  title: string;
+  subTitle:string;
 
-  
+
+  public createNote(note: {title,subTitle}){
+    this.notes.push(note);
+  }
+  public getNote(): Array<{title,subTitle}>{
+    return this.notes;
+  }
+
+
+
 }
+
+
+

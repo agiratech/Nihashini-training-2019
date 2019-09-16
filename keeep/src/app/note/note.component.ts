@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NotecardService } from '../notecard.service';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-note',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
+  title: string;
+  subTitle:string;
+  constructor(public NoteCard: NotecardService) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  // createNote(){
+  //   this.NoteCard.createNote(this.note);
+  //   this.note = { title : "", subTitle: ""};
+  // }
+  createNote(formData: NgForm){
+    console.log('formData.value',formData.value)
+    this.NoteCard.createNote(formData.value);
   }
-
 }
+
+
