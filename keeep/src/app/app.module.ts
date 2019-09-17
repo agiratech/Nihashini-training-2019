@@ -21,6 +21,8 @@ import { MatIconModule  } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { CardComponent } from './card/card.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { CardComponent } from './card/card.component';
     MatExpansionModule,
     MatIconModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    ColorPickerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,12 @@
+mat-icon{
+    padding: 3px;
+    margin-top: 5px;
+    cursor: pointer;
+    opacity: 0.5;
+}
+mat-menu-item{
+    height: 30px;
+}
+mat-card{
+    width:250px;
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotecardService } from '../notecard.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-reminder',
@@ -7,15 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReminderComponent implements OnInit {
   
-  note=[];
   title: string;
   subTitle: string;
-  constructor() { }
+  
+  constructor(public NoteCard: NotecardService) {}
 
   ngOnInit() {
   }
-addCard() {
-  return this.title;
-  this.subTitle;
-}
+  createNote(formData: NgForm){
+    console.log('formData.value',formData.value);
+    this.NoteCard.createNote(formData.value);
+  }
 }
