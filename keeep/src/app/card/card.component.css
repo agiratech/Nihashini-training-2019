@@ -1,12 +1,31 @@
 mat-icon{
     padding: 3px;
     margin-top: 5px;
+    margin-left:8px;
+    margin-right:5px;
     cursor: pointer;
     opacity: 0.5;
 }
-mat-menu-item{
-    height: 30px;
+
+.card{
+    position:relative;
+    display:flex;
+
+}
+.pin{
+    position:absolute;
+    right:0px;
+    top:-5px;
+}
+
+.mat-menu-item{
+    height:35px;
+    line-height: 0px;
 }
 mat-card{
     width:250px;
+    margin-bottom:20px;
+    word-wrap: break-word;
 }
+
+   

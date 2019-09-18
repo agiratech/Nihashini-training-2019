@@ -1,4 +1,6 @@
-
+.container{
+    margin-left:86px;
+}
 form{
     width:600px;
 }
@@ -8,15 +10,23 @@ mat-icon{
     cursor: pointer;
     opacity: 0.5;
 }
+mat-action-row{
+    position:relative;
+}
+.one{
+    position: absolute;
+    left:3px;
+}
+.one > mat-icon{
+    margin-left:10px;
+    margin-right:10px;
+}
 .input{
     font-size: 18px;
     width:400px;
     padding:10px;
     border:0px solid gray;
     outline: none;
-}
-.mat-action-row > mat-icon{
-    justify-content: flex-start;
 }
 mat-panel-description{
     color:black;
@@ -26,4 +36,8 @@ mat-panel-description{
 }
 mat-expansion-panel {
     margin:10px;
+}
+.mat-menu-item{
+    height:35px;
+    line-height: 0px;
 }

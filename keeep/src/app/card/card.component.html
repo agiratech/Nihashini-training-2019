@@ -1,14 +1,15 @@
-
-<div fxLayoutAlign="start">
-<mat-card *ngFor= "let note of notes" [style.background]="note.color">
-    <mat-card-title>
-       {{note.title}}
-       <mat-icon>attach_file</mat-icon>
-    </mat-card-title>
-    <mat-card-subtitle>
-        {{note.subTitle}}
-    </mat-card-subtitle>
-    <mat-card-actions>
+<div fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
+    <mat-card *ngFor="let note of notes" [style.background]="note.color">
+            <mat-card-title class="card">
+                {{note.title}}
+                <div class="pin">
+                    <mat-icon appHighlight>attach_file</mat-icon>
+                </div>
+            </mat-card-title>
+        <mat-card-subtitle>
+            {{note.subTitle}}
+        </mat-card-subtitle>
+        <mat-card-actions>
             <mat-icon appHighlight>notifications_active</mat-icon>
             <mat-icon appHighlight>person_add</mat-icon>
             <mat-icon appHighlight [(colorPicker)]="note.color">color_lens</mat-icon>
@@ -16,10 +17,10 @@
             <mat-icon appHighlight>archive</mat-icon>
             <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">more_vert</mat-icon>
             <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="delete(note)"> delete </button>
-                    <button mat-menu-item> add label </button>
-                    <button mat-menu-item> add drawing </button>      
-                </mat-menu>
-    </mat-card-actions>
-</mat-card>
+                <button mat-menu-item (click)="delete(note)"> delete </button>
+                <button mat-menu-item> add label </button>
+                <button mat-menu-item> add drawing </button>
+            </mat-menu>
+        </mat-card-actions>
+    </mat-card>
 </div>
