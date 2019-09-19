@@ -1,3 +1,4 @@
+
 <h1 mat-dialog-title>Edit</h1>
 <div mat-dialog-content>
   <mat-form-field>
@@ -12,6 +13,6 @@
 
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()" > No Thanks </button>
-  <button mat-button (click)="createLabel()" > Save </button>
+  <button mat-button (click)="createLabel()" [disabled]="!label.name" > Save </button>
 </div>
  
