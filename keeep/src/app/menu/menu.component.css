@@ -46,3 +46,11 @@ a > li:target{
     background-color:gray;
 
 }
+.footer{
+    text-align: center;
+    font-size: 14px;
+}
+.footer > a{
+    cursor: pointer; 
+    opacity: 0.5;
+}

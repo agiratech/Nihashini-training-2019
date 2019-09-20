@@ -22,6 +22,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { CardComponent } from './card/card.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],

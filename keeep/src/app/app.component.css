@@ -55,5 +55,9 @@ div > .button {
     margin-top:13px;
     opacity: 0.5;
 }
+.mat-menu-item{
+    height:35px;
+    line-height: 0px;
+}
 
 
