@@ -20,7 +20,9 @@
           <input matInput placeholder="Notes" [(ngModel)]="subTitle" name="subTitle">
         </mat-form-field>
         <div>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+            <input matInput 
+            [matDatepicker]="picker" placeholder="Choose a date"
+            [(ngModel)]="dateTime" name="dateTime">
             <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </div>

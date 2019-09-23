@@ -12,7 +12,7 @@ export class LabelsService {
   public createLabel(label :{name}){
     this.labels.push(label);
   }
-  public getlabel():Array<{name}>{
+  public getlabel(){
     return this.labels;
   }
 }

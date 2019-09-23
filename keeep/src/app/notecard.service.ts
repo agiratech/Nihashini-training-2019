@@ -7,14 +7,11 @@ export class NotecardService {
 
   constructor() { }
   notes=[]
-  title: string;
-  subTitle:string;
-
-
-  public createNote(note: {title,subTitle}){
+ 
+  public createNote(note: {title,subTitle,dateTime}){
     this.notes.push(note);
   }
-  public getNote(): Array<{title,subTitle}>{
+  public getNote(){
     return this.notes;
   }
 
