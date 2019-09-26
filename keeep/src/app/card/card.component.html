@@ -1,11 +1,13 @@
 <div fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
     <mat-card *ngFor="let note of notes" [style.background]="note.color">
-            <mat-card-title class="card">
+            <div fxLayout="row" fxLayoutGap="10px">
+                <mat-card-title class="card">
                 {{note.title}}
-                <div class="pin">
-                    <mat-icon appHighlight>attach_file</mat-icon>
-                </div>
             </mat-card-title>
+            <div class="pin">
+                <mat-icon appHighlight>attach_file</mat-icon>
+                </div>
+            </div>
         <mat-card-subtitle>
             {{note.subTitle}}
             <br>

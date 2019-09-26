@@ -24,7 +24,8 @@ import { CardComponent } from './card/card.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-
+import { ShortenPipe } from './shorten.pipe';
+import { CardDialogComponent } from './card-dialog/card-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { MatNativeDateModule } from '@angular/material';
     TrashComponent,
     EditComponent,
     CardComponent,
+    ShortenPipe,
+    CardDialogComponent,
   ],
   imports: [
     BrowserModule,

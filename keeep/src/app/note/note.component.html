@@ -5,11 +5,10 @@
     <mat-accordion>
 
       <mat-expansion-panel hideToggle>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();">
 
           <input matInput class="input" placeholder="Take a note" [(ngModel)]="title" name="title">
-
-
+          
           <mat-icon appHighlight>check_box</mat-icon>&nbsp;&nbsp;
           <mat-icon appHighlight>brush</mat-icon>&nbsp;&nbsp;
           <mat-icon appHighlight>image</mat-icon>

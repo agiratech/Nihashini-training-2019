@@ -1,6 +1,6 @@
 mat-icon{
     padding: 3px;
-    margin-top: 5px;
+    margin-top: 5px; 
     margin-left:8px;
     margin-right:5px;
     cursor: pointer;
@@ -17,7 +17,9 @@ mat-icon{
     right:0px;
     top:-5px;
 }
-
+.mat-card-title{
+    word-break: break-all;
+}
 .mat-menu-item{
     height:35px;
     line-height: 0px;
