@@ -25,6 +25,8 @@ export class CardComponent implements OnInit {
   openDialog(){
     const editDialog = this.dialog.open(CardDialogComponent,{
       width: '300px'
+      // data: todo,
+      // closeOnNavigation: true
     });
     editDialog.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

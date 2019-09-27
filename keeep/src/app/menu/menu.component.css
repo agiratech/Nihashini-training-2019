@@ -37,14 +37,10 @@ li{
     padding: 0px 0px 0px 15px;
     opacity: 0.8;
 }
-li:hover{
+.list:hover{
     background-color:gray;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-}
-a > li:target{
-    background-color:gray;
-
 }
 .footer{
     text-align: center;

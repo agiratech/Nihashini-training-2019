@@ -6,7 +6,9 @@ mat-icon{
     cursor: pointer;
     opacity: 0.5;
 }
-
+.masonry{
+    display: flex;
+}
 .card{
     position:relative;
     display:flex;
