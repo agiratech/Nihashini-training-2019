@@ -1,13 +1,11 @@
  <div class="masonry">
-    <!-- <div fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px"> -->
+    <div fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
     <mat-card *ngFor="let note of notes" [style.background]="note.color">
             <div fxLayout="row" fxLayoutGap="10px">
                 <mat-card-title class="card">
                 {{note.title}}
             </mat-card-title>
-            <div class="pin">
-                <mat-icon appHighlight>attach_file</mat-icon>
-                </div>
+                <mat-icon class="pin" appHighlight>attach_file</mat-icon>
             </div>
         <mat-card-subtitle>
             {{note.subTitle}}
@@ -23,11 +21,11 @@
             <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">more_vert</mat-icon>
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="delete(note)"> delete </button>
-                <button mat-menu-item> add label </button>
-                <button mat-menu-item> add drawing </button>
+                <button mat-menu-item> Add label </button>
+                <button mat-menu-item> Add drawing </button>
             </mat-menu>
         </mat-card-actions>
     </mat-card>
 
-<!-- </div> -->
+</div>
 </div>

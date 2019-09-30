@@ -17,7 +17,7 @@ mat-icon{
 .pin{
     position:absolute;
     right:0px;
-    top:-5px;
+    top:13px;
 }
 .mat-card-title{
     word-break: break-all;

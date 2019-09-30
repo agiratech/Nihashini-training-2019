@@ -2,6 +2,9 @@
     padding: 10px 10px 1px;
     border-bottom: 1px solid gray;
 }
+div > .container{
+position: sticky;
+}
 i.material-icons{
     padding:15px;
     cursor: pointer; 
@@ -13,7 +16,10 @@ mat-icon{
     opacity: 0.5;
 }
 .layout{
-    margin:10px;
+    /* padding-left: 80px; */
+    margin: 10px;
+    width: 1000px;
+    align-items: center;
 }
 span{
     margin:10px;
@@ -58,5 +64,15 @@ div > .button {
     height:35px;
     line-height: 0px;
 }
+.mat-sidenav-container{
+    height: 800px;
+}
+.router-outlet{
+    align-items:center;
+}
+.menu{
+    position: sticky;
+}
+
 
 

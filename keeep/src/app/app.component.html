@@ -1,30 +1,37 @@
-<div class = "container" fxLayout = "row">
-  <i appHighlight class="material-icons">menu</i>
+<div class="container" fxLayout="row">
+    <!-- <mat-sidenav-content> -->
+        <i appHighlight class="material-icons" (click)="sidenav.toggle()">menu</i>
+    <!-- </mat-sidenav-content> -->
   <img class="keepimage" src="../assets/image/keep.png">
   <span>Keep</span>
-  <div class="search" fxLayout = "row">
-    <input type ="text" placeholder="Search">
+  <div class="search" fxLayout="row">
+    <input type="text" placeholder="Search">
     <div class="button"><img appHighlight class="searchkey" src="../assets/image/search.svg"></div>
   </div>
   <i appHighlight class="material-icons" (click)="refresh()">refresh</i>
-  <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()" class="material-icons">settings</mat-icon>
+  <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()" class="material-icons">settings
+  </mat-icon>
   <mat-menu #menu="matMenu">
     <button mat-menu-item> Settings </button>
     <button mat-menu-item> Enable dark theme </button>
     <button mat-menu-item> Send feed back </button>
-    <button mat-menu-item> help </button>
+    <button mat-menu-item> Help </button>
     <button mat-menu-item> App downloads </button>
     <button mat-menu-item> Keyboard shortcuts </button>
-</mat-menu>
+  </mat-menu>
   <i appHighlight class="material-icons">account_box</i>
 </div>
-<div fxLayout ="row">
-  <app-menu></app-menu>
+<div fxLayout="row">
+  <mat-sidenav-container>
+    
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+        <app-menu class="menu"></app-menu>
+
+      </mat-sidenav>
+    </mat-sidenav-container>
   <div class="layout" fxLayout="column">
 
-  <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 
   </div>
-  </div>
-        
-  
+</div>

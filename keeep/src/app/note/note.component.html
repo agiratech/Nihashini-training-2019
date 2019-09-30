@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" fxLayoutAlign="center">
 
   <form #f="ngForm" (submit)=" createNote(f); f.reset()">
 
@@ -31,9 +31,9 @@
             <mat-icon appHighlight>redo</mat-icon>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item> add label </button>
-              <button mat-menu-item> add drawing </button>
-              <button mat-menu-item> show checkboxes </button>
+              <button mat-menu-item> Add label </button>
+              <button mat-menu-item> Add drawing </button>
+              <button mat-menu-item> Show checkboxes </button>
             </mat-menu>
           </div>
           <span>
@@ -47,6 +47,6 @@
   </form>
 </div>
 <br><br>
-<div fxLayout="row">
+<div fxLayoutAlign="center" fxLayout="row">
   <app-card></app-card> 
 </div>

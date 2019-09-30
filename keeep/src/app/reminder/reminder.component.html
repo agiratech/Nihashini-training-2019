@@ -8,8 +8,7 @@
         <mat-expansion-panel-header>
 
           <input matInput class="input" placeholder="Take a note" [(ngModel)]="title" name="title">
-
-
+          
           <mat-icon appHighlight>check_box</mat-icon>&nbsp;&nbsp;
           <mat-icon appHighlight>brush</mat-icon>&nbsp;&nbsp;
           <mat-icon appHighlight>image</mat-icon>
@@ -20,13 +19,11 @@
           <input matInput placeholder="Notes" [(ngModel)]="subTitle" name="subTitle">
         </mat-form-field>
         <div>
-            <input matInput 
-            [matDatepicker]="picker" placeholder="Choose a date"
-            [(ngModel)]="dateTime" name="dateTime">
-            <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </div>
-          
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="dateTime" name="dateTime">
+          <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+
         <mat-action-row>
           <div class="one">
             <mat-icon appHighlight>notifications_active</mat-icon>
@@ -39,10 +36,11 @@
             <mat-icon appHighlight>redo</mat-icon>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item> add label </button>
-              <button mat-menu-item> add drawing </button>
-              <button mat-menu-item> show checkboxes </button>
-            </mat-menu>          </div>
+              <button mat-menu-item> Add label </button>
+              <button mat-menu-item> Add drawing </button>
+              <button mat-menu-item> Show checkboxes </button>
+            </mat-menu>
+          </div>
           <button mat-button (click)="createNote(formData)" [disabled]="!title || !subTitle">Close</button>
         </mat-action-row>
       </mat-expansion-panel>

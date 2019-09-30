@@ -37,7 +37,7 @@ li{
     padding: 0px 0px 0px 15px;
     opacity: 0.8;
 }
-.list:hover{
+li:hover{
     background-color:gray;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
