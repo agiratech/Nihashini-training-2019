@@ -26,6 +26,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { ShortenPipe } from './shorten.pipe';
 import { CardDialogComponent } from './card-dialog/card-dialog.component';
+import { LabelNoteComponent } from './label-note/label-note.component';
+import { HttpClientModule } from '@angular/common/http';
+// import {FirebaseModule} from 'angular-firebase';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { CardDialogComponent } from './card-dialog/card-dialog.component';
     CardComponent,
     ShortenPipe,
     CardDialogComponent,
+    LabelNoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,10 +61,12 @@ import { CardDialogComponent } from './card-dialog/card-dialog.component';
     MatButtonModule,
     ColorPickerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule,
+    // FirebaseModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents:[EditComponent]
+  entryComponents:[EditComponent,CardDialogComponent]
 })
 export class AppModule { }

@@ -1,0 +1,52 @@
+<div class="container" fxLayoutAlign="center">
+
+    <form #f="ngForm" (submit)=" createNote(f); f.reset()">
+  
+      <mat-accordion>
+  
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header (keydown.Space)="$event.stopImmediatePropagation();">
+  
+            <input matInput class="input" placeholder="Take a note" [(ngModel)]="title" name="title">
+            
+            <mat-icon appHighlight>check_box</mat-icon>&nbsp;&nbsp;
+            <mat-icon appHighlight>brush</mat-icon>&nbsp;&nbsp;
+            <mat-icon appHighlight>image</mat-icon>
+  
+          </mat-expansion-panel-header>
+  
+          <mat-form-field class="notes">
+            <input matInput placeholder="Notes" [(ngModel)]="subTitle" name="subTitle">
+          </mat-form-field>
+  
+          <mat-action-row>
+            <div class="one">
+              <mat-icon appHighlight>notifications_active</mat-icon>
+              <mat-icon appHighlight>person_add</mat-icon>
+              <mat-icon appHighlight>color_lens</mat-icon>
+              <mat-icon appHighlight>image</mat-icon>
+              <mat-icon appHighlight>archive</mat-icon>
+              <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">more_vert</mat-icon>
+              <mat-icon appHighlight>undo</mat-icon>
+              <mat-icon appHighlight>redo</mat-icon>
+  
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)= "openDialog()"> Add label </button>
+                <button mat-menu-item> Add drawing </button>
+                <button mat-menu-item> Show checkboxes </button>
+              </mat-menu>
+            </div>
+            <span>
+              <button mat-button (click)="createNote(formData)" [disabled]="!title || !subTitle">Close</button>
+            </span>
+          </mat-action-row>
+        </mat-expansion-panel>
+  
+      </mat-accordion>
+  
+    </form>
+  </div>
+  <br><br>
+  <div fxLayoutAlign="center" fxLayout="row">
+    <app-card></app-card> 
+  </div>

@@ -1,7 +1,8 @@
  <div class="masonry">
-    <div fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
-    <mat-card *ngFor="let note of notes" [style.background]="note.color">
-            <div fxLayout="row" fxLayoutGap="10px">
+    <div  fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
+    <mat-card  *ngFor="let note of notes" [style.background]="note.color">
+        <div  (click)= "openDialog()">    
+        <div fxLayout="row" fxLayoutGap="10px">
                 <mat-card-title class="card">
                 {{note.title}}
             </mat-card-title>
@@ -12,6 +13,7 @@
             <br>
             {{note.dateTime}}
         </mat-card-subtitle>
+        </div>
         <mat-card-actions>
             <mat-icon appHighlight>notifications_active</mat-icon>
             <mat-icon appHighlight>person_add</mat-icon>

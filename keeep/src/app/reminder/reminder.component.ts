@@ -17,7 +17,8 @@ export class ReminderComponent implements OnInit {
   ngOnInit() {
   }
   createNote(formData: NgForm){
-    console.log('formData.value',formData.value);
-    this.NoteCard.createNote(formData.value);
+    this.NoteCard.storeCards(formData.value).subscribe(response=>{
+      this.NoteCard.setNote(response['name']);
+    })
   }
 }

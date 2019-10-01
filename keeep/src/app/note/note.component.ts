@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotecardService } from '../notecard.service';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { EditComponent } from '../edit/edit.component';
+import { LabelsService } from '../labels.service'
 
 @Component({
   selector: 'app-note',
@@ -8,18 +11,40 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent implements OnInit {
-  
+  notes: [];
   title: string;
-  subTitle:string;
+  subTitle: string;
+  dateTime: string;
+  label: string;
 
-  constructor(public NoteCard: NotecardService) {}
+  labels;
+  dialogRef: any;
 
-  ngOnInit() {}
+  constructor(public NoteCard: NotecardService,
+    public dialog: MatDialog,
+    public labelService: LabelsService) { }
 
-  createNote(formData: NgForm){
-    console.log('formData.value',formData.value);
-    this.NoteCard.createNote(formData.value);
+  ngOnInit() {
+    this.labels = this.labelService.getlabel();
+  }
+
+  openDialog() {
+    const editDialog = this.dialog.open(EditComponent, {
+      width: '300px'
+    });
+    editDialog.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+  }
+  createNote(formData: NgForm) {
+    this.NoteCard.storeCards(formData.value).subscribe(response => {
+      this.NoteCard.setNote(response['name']);
+    })
   }
 }
+
+
+
 
 

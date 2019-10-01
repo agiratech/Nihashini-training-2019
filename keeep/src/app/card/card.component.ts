@@ -8,33 +8,31 @@ import { CardDialogComponent } from '../card-dialog/card-dialog.component';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  notes=[]
+  notes = []
   note;
 
-  constructor(public NoteService: NotecardService, public dialog: MatDialog) { }
+  constructor(public NoteService: NotecardService, public dialog: MatDialog, ) {
+    this.notes = this.NoteService.displayCard();
+  }
 
   ngOnInit() {
-    this.notes= this.NoteService.getNote();
-  }  
-  delete(note){   
+    // this.notes= this.NoteService.getNote();
+  }
+  delete(note) {
     const index: number = this.notes.indexOf(note);
     if (index !== -1) {
-      this.notes.splice(this.notes.indexOf(note),1);
+      this.notes.splice(this.notes.indexOf(note), 1);
     }
   }
-  openDialog(){
-    const editDialog = this.dialog.open(CardDialogComponent,{
+  openDialog() {
+    const editDialog = this.dialog.open(CardDialogComponent, {
       width: '300px'
-      // data: todo,
-      // closeOnNavigation: true
+
     });
     editDialog.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
-
-}
-
-
+  }
 }
 
 

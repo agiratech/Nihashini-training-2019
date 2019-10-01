@@ -31,13 +31,13 @@
             <mat-icon appHighlight>redo</mat-icon>
 
             <mat-menu #menu="matMenu">
-              <button mat-menu-item> Add label </button>
+              <button mat-menu-item (click)= "openDialog()"> Add label </button>
               <button mat-menu-item> Add drawing </button>
               <button mat-menu-item> Show checkboxes </button>
             </mat-menu>
           </div>
           <span>
-            <button mat-button (click)="createNote(formData)" [disabled]="!title || !subTitle">Close</button>
+            <button mat-button [disabled]="!title || !subTitle">Close</button>
           </span>
         </mat-action-row>
       </mat-expansion-panel>

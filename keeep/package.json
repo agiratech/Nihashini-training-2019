@@ -16,6 +16,7 @@
     "@angular/common": "~8.2.2",
     "@angular/compiler": "~8.2.2",
     "@angular/core": "~8.2.2",
+    "@angular/fire": "^5.2.1",
     "@angular/flex-layout": "^8.0.0-beta.26",
     "@angular/forms": "~8.2.2",
     "@angular/material": "github:angular/material2-builds",
@@ -27,16 +28,17 @@
     "ngx-color-picker": "^8.1.0",
     "rxjs": "~6.5.2",
     "tslib": "^1.9.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "angular-firebase": "^1.1.5"    
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.1",
-    "@angular/cli": "~8.2.1",
+    "@angular/cli": "^8.2.2",
     "@angular/compiler-cli": "~8.2.2",
     "@angular/language-service": "~8.2.2",
-    "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.4",
     "codelyzer": "^5.0.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
