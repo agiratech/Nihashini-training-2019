@@ -26,9 +26,7 @@ export class NotecardService {
   setNote(id) {
     const headers = new HttpHeaders({ 'Content-type': 'application/json' })
     this.http.get('https://gkeep-7aa60.firebaseio.com/nihaNotes/' + id + '.json', { headers: headers }).subscribe(res => {
-      console.log(this.notes, 'asdfgh');
-      this.notes.push({ 'title': res['title'], 'subTitle': res['subTitle'], 'id': id })
-      console.log(this.notes, 'tisdfgh');
+      this.notes.push({ 'title': res['title'], 'subTitle': res['subTitle'], 'dateTime': res['dateTime'], 'id': id })
 
     })
   }
@@ -37,10 +35,14 @@ export class NotecardService {
     let data = []
     this.http.get('https://gkeep-7aa60.firebaseio.com/nihaNotes.json', { headers: headers }).subscribe(response => {
       Object.keys(response).forEach(function (key) {
-        data.push({ id: key, 'title': response[key]['title'], 'subTitle': response[key]['subTitle'] })
+        data.push({ id: key, 'title': response[key]['title'], 'subTitle': response[key]['subTitle'], 'dateTime': response[key]['dateTime'] })
       })
     })
     return data;
+  }
+  deleteNote(id) {
+    const headers = new HttpHeaders({ 'Content-type': 'application/json' })
+    return this.http.delete('https://gkeep-7aa60.firebaseio.com/nihaNotes/' + id + '.json', { headers: headers });
   }
 }
 

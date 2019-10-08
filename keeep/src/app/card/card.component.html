@@ -1,9 +1,8 @@
- <div class="masonry">
     <div  fxLayoutAlign="start" fxLayout="row Wrap" fxLayoutGap="15px">
     <mat-card  *ngFor="let note of notes" [style.background]="note.color">
-        <div  (click)= "openDialog()">    
+          
         <div fxLayout="row" fxLayoutGap="10px">
-                <mat-card-title class="card">
+              <mat-card-title class="card">
                 {{note.title}}
             </mat-card-title>
                 <mat-icon class="pin" appHighlight>attach_file</mat-icon>
@@ -12,8 +11,9 @@
             {{note.subTitle}}
             <br>
             {{note.dateTime}}
+            
         </mat-card-subtitle>
-        </div>
+        
         <mat-card-actions>
             <mat-icon appHighlight>notifications_active</mat-icon>
             <mat-icon appHighlight>person_add</mat-icon>
@@ -22,12 +22,11 @@
             <mat-icon appHighlight>archive</mat-icon>
             <mat-icon appHighlight mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">more_vert</mat-icon>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="delete(note)"> delete </button>
+                <button mat-menu-item (click)="deleteCard(note)"> delete </button>
                 <button mat-menu-item> Add label </button>
                 <button mat-menu-item> Add drawing </button>
             </mat-menu>
         </mat-card-actions>
     </mat-card>
 
-</div>
 </div>

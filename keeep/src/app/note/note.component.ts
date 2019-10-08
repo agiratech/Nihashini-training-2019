@@ -42,6 +42,7 @@ export class NoteComponent implements OnInit {
       this.NoteCard.setNote(response['name']);
     })
   }
+
 }
 
 

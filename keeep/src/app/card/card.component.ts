@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NotecardService } from '../notecard.service';
-import { CardDialogComponent } from '../card-dialog/card-dialog.component';
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -9,30 +9,34 @@ import { CardDialogComponent } from '../card-dialog/card-dialog.component';
 })
 export class CardComponent implements OnInit {
   notes = []
-  note;
+  res: string;
+  title: string;
+  subTitle: string;
+  delete: any;
 
   constructor(public NoteService: NotecardService, public dialog: MatDialog, ) {
     this.notes = this.NoteService.displayCard();
   }
+  
 
   ngOnInit() {
     // this.notes= this.NoteService.getNote();
   }
-  delete(note) {
+  deleteCard(note) {
     const index: number = this.notes.indexOf(note);
     if (index !== -1) {
-      this.notes.splice(this.notes.indexOf(note), 1);
-    }
-  }
-  openDialog() {
-    const editDialog = this.dialog.open(CardDialogComponent, {
-      width: '300px'
-
-    });
-    editDialog.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
+      // this.notes.splice(this.notes.indexOf(note), 1);
+      this.delete = this.notes.splice(index, 1);
+      this.NoteService.deleteNote(note.id).subscribe(
+        response=>{
+          console.log('response');
+          console.log(response);
+        })
+      }
+  } 
+  
+            
+         
 }
 
 
