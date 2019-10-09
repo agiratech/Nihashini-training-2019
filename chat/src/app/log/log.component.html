@@ -1,10 +1,12 @@
 <div class="container">
 <form #f="ngForm" (submit)="loginSubmit(f)">
 <div fxLayoutAlign="center" fxLayout="column wrap">
-    <h2>REGISTER</h2><br>
-    <input type="text" placeholder="Name" [(ngModel)]="name" name="name" required><br>
-    <input type="email" placeholder="Emailid" [(ngModel)]="email" name="email" required><br>
-    <button type="submit" [disabled]="!name || !email"><a routerLink="/chatList">Submit</a></button>
+    <h2>REGISTER</h2><br> 
+    <input matInput type="text" placeholder="Name" [(ngModel)]="name" name="name" required><br>
+    <input matInput type="email" placeholder="Emailid" [(ngModel)]="email" name="email" required><br>
+    <a routerLink="/chatList">
+    <button type="submit" [disabled]="!name || !email">Submit</button></a>
 </div>
 </form>
 </div>
+ 

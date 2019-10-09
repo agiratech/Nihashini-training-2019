@@ -11,7 +11,9 @@ import { LogComponent } from './log/log.component';
 import {RouterModule,Routes} from '@angular/router';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { ChatAreaComponent } from './chat-area/chat-area.component';
-
+import { ChatComponent } from './chat/chat.component';
+import { MatIconModule  } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const routes:Routes=[
   {path:'',component:LogComponent},
@@ -24,7 +26,8 @@ const routes:Routes=[
     AppComponent,
     LogComponent,
     ChatlistComponent,
-    ChatAreaComponent
+    ChatAreaComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,8 @@ const routes:Routes=[
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
+    MatIconModule,
+    MatSidenavModule
     FlexLayoutModule,
     RouterModule.forRoot(routes)
 
