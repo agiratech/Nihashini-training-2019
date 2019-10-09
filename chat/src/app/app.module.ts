@@ -12,13 +12,13 @@ import {RouterModule,Routes} from '@angular/router';
 import { ChatlistComponent } from './chatlist/chatlist.component';
 import { ChatAreaComponent } from './chat-area/chat-area.component';
 import { ChatComponent } from './chat/chat.component';
-import { MatIconModule  } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+
 
 const routes:Routes=[
   {path:'',component:LogComponent},
-  {path:'chatList',component:ChatlistComponent},
-
+  {path:'chat',component:ChatComponent}
 ];
 
 @NgModule({
@@ -36,10 +36,10 @@ const routes:Routes=[
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
-    MatIconModule,
-    MatSidenavModule
     FlexLayoutModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatMenuModule,
+    MatIconModule
 
   ],
   providers: [],

@@ -1,4 +1,14 @@
-<div class="container">
-    <i appHighlight class="material-icons" (click)="sidenav.toggle()">menu</i>
-
+<div class="container" fxlayout="row wrap">
+    <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+    <span class="center"> Welcome to Chat-Room</span>
+    <mat-icon mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">settings</mat-icon>
+    <mat-menu #menu="matMenu">
+            <button mat-menu-item> Settings </button>
+            <button mat-menu-item> Enable dark theme </button>
+            <button mat-menu-item> Send feed back </button>
+            <button mat-menu-item> Help </button>
+            <button mat-menu-item> App downloads </button>
+            <button mat-menu-item> Keyboard shortcuts </button>
+          </mat-menu>
+          
 </div>
