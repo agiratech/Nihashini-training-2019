@@ -1,0 +1,16 @@
+.container{
+    position: relative;
+}
+.mat-card{
+    background-color: rgb(124, 216, 124);   
+    margin-bottom:10px;
+}
+.down{
+    position: absolute;
+    top:600px;
+}
+input{
+    padding:10px;
+    width: 59em;
+    font-size:20px;
+}

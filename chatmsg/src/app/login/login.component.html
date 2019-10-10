@@ -1,0 +1,11 @@
+<div class="container">
+    <form #f="ngForm" (submit)="regSubmit(f)">
+    <div fxLayoutAlign="center" fxLayout="column wrap">
+        <h2>REGISTER</h2><br> 
+        <input type="text" placeholder="Name" [(ngModel)]="name" name="name" required><br><br>
+        <input  type="number" placeholder="Age" [(ngModel)]="age" name="age" required><br><br>
+        <a routerLink="/chat">
+        <button mat-button [disabled]="!name || !age">Submit</button></a>
+    </div>
+    </form>
+    </div>

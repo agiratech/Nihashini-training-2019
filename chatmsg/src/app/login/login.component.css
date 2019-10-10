@@ -1,0 +1,19 @@
+.container{
+    position : relative;
+}
+form{
+    position : absolute;
+    left: 435px;
+    right: 435px;
+    top:130px;
+    padding: 40px;
+    background: grey;
+    width: 300px;
+    border-radius:5px;
+    text-align: center;
+}
+input{
+    padding: 5px;
+}
+
+
