@@ -2,15 +2,22 @@
     position: relative;
 }
 .mat-card{
-    background-color: rgb(124, 216, 124);   
+    word-break: break-all;
+    /* word-wrap: break-word; */
+    background-color: rgb(96, 240, 132);   
     margin-bottom:10px;
 }
 .down{
-    position: absolute;
-    top:600px;
+    position: fixed;
+    top:580px;
 }
 input{
     padding:10px;
-    width: 59em;
+    width: 63em;
     font-size:20px;
+}
+.button{
+    position : absolute;
+    right:10px;
+    bottom:13px;
 }

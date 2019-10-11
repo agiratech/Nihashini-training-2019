@@ -1,27 +1,17 @@
 <div class="container">
-        <!-- <mat-card> -->
-            <!-- {{user.name}} : {{user.message}} -->
-            <!-- nihashini: hi this is new app
-            <mat-card-actions>
-                <mat-icon mat-icon-button [matMenuTriggerFor]="menu" (click)="menu()">more_vert</mat-icon>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="deleteCard(note)"> delete </button>
-                    <button mat-menu-item> Add label </button>
-                    <button mat-menu-item> Add drawing </button>
-                </mat-menu>
-            </mat-card-actions>
-        </mat-card> -->
+       
     <div class="card">
-        <mat-card *ngFor="let user of users">
-            {{user.name}} &nbsp; {{user.message}}ydtfgku;oihglufkyvgjbkn
+        <mat-card *ngFor = "let user of users">
+            {{user.name}}: &nbsp; {{user.message}}
             </mat-card>
     </div>
-                    
-    <!-- </div><br> -->
-    <div class="down">
-        <form #f="ngForm" (submit)=" createInp(f)">
-            <input matInput [(ngModel)]="chat" name="chat">&nbsp;
-            <button mat-button [disabled]="!chat">Send</button>
-        </form>
-    </div>
+</div>
+
+<div class="down">
+    <form #f="ngForm" (submit)=" load(f)">
+        <input matInput [(ngModel)]="user.message" name="message">&nbsp;
+        <div  class="button">
+            <button mat-button [disabled]="!user.message">Send</button>
+        </div>
+    </form>
 </div>
