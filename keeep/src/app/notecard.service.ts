@@ -35,7 +35,8 @@ export class NotecardService {
     let data = []
     this.http.get('https://gkeep-7aa60.firebaseio.com/nihaNotes.json', { headers: headers }).subscribe(response => {
       Object.keys(response).forEach(function (key) {
-        data.push({ id: key, 'title': response[key]['title'], 'subTitle': response[key]['subTitle'], 'dateTime': response[key]['dateTime'] })
+        data.push({ id: key, 'title': response[key]['title'], 'subTitle': response[key]['subTitle'], 
+        'dateTime': response[key]['dateTime'] })
       })
     })
     return data;

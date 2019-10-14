@@ -11,12 +11,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { ChatComponent } from './chat/chat.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChatserveService } from '../app/chatserve.service';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ChatComponent
+    ChatComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatMenuModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ChatserveService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

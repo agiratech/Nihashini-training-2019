@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ChatComponent implements OnInit {
   users;
+  delete;
   user: { name, age, message }={ name : "", age: "", message: ""};
 
   constructor(public chatServe: ChatserveService) { 
@@ -26,9 +27,15 @@ export class ChatComponent implements OnInit {
     // console.log(this.users);
 
 
-  ngOnInit() {
-      this.users= this.chatServe.getInp();
+  ngOnInit() { }
+  
+  deleteChat(user) {
+    const index: number = this.users.indexOf(user);
+    if (index !== -1) {
+      this.delete = this.users.splice(index, 1);
+      this.chatServe.deleteNote(user.id).subscribe(
+        response=>{ })
+    }
   }
+
 }
-
-

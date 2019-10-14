@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ChatserveService } from '../chatserve.service';
 import { Router } from '@angular/router';
-import { ConcatSource } from 'webpack-sources';
-import { Agent } from 'http';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users = this.chatServe.getInp();
+    // this.users = this.chatServe.getInp();
   }
 
   regSubmit(registerForm: NgForm) {
@@ -35,9 +33,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  load() {
-    this.chatServe.createInp(this.user);
-    this.user = { name: '', age: '', message: '' };
+  load(formData: NgForm) {
+    this.chatServe.storeCards(formData.value).subscribe(response => {
+      this.chatServe.setNote(response['name']);
+    })
   }
+  // load() {
+  //   this.chatServe.createInp(this.user);
+  //   this.user = { name: '', age: '', message: '' };
+  // }
 
 }

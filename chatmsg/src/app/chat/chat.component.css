@@ -1,12 +1,20 @@
 .container{
     position: relative;
 }
+
 .mat-card{
     word-break: break-all;
     /* word-wrap: break-word; */
     background-color: rgb(96, 240, 132);   
     margin-bottom:10px;
+    position:relative;
 }
+.del{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
 .down{
     position: fixed;
     top:580px;
