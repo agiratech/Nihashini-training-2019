@@ -1,3 +1,34 @@
-<!-- <div class="container">
+<!-- <header>
+    <div class="container">
+        <div class="card">
+            <mat-card *ngFor = "let user of users">
+                <mat-card-title>
+                    {{user.name}}
+                </mat-card-title>
+                <mat-card-content>   
+                    {{user.message}}            
+                <button class="del" (click)="deleteChat(user)"> delete </button>
+                </mat-card-content>
+            </mat-card>               
+        </div>   
+    </div>
+    </header>
+    <br>
+    <br>
+    <br>
+
+
+<footer>
+    <div class="down">
+            <form #f="ngForm" (ngSubmit)="enterMsg(f); load(f)">
+                <input matInput ngModel name="message">&nbsp;
+                <div  class="button">
+                    <button mat-button [disabled]="!user.message">Send</button>
+                    <button type="submit" mat-button [disabled]="f.invalid">Send</button>
     
-</div> -->
+                </div>
+            </form>
+        </div>
+        </footer>
+    
+     --> -->

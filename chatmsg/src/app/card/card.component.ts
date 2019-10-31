@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { ChatserveService } from '../chatserve.service';
 
 @Component({
   selector: 'app-card',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-
-  constructor() { }
-
+  // users;
+  // delete;
+  // user: { name, age, message }={ name : "", age: "", message: ""};
+  constructor() { 
+    // public chatServe: ChatserveService
+    // this.users = this.chatServe.displayCard();
+  }
   ngOnInit() {
   }
-
+  
 }

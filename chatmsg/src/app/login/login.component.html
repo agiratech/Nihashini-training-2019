@@ -2,6 +2,8 @@
     <form #f="ngForm" (ngSubmit)="regSubmit(f);load(f) ">
     <div fxLayoutAlign="center" fxLayout="column wrap">
         <h2>REGISTER</h2><br> 
+        <!-- <input matInput [(ngModel)]="user.message" name="message">&nbsp; -->
+
         <input type="text" placeholder="Name" ngModel name="name" required><br><br>
         <input  type="number" placeholder="Age" ngModel name="age" required><br><br>
         <button type="submit" mat-button [disabled]="f.invalid">Submit</button>
