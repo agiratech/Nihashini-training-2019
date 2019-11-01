@@ -17,7 +17,7 @@ name: string;
   constructor(public chatServe: ChatserveService, private route: Router) { 
     this.name = this.chatServe.name ;  
 
-    this.users = this.chatServe.displayCard();
+    this.users = this.chatServe.displayMsg();
     // console.log(this.chatServe.name, this.chatServe.age);
     // this.loginUsers = {
     //   name: this.chatServe.name,
@@ -27,15 +27,12 @@ name: string;
   enterMsg(registerForm: NgForm) {
     this.chatServe.name = registerForm.value.name;
     this.chatServe.message = registerForm.value.message;
-    console.log(this.chatServe.message);
+    this.chatServe.setMsg(registerForm.value).subscribe(response => {
+      this.chatServe.storeMsg(response['name']);
+    })
+    // console.log(this.chatServe.message);
     // console.log('this.loginUsers', this.loginUsers);
     // console.log(name);
-  }
-
-  load(formData: NgForm) {
-    this.chatServe.storeCards(formData.value).subscribe(response => {
-      this.chatServe.setNote(response['name']);
-    })
   }
     // load(){
     // this.chatServe.createInp(this.user);

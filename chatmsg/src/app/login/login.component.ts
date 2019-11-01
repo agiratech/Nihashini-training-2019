@@ -25,6 +25,9 @@ export class LoginComponent implements OnInit {
     // console.log(registerForm);
     this.chatServe.name = registerForm.value.name;
     this.chatServe.age = registerForm.value.age;
+    this.chatServe.setValue(registerForm.value).subscribe(response => {
+      this.chatServe.storeValue(response['name']);
+    })
     console.log(this.chatServe.name, this.chatServe.age);
 
     if (registerForm.valid) {
@@ -32,11 +35,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  load(formData: NgForm) {
-    this.chatServe.storeCards(formData.value).subscribe(response => {
-      this.chatServe.setNote(response['name']);
-    })
-  }
+  
   // load() {
   //   this.chatServe.createInp(this.user);
   //   this.user = { name: '', age: '', message: '' };
