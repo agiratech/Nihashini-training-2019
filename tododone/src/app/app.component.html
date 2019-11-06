@@ -1,0 +1,18 @@
+<div class="container">
+    <h1 class="heading">TODO list</h1>
+
+  <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
+    <div>
+      <input class="box" [(ngModel)]="title" name="title" placeholder="Add to do">
+      &nbsp; &nbsp;
+      <input type="submit" class="key" value="Add" [disabled]="!title">
+    </div>
+
+    <ul class="list">
+      <li class="items" *ngFor="let todo of todoArray">
+        {{todo.title}}
+        
+      </li>
+    </ul>
+  </form>
+</div>

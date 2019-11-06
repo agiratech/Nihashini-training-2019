@@ -1,0 +1,16 @@
+<div class="container">
+  <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
+    <h1 class="heading">TODO</h1>
+    <div>
+      <input class="box" [(ngModel)]="title" name="title" placeholder="Add to do">
+      &nbsp; &nbsp;
+      <input type="submit" class="key" value="Add" [disabled]="!title">
+    </div>
+  <div>
+      <mat-card class="items" *ngFor="let todo of todoArray">
+        {{todo.title}}      
+      </mat-card>
+  </div>
+  </form>
+  
+</div>
