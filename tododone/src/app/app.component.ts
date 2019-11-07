@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+import { CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,10 +8,23 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
 
-todoArray = [];
-title: string;
-
+  todo = [];
+  done = [];
+  
   addTodo(forms:NgForm){ 
-    this.todoArray.push(forms) ; 
+    this.todo.push(forms) ; 
+    console.log(this.todo);
       }
-}
+      drop(event: CdkDragDrop<string[]>) {
+        if (event.previousContainer === event.container) {
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } 
+        else {
+          transferArrayItem(event.previousContainer.data,
+                            event.container.data,
+                            event.previousIndex,
+                            event.currentIndex);
+        }
+      }
+  }
+

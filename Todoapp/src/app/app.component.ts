@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {DetailComponent} from './detail/detail.component';
 
 @Component({
@@ -12,7 +12,6 @@ import {DetailComponent} from './detail/detail.component';
 
 export class AppComponent { 
   todoArray=[];
-  title:string;
   note:string;
   dialogRef:any;
  

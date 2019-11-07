@@ -1,18 +1,29 @@
-<div class="container">
-    <h1 class="heading">TODO list</h1>
+<div class="main">
+  <div class="todoin">
+    <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
+      <input class="in" type="text" placeholder="add todo list" [(ngModel)]="title" name="title">
+      <input type="submit" value="Add" [disabled]="!title">
+    </form>
+    <div listarea>
+      <div class="container">
+        <h2>To do</h2>
 
-  <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
-    <div>
-      <input class="box" [(ngModel)]="title" name="title" placeholder="Add to do">
-      &nbsp; &nbsp;
-      <input type="submit" class="key" value="Add" [disabled]="!title">
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo" [cdkDropListConnectedTo]="[doneList]"
+          class="list" (cdkDropListDropped)="drop($event)">
+          <div class="box" *ngFor="let item of todo" cdkDrag>{{item.title}}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <h2>Done</h2>
+
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
+          class="list" (cdkDropListDropped)="drop($event)">
+          <div class="box" *ngFor="let item of done" cdkDrag>{{item.title}}</div>
+        </div>
+      </div>
     </div>
-
-    <ul class="list">
-      <li class="items" *ngFor="let todo of todoArray">
-        {{todo.title}}
-        
-      </li>
-    </ul>
-  </form>
+  </div>
 </div>
