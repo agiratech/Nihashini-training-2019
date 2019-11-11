@@ -1,0 +1,30 @@
+<div class="project-attachment">
+  <div fxLayout="row" fxLayoutGap="10px" class="upload-logo-section">
+      <mat-form-field floatLabel="always">
+        <input matInput [value]="fileName" placeholder="ATTACHMENT">
+      </mat-form-field>
+      <input type="file" id="customLogoTextbox" class="fileInput test-custom-logo-textbox" #fileInput
+          (change)="updateAttachment($event)">
+          <button mat-button mat-raised-button class="browse" (click)="fileInput.click()">BROWSE</button>
+  </div>
+  <div *ngIf="fileValidationText" class='file-error-text'>
+    {{fileValidationText}}
+  </div>
+  <h6>OR</h6>
+  <div class="drop-files" (click)="fileInputDrop.click()" appDragDrop (OnFileDropped)="uploadFile($event)">
+      <input hidden type="file" #fileInputDrop (change)="uploadFile($event.target.files)">
+    <h4 class="uploads">Drop files here to upload</h4>
+  </div>
+  <div class="upload-file-list">
+    <div class="files-list" *ngFor="let file of files;let i= index">
+      <p> {{ file }} </p>
+      <button class="delete-file" mat-icon-button title="Remove"  (click)="deleteAttachment(i)">
+        <mat-icon >clear</mat-icon>
+      </button>
+   </div>
+  </div>
+</div>
+  <div fxLayoutGap="10px" class="alignbutton" fxLayoutAlign="end">
+    <button mat-button mat-raised-button class="buttoncancel" (click)="onCancelUpload()">CANCEL</button>
+    <button mat-button mat-raised-button class="buttonupload" (click)="onSubmitFile()">UPLOAD</button>
+  </div>

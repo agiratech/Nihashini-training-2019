@@ -1,0 +1,25 @@
+<div class="upload-list">
+    <mat-nav-list *ngFor="let attachNewFile of listAttachments" [@fadeIn]>
+      <mat-list-item class="list-items">
+      <img src="assets/images/avatar_default.png" class="assets-images">
+      <div class="list-content">
+        <p (click)="downloadFile(attachNewFile.name, attachNewFile.url)">{{attachNewFile.name}}</p>
+        <span fxFlex="1 1 auto"></span>
+        <mat-menu #appMenu="matMenu" xPosition="before">
+          <!-- <button mat-menu-item class="action-menu-items">
+            <mat-icon class="menus">edit</mat-icon>Rename Attachment
+          </button> -->
+          <button mat-menu-item class="action-menu-items" (click)="onDeleteAttachment(attachNewFile.key, attachNewFile.name, attachNewFile._id)">
+            <mat-icon class="menus">delete</mat-icon>Delete Attachment
+          </button>
+        </mat-menu>
+        <button mat-icon-button class="att-actions" [matMenuTriggerFor]="appMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </div>
+      </mat-list-item>
+    </mat-nav-list>
+  <div>
+    <app-ghost-list [ghost]="ghost" [attachments]="listAttachments" [@fadeOut]></app-ghost-list>
+  </div>
+</div>

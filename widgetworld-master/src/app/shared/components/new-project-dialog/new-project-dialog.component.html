@@ -1,0 +1,49 @@
+
+<form  method="post"  class="noAnimation" [formGroup]="projectForm" novalidate autocomplete="off" (ngSubmit)="onSubmit(projectForm)">
+<div mat-dialog-content class="project-new-dialog">
+  <div fxLayout="row" fxLayoutAlign="start">
+      <h3 class="modal-title">{{title}}</h3>
+      <span fxFlex="1 1 auto"></span>
+      <mat-icon (click)="closeProjectDialog()" class="mat-icon-close">close</mat-icon>
+  </div>
+  
+  <div class="project-name" fxLayout="column" fxLayoutAlign="start">
+    <mat-form-field class="full-width" floatLabel="always">
+      <input matInput (keydown.enter)="$event.preventDefault()" placeholder="{{namePlaceHolder}}" formControlName="name">
+      <mat-error *ngIf="projectForm.controls.name.invalid">
+        <span *ngIf="projectForm.controls.name['value'] == ''">{{nameValidError}}</span>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="project-description" fxLayout="column" fxLayoutAlign="start">
+    <mat-form-field fxFlex="100" class="mat-text-area no-label project-notes-field" floatLabel="always">
+     <textarea matInput matTextareaAutosize matAutosizeMinRows="1" class="body-1 projectNoteText" placeholder="{{descPlaceHolder}}" formControlName="description" value="{{description}}"></textarea>
+    </mat-form-field>
+  </div>
+  <div *ngIf="parents && parents.length > 0" class="project-description" fxLayout="column" fxLayoutAlign="start">
+    <mat-form-field  fxFlex="100" class="mat-text-area no-label project-notes-field" floatLabel="always">
+      <mat-select id="assignProject" placeholder="{{isSimpleLayout? '' : '* '}}Assign to {{parentName}}"
+        formControlName="parentId" class="test-scenario-project">
+        <mat-option *ngIf="noBrandId !== ''; else noBrand;" value="{{noBrandId}}">Select...</mat-option>
+        <ng-template #noBrand><mat-option >Select...</mat-option></ng-template>
+        <mat-option class="special-button" (click)="createNewProject();">
+          <mat-icon>add</mat-icon>New {{parentName}}
+        </mat-option>
+        <mat-option *ngFor="let project of parents;" value="{{project.id}}">
+          {{project.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="projectForm.controls.parentId">{{parentName}} can't blank</mat-error>
+    </mat-form-field>
+  </div>
+  <ng-template [ngIf]="(!parents || parents.length <= 0) && parentId">
+      <input type="input" formControlName="parentId" type="hidden">
+  </ng-template>
+
+</div>
+<div class="dialog-footer">
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-button class="continue-btn uppercase" *ngIf="isProject; else subProject">Create {{labels['project'][0]}}</button>
+    <ng-template #subProject><button mat-button class="continue-btn uppercase">Create {{subProjectLabel}}</button></ng-template>
+</div>
+</form>

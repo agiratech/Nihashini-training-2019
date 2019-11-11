@@ -1,0 +1,80 @@
+<div id="userAgreementPopup" fxFill class="userAgreementPopup"  >
+  <div  *ngIf="themeSettings" class="user-agreement-page-background hide-mobiles"  [ngStyle]="{ 'background-image': 'url(' + themeSettings['background']['bg_image'] + ')'}">
+  </div>
+  <div>
+    <div class="agreement-header hide-mobiles" >
+      <div class="login-logo" *ngIf="themeSettings">
+        <img  src="{{themeSettings['logo']['full_logo']}}" onError="this.src='./assets/images/logo-placeholder.png'">
+        <div class="logo-slogan">{{themeSettings['productName']}}     <span class="site-version">{{themeSettings['version']}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-header" mat-dialog-title>
+        <h4 class="mat-dialog-header-title">Data Evaluation Terms & Conditions</h4>
+        <div class="mat-dialog-sub-title">Please read this carefully before agreeing below.</div>
+    </div>
+    <mat-dialog-content class="mat-typography">
+      <p>
+        These Terms and Conditions govern your use of and access to the Geopath Insights Suite, software as a service (&quot;SaaS platform that allows users to visualize and analyze 1<sup>st</sup> or 3<sup>rd</sup> party data in order to extract meaningful insights (the &quot;Platform&quot;).   All results derived by using the Platform shall hereinafter be referred to as &quot;Mapped Data.&quot; By accepting these Terms and Conditions as provided below, you agree as follows:
+      </p>
+    
+      <ol class="condition-lists">
+        <li>
+          You acknowledge that you are an employee of, and your use of the Mapped Data is made solely in your capacity as, an employee of a current Geopath member (the “Member”).
+        </li>
+        <li>
+          Your acceptance of these Terms and Conditions is made on your behalf and on behalf of the Member, and you are authorized by the Member to enter and agree to be bound by these Terms and Conditions on behalf of the Member.
+        </li>
+        <li>
+          You shall not copy or disclose the Mapped Data, or any information derived from the Mapped Data, to any person other than employees of the Member who are bound by these Terms and Conditions.
+        </li>
+        <li>
+          You acknowledge that the Mapped Data is still in development stage, and may be incomplete or otherwise inappropriate for general commercial use; accordingly (i) the Mapped Data provided pursuant to these Terms and Conditions is provided &quot;as-is&quot; and without warranty of any kind, and (ii) the owner of the Platform  expressly disclaims any implied warranties, including without limitation implied warranties of fitness for a particular purpose, merchantability or non-infringement.
+        </li>
+        <li>
+          You shall use the Mapped Data for the sole purpose of assisting the Member in its internal evaluation of the Mapped Data and the Member&apos;s desire to have continuing access to the Mapped Data; you shall not use the Mapped Data for any commercial purpose, such as determining the utility or value of specific out-of-home advertising environments.
+        </li>
+        <li>
+          Your use of and access to the Mapped Data pursuant to these Terms and Conditions may be revoked at any time by Geopath or the Owner of the Platform.
+        </li>
+        <li>
+          The Mapped Data is licensed, not sold, and, as between you and Geopath, title to and ownership of the Mapped Data remains with Geopath and its licensors.
+        </li>
+        <li>
+          The owner of the Platform disclaims all liability  for, and neither Geopath nor the Platform owner shall be liable to you or the Member for, any direct, special, indirect, exemplary, incidental or consequential damages.
+        </li>
+        <li>
+          Your evaluation of the Mapped Data shall be solely for the Member&apos;s internal business purposes.
+        </li>
+        <li>
+          You shall not sell, license, sublicense, distribute, provide, disclose, display, make available, grant access to, deliver or transfer the Mapped Data and/or any information derived therefrom, directly or indirectly, to any other person or entity.
+        </li>
+        <li>
+          You shall not assign or transfer your rights under these Terms and Conditions to any third party, and any purported assignment in violation of this provision shall be void <i>ab initio</i>.
+        </li>
+        <li>
+          You shall not modify or create derivative works of the Mapped Data.
+        </li>
+        <li>
+          You shall not attempt to reverse engineer, decompile or disassemble all or any portion of Mapped Data (including, but not limited to, the reverse engineering of circulation counts);
+        </li>
+        <li>
+          You shall not make use of the Mapped Data in any way that is (a) competitive with  Geopath or the Platform  or (b) that would reflect unfavorably on Geopath or the Platform Owner.
+        </li>
+        <li>
+          You acknowledge that the Mapped Data constitutes &quot;Audience Data&quot; as that term may be defined in other agreements between the Member and Geopath and therefore, in addition to the terms of this Agreement, you are in compliance with and shall continue to comply with all other agreements that govern Member&apos;s use of the Audience Data.
+        </li>
+      </ol>
+    
+    </mat-dialog-content>
+  </div>
+  <mat-dialog-actions align="end">
+    <div class="right-footer-div">
+      <button mat-button class="button popup-left-btn button-primary-link no-radius uppercase" (click)="toggleAgreement('decline')" id="action-decline">Decline</button>
+      <button mat-raised-button class="button button-primary uppercase no-radius" (click)="toggleAgreement('agreed')" id="action-agree">Agree</button>
+    </div>
+  </mat-dialog-actions>
+</div>
+
+
+

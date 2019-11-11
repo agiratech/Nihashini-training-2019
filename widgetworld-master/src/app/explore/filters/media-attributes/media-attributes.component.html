@@ -1,0 +1,87 @@
+<mat-accordion class="media-attribute-block" *ngIf="mediaAttributes.length>0">
+  <form method="post" [formGroup]="mediaAttributeForm" novalidate autocomplete="off" (ngSubmit)='onSubmit(mediaAttributeForm)' >
+  <div *ngFor="let attribute of mediaAttributes" class="attribute-loop-div">
+    <mat-expansion-panel *ngIf="attribute['key'] && attribute['key']==='orientationList'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-checkbox
+            disableRipple
+            class="subtitle-1"
+            [checked]="selectedOrientation !== ''"  #refOrientation (click)="onChangeOrientationChecked($event)"></mat-checkbox> {{attribute['label'] }}
+        </mat-panel-title>      
+      </mat-expansion-panel-header>
+      <div class="attributes-panel-body">
+        <mat-radio-group formControlName="orientationList" #orientationList (change)="onSelectionOrientationChange()">
+          <div class="left-side-list">
+            <mat-radio-button *ngFor="let option of attribute['options'] | slice:0:4" [value]="option">{{option}}</mat-radio-button>
+          </div>
+          <div class="right-side-list">
+            <mat-radio-button *ngFor="let option of attribute['options'] | slice:4:8 " [value]="option">{{option}}</mat-radio-button>
+          </div>
+        </mat-radio-group>
+      </div>
+    </mat-expansion-panel>
+
+    <!--<mat-expansion-panel *ngIf="attribute['key'] && attribute['key']==='illuminationRange'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-checkbox disableRipple class="subtitle-1" [checked]="isilluminationHrsRange==2" [indeterminate]="isilluminationHrsRange==1"></mat-checkbox> {{attribute['label']}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="attributes-panel-body" >
+          <div *ngFor="let option of attribute['options']" fxLayout="column" class="input-section" [formGroupName]="option['key']">
+            <p class="body-1">{{option['title']}}</p>
+            <div fxLayout="row wrap" fxLayoutGap="20px">
+              <mat-form-field fxFlex.sm="47" *ngFor="let range of option['range']">
+                  <input [formControlName]="range" matInput placeholder="{{range}}" appNumberOnly  [min]="0" [max]="24">
+              </mat-form-field>
+            </div>
+            <mat-error *ngIf="mediaAttributeForm['controls']['illuminationHrsRange'] && mediaAttributeForm['controls']['illuminationHrsRange']['errors'] && mediaAttributeForm['controls']['illuminationHrsRange']['errors'] !== null"> {{ mediaAttributeForm['controls']['illuminationHrsRange']['errors']['errors'] }}</mat-error>
+          </div>
+        </div>
+    </mat-expansion-panel>-->
+
+    <mat-expansion-panel *ngIf="attribute['key'] && attribute['key']==='panelSizeRange'">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-checkbox disableRipple class="subtitle-1" [checked]="isPanelSizeRange==2" [indeterminate]="isPanelSizeRange==1"></mat-checkbox> {{attribute['label']}}
+        </mat-panel-title>      
+      </mat-expansion-panel-header>
+      <div class="attributes-panel-body" >
+        <div *ngFor="let option of attribute['options']" fxLayout="column" class="input-section" [formGroupName]="option['key']">
+          <p class="body-1">{{option['title']}}</p>
+          <div fxLayout="row wrap" fxLayoutGap="20px">
+            <mat-form-field fxFlex.sm="47" *ngFor="let range of option['range']" >
+                <input matInput placeholder="{{range}}" [formControlName]="range" appNumberOnly>
+            </mat-form-field>
+          </div>
+          <mat-error *ngIf="mediaAttributeForm['controls']['panelSizeWidthRange'] && mediaAttributeForm['controls']['panelSizeWidthRange']['errors'] &&  mediaAttributeForm['controls']['panelSizeWidthRange']['errors'] !== null && option['key'] === 'panelSizeWidthRange'" > {{ mediaAttributeForm['controls']['panelSizeWidthRange']['errors']['errors'] }}</mat-error>
+          <mat-error *ngIf="mediaAttributeForm['controls']['panelSizeWidthRange'] && mediaAttributeForm['controls']['panelSizeWidthRange']['errors'] &&  mediaAttributeForm['controls']['panelSizeHeightRange']['errors'] !== null && option['key'] === 'panelSizeHeightRange'" > {{ mediaAttributeForm['controls']['panelSizeHeightRange']['errors']['errors'] }}</mat-error>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- ReadList section -->
+    <!-- <mat-expansion-panel *ngIf="attribute['key'] && attribute['key']==='readList'">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-checkbox disableRipple class="subtitle-1"  [checked]="readList.selectedOptions.selected.length === attribute['options'].length"
+            [indeterminate]="(readList.selectedOptions.selected.length !== 0 && readList.selectedOptions.selected.length < attribute['options'].length)" (change)="selectionreadListList(readList.selectedOptions.selected.length, attribute['options'].length)"></mat-checkbox> {{attribute['label']}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="attributes-panel-body" >
+          <mat-selection-list #readList formControlName="readList">
+            <mat-list-option *ngFor="let option of attribute['options']" checkboxPosition="before" [value]="option">
+            {{option}}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+    </mat-expansion-panel> -->
+  </div>
+  <div class="footer-action">
+      <button mat-raised-button class="btn-clear" type="button" (click)="clearMediaFilter()">CLEAR</button>
+      <button type="submit" mat-raised-button class="btn-primary-color">APPLY</button>
+  </div>
+</form>
+</mat-accordion>
+

@@ -1,0 +1,44 @@
+
+.upload-list{
+    position:relative;
+    overflow: hidden;
+    width: 100%;
+    display:block;
+      .notify-message {
+        text-align: center;
+      }  
+    }
+  .ghost_item{
+     overflow: hidden;
+     margin-bottom: -6px;
+     display:flex;
+    .icon{
+      background-color: var( --grays-bg-300);
+      height:40px;
+      width: 40px;
+      border-radius: 50%;  
+      margin-left: 30px;
+      margin-bottom: 10px;
+      animation-duration: 1s;
+      animation-name: place;
+      background: linear-gradient(30deg,rgba(221, 221, 221, 0.863) 0px,#ecebebf1 40px, rgba(221, 221, 221, 0.863) 80px);      overflow: hidden;
+      position: relative;
+      }
+    .lines {
+      margin: 10px 10px 10px 20px; 
+      background-color: var( --grays-bg-300) ;
+      border-radius: 4px 4px 4px 4px;
+      width:200px;
+      animation-duration: 1s;
+      animation-name: place;
+      background: linear-gradient(90deg, rgba(221, 221, 221, 0.863) 0px,#ecebebf1 40px, rgba(221, 221, 221, 0.863) 80px);
+      height: 20px;
+      overflow: hidden;
+      position: relative;
+      }
+  @keyframes place{
+    0%   { background-position: -100px;}
+    100% { background-position: 100px;}
+   }
+  }
+  

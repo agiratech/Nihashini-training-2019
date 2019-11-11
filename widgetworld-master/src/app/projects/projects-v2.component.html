@@ -1,0 +1,22 @@
+<div>
+  <section class="header-section">
+    <app-header fxFlexFill>
+        <div class="projected-title">
+          <mat-icon class="mobile-hide">apps</mat-icon>
+          <span class="uppercase">Workspace</span>
+        </div>
+        <div class="explore-filter content-breadcrumb projected-secondary">
+          <breadcrumbs></breadcrumbs>
+        </div>
+    </app-header>
+  </section>
+  <div class="landing-page">
+    <div>
+      <section class="content">
+        <div class="no-p-t-b no-mobile-padding">
+          <router-outlet></router-outlet>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<form method="post" class="noAnimation" [formGroup]="scenarioForm" novalidate autocomplete="off"
+  (ngSubmit)="onSubmit(scenarioForm)">
+  <div mat-dialog-content class="scenario-dialog">
+    <div fxLayout="row" fxLayoutAlign="start">
+      <h3 class="modal-title">{{title}}</h3>
+      <span fxFlex="1 1 auto"></span>
+      <mat-icon (click)="closeScenarioDialog()" class="mat-icon-close">close</mat-icon>
+    </div>
+    <div class="scenario-name" fxLayout="column" fxLayoutAlign="start">
+      <mat-form-field class="full-width" floatLabel="always">
+        <input matInput (keydown.enter)="$event.preventDefault()" id="planName" placeholder="{{namePlaceHolder}}"
+          formControlName="name">
+        <mat-error *ngIf="scenarioForm.controls.name.invalid">
+          <span *ngIf="scenarioForm.controls.name['value'] == ''">{{labels['scenario'][0]}} can't blank</span>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="scenario-description" fxLayout="column" fxLayoutAlign="start">
+      <mat-form-field fxFlex="100" class="mat-text-area no-label project-notes-field" floatLabel="always">
+        <textarea matInput matTextareaAutosize matAutosizeMinRows="1" class="body-1 projectNoteText"
+          id="planDescription" placeholder="{{descPlaceHolder}}" formControlName="description"></textarea>
+      </mat-form-field>
+    </div>
+    <div >
+      <!-- <div *ngIf="!showProject; else newProject"> -->
+      <div *ngIf="subProjectLevel < 0; else projectHiddenKey;">
+        <mat-form-field>
+          <mat-select [(value)]="selectedProject" id="assignProject"
+            placeholder="* Assign to {{subProjectLevel < 1 ? labels['project'][0]  : (subProjectLevel < 2 ? labels['subProject'][0] : labels['folder'][0]) }}"
+            formControlName="project_id" class="test-scenario-project">
+            <mat-option value="">Select...</mat-option>
+            <!-- *ngIf="isSimpleLayout"  -->
+            <mat-option class="special-button" (click)="createNewProject(0);">
+              <mat-icon>add</mat-icon>New
+              {{subProjectLevel < 1 ? labels['project'][0]  : (subProjectLevel < 2 ? labels['subProject'][0] : labels['folder'][0]) }}
+            </mat-option>
+            <mat-option *ngFor="let project of projects;" value="{{project['_id']}}" (click)="onProjectChange(project['_id'], true)">
+              {{project.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="scenarioForm.controls.project_id">{{labels['project'][0]}} can't blank</mat-error>
+        </mat-form-field>
+      </div>
+      <ng-template #projectHiddenKey>
+        <input type='hidden' formControlName="project_id">
+      </ng-template>
+      <!-- <ng-template #newProject>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="project-create-section">
+          <mat-form-field floatLabel="always">
+            <input matInput placeholder="New Project Name">
+          </mat-form-field>
+          <button mat-icon-button class="close-btn" (click)="clearProject()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button mat-raised-button class="primary-btn" (click)="createProject();">CREATE
+            {{labels['project'][0]}}</button>
+        </div>
+      </ng-template> -->
+    <!-- <div *ngIf="!showSubProject; else newSubProject"> -->
+      <div *ngIf="subProjectAccess['status'] === 'active' && subProjectLevel < 2">
+        <mat-form-field>
+          <!-- {{(isSimpleLayout? '* ':'')}}  -->
+          <mat-select
+            placeholder="{{ ((subProjectLevel < 1) ? labels['subProject'][0] : labels['folder'][0] ) }} (Optional)"
+            formControlName="sub_project_id" class="test-scenario-sub-project">
+            <mat-option *ngIf="noBrandId !== ''; else noBrand;" value="{{noBrandId}}"  (click)="onSubProjectChange(noBrand, true);">Select...</mat-option>
+            <ng-template #noBrand><mat-option >Select...</mat-option></ng-template>
+            <!-- *ngIf="isSimpleLayout"  -->
+            <mat-option value="newsubproject" class="special-button"
+              (click)="onNewSubProject( subProjectLevel < 1 ? labels['subProject'][0]  : labels['folder'][0], 1);">
+              <mat-icon>add</mat-icon>New {{ subProjectLevel < 1 ? labels['subProject'][0]  : labels['folder'][0] }}
+            </mat-option>
+            <mat-option *ngFor="let subProject of subProjects;" value="{{subProject._id}}"
+              (click)="onSubProjectChange(subProject._id, true)">
+              {{subProject.name}}
+            </mat-option>
+          </mat-select>
+
+          <mat-error *ngIf="scenarioForm.controls.sub_project_id">{{labels['subProject'][0]}} can't blank</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- <ng-template #newSubProject>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" class="sub-project-create-section">
+          <mat-form-field floatLabel="always">
+            <input matInput placeholder="New Sub-Project Name">
+          </mat-form-field>
+          <button mat-icon-button class="close-btn" (click)="clearSubProject()">
+            <mat-icon>close</mat-icon>
+          </button>
+          <button mat-raised-button class="primary-btn" (click)="createSubProject();">CREATE SUB-PROJECT</button>
+        </div>
+      </ng-template> -->
+      <!-- required sub project -->
+      <div *ngIf="isSimpleLayout && subProjectLevel <= 0">
+        <mat-form-field>
+          <mat-select placeholder="* {{ labels['folder'][0] }}" formControlName="sub_sub_project_id"
+            class="test-scenario-sub-project">
+            <mat-option>Select...</mat-option>
+            <mat-option value="newsubproject" class="special-button" (click)="onNewSubProject(labels['folder'][0], 2);">
+              <mat-icon>add</mat-icon>New {{labels['folder'][0]}}
+            </mat-option>
+            <mat-option *ngFor="let subProject of subSubProjects;" value="{{subProject._id}}">
+              {{subProject.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="scenarioForm.controls.sub_sub_project_id">{{labels['folder'][0]}} can't blank</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <ng-template [ngIf]="subProjectLevel >= projectDepth">
+      <input type='hidden' formControlName="project_id">
+    </ng-template>
+  </div>
+  <div class="dialog-actions" align="end">
+    <button mat-button mat-dialog-close class="cancel-btn">Cancel</button>
+    <button mat-button class="continue-btn">{{buttonLabel}}</button>
+  </div>
+</form>

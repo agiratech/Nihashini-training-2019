@@ -1,0 +1,131 @@
+@import "../../../../assets/css/variables.less";
+::ng-deep{
+    .inventory-block
+    {
+        .inventory-first-div
+        {
+            margin-top:15px;
+        }
+        .metric-item-value {
+            color: var(--heading-color);
+            font-size: 30px;
+            text-align: left;
+            margin: 0;
+        }
+        .margin-bottom-10{
+            margin-top: 10px
+        }
+        .margin-bottom-5{
+            margin-top: 5px
+        }
+        .mat-button-small
+        {
+            font-size: 12px;	
+            font-weight: 300;	
+            letter-spacing: 0.08px;	
+            line-height: 26px;
+            height: 26px !important;
+            padding: 0px 7px !important;
+            .mat-icon
+            {
+                width: 22px;
+                height: 22px;
+                font-size: 20px;
+            }
+            .menu-seprator
+            {
+                border-left: 1px solid #fff;
+                margin-left: 5px;
+                padding-left: 3px;
+                height: 25px !important;
+                width: 25px;
+                font-size: 25px;
+            }
+        }
+        .mat-button-small.button-normal
+        {
+            color:var(--grays-bg-600);
+            .mat-icon
+            {
+                color:var(--grays-bg-600);
+            }
+
+        }
+        .seprator
+        {
+            height: 26px;	width: 1px;	opacity: 0.38;	background-color: #212121;
+        }
+        .inventory-table-block
+        {
+            height: 360px !important;
+            margin-top: 15px !important;
+            .inventory-sidenav-content {
+                height: 100%;
+                background-color: var(--white-color);
+                overflow: auto;
+            }
+            .inventory-sidenav {
+                height: 100%;
+                width: 300px;
+                border: 1px solid var(--grays-bg-300);
+                // background-color: var(--grays-bg-100);
+                overflow: hidden;
+                .mat-drawer-inner-container{
+                    overflow: hidden;
+                }
+                .find-inventory-btn
+                {
+                    width: 100%;
+                    height: 50px;
+                    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.25);
+                    background-color: var(--white-color);
+                    position: relative;                  
+                    div.find-inventory-btn-text
+                    {
+                        color: var(--input-text-color);
+                        font-size: 18px;
+                        font-weight: 300;
+                        line-height: 23px;
+                        padding-left: 15px;
+                    }
+                    div.find-inventory-btn-icon
+                    {
+                        cursor: pointer;
+                        background-color: rgba(211,211,211,0.64);
+                        .mat-icon
+                        {
+                            font-size: 24px;
+                            color: var(--grays-bg-800);
+                        }
+                    }
+                }
+            }
+        }        
+        // .mat-drawer-transition .mat-drawer-content {
+        //     transition-duration: .4s !important;
+        //     transition-timing-function: cubic-bezier(.25,.8,.25,1) !important;
+        //     transition-property: 276px  !important;
+        // }
+        .scenario-inventroy-closed
+        {
+            .inventory-sidenav {
+                left: 24px !important;
+                visibility: visible !important;
+            }
+            .mat-drawer-content
+            {
+                margin-left: 24px; 
+            }
+        }
+    }
+    .mat-table-responsive
+    {
+        height: 360px !important;
+        overflow: auto;
+    }
+}
+@-moz-document url-prefix() {
+    .inventory-block {
+        display: block !important;
+    }
+}   

@@ -1,0 +1,135 @@
+<div class="market-my-plan">
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+    <h3>{{(isOMG) ? 'My Packages' : 'My Plan'}}</h3>
+    <span fxFlex="1 1 auto"></span>
+
+    <div class="header-actions" fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field>
+          <mat-label>Select Audience to Display</mat-label>
+          <mat-select [compareWith]="compareObjects" id="selectedAudience" (selectionChange)="onChangeAudience($event)" [(value)]="selectedAudience">
+            <mat-option value="all">All</mat-option>          
+            <mat-option  *ngFor="let audience of audiences" [value]="audience">{{audience.name}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <!-- <div class="search">
+        <mat-form-field *ngIf="!isSearchHide">
+          <input matInput placeholder="search">
+          <mat-icon matSuffix (click)="isSearchHide = !isSearchHide">close</mat-icon>
+        </mat-form-field>
+        <mat-icon *ngIf="isSearchHide" class="search-icon" (click)="isSearchHide = !isSearchHide">search</mat-icon>
+      </div>
+      <button type="button" mat-icon-button class="customize-btn">
+        <mat-icon>view_array</mat-icon> Customize Columns
+      </button>
+      <button type="button" mat-icon-button class="primary-bg add-new-btn">
+        <mat-icon>add</mat-icon> New <mat-icon class="im-left-border" [matMenuTriggerFor]="addNewSubprojectMenu">
+          keyboard_arrow_down</mat-icon>
+      </button>
+      <mat-menu #addNewSubprojectMenu="matMenu" [overlapTrigger]="false" xPosition="after">
+      <button type="button" mat-menu-item (click)="onProjectAction('new')">
+          <mat-icon>folder</mat-icon>Project
+        </button>
+        <button type="button" mat-menu-item>
+          <mat-icon>picture_in_picture_alt</mat-icon>{{labels['scenario'][0]}}
+        </button>
+      </mat-menu>   -->
+    </div>
+  
+  </div>
+
+  <div class="customize-column-container">
+      <button mat-raised-button (click)="customizeColumn()" type="button"	id="customize-column">
+          Customize Columns
+        </button>
+  </div>
+  
+  <mat-table #table [dataSource]="dataSource" class="scroll-list margin-top-10" multiTemplateDataRows>
+    <ng-container matColumnDef="accordion">
+      <mat-header-cell *matHeaderCellDef fxFlex="40px"></mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="40px">
+        <mat-icon class="expanted-icon" (click)="expandedElement = expandedElement === element ? null : element">
+          {{ ((expandedElement && expandedElement['id']) !== element['id'] ) ?'keyboard_arrow_down':'keyboard_arrow_up' }}
+        </mat-icon>
+      </mat-cell>
+    </ng-container>
+  
+    <ng-container [matColumnDef]="(isOMG) ? 'Package' : 'Plan'">
+      <mat-header-cell *matHeaderCellDef  fxFlex="10%"> {{(isOMG) ? 'Package' : 'Plan'}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="10%"><a
+          class="primary-tex-color expanded-name" matTooltip="{{element.plan}}" matTooltipPosition="above"
+          matTooltipClass="breadcrum-tooltip" (click)="expandedElement = expandedElement === element ? null : element">{{ element.planId }}</a> </mat-cell>
+    </ng-container>
+
+    <!-- Audience name -->
+    <ng-container matColumnDef="Audience">
+      <mat-header-cell *matHeaderCellDef  fxFlex="20%"> Audience </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20%"
+        title="{{element.audience}}"> {{element.audience | truncate:'middle':18:6}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Market">
+      <mat-header-cell *matHeaderCellDef  fxFlex="20%"> Market </mat-header-cell>
+      <mat-cell *matCellDef="let element" fxFlex="20%"
+        title="{{element.market}}"> {{element.market | truncate:'middle':30:6}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Trp">
+      <mat-header-cell *matHeaderCellDef class="width10per"> TRP
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="width10per">
+        {{ (element.trp && element.trp.toFixed(3)  || '-') }} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="Reach">
+      <mat-header-cell *matHeaderCellDef class="width10per"> Reach
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="width10per">
+        {{ (element.reach && (element.reach | convert:'DECIMAL') || '-') }} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Frequency">
+      <mat-header-cell *matHeaderCellDef class="width10per"> Frequency </mat-header-cell>
+      <mat-cell *matCellDef="let element" class="width10per">
+            {{(element.frequency && (element.frequency | convert:'DECIMAL':1 ) || '-')}}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="isLoader" >
+      <mat-header-cell *matHeaderCellDef class="width10per" style="width: 30px" fxFlex="5%"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="width10per" style="width: 30px" fxFlex="5%" [ngClass]="{'loader-padding':element['isLoader']}">
+        <mat-spinner *ngIf="element['isLoader']" [strokeWidth]="2" [diameter]="30"></mat-spinner>
+      </mat-cell>
+    </ng-container>
+    <!-- <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef class="width5per"></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="width5per">
+        <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="after">
+          <button type="button" mat-menu-item>Delete </button>
+        </mat-menu>
+        <button type="button" mat-icon-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container> -->
+  
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element;">
+        <div [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'" class="element-detail">
+          <app-market-types-list
+            [isLoader] = "isLoader"
+            [goalFormData]="element.query"
+            [planData]="element"
+            (updateParentPlanTotal) = "updateParentPlanTotal($event,element)"
+          ></app-market-types-list>
+        </div>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" matRipple
+      [ngClass]="{'highlight-bg':selectedRow == row._id}" [class.expanded]="expandedElement == row">
+    </mat-row>
+    <mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row">
+    </mat-row>
+  </mat-table>
+</div>

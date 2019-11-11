@@ -1,0 +1,145 @@
+@import "../../../assets/css/variables.less";
+
+.mat-card-title {
+  font-size    : 18px;
+  margin-bottom: 10px;
+}
+
+.mat-card-subtitle {
+  color: var(--medium-emphasis);
+  min-height: 36px;
+  margin-top: 0px;
+}
+
+.mat-card-footer {
+  margin: 0px;
+
+  p {
+    color: var(--medium-emphasis);
+  }
+}
+.project-action{
+  align-self: center;
+  button{
+    width: inherit;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0px 10px 0px 3px;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+    mat-icon {
+      font-size: 18px;
+    }
+  }
+}
+.avatar-image {
+  background: #E6E6E6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  & > img {
+    width: 40px;
+    height: 40px;
+  }
+}
+.mat-card{
+  cursor: pointer;
+  min-height: 140px;
+  padding: 16px !important;
+  border-radius: 4px !important;
+  .mat-hover-card{
+    display: none;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    margin: -16px !important;
+    background: rgba(0, 0, 0, 0.7);
+    mat-icon{
+      color:var(--medium-emphasis-white);
+    }
+    a{
+      cursor: pointer;
+    }
+    .action-icon{
+      padding: 10px 10px 5px;
+    }
+    .secondary-btn {
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+      background-color: #FAFAFA;
+      color: var(--medium-emphasis);
+      text-transform: uppercase;
+      width: 170px;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: bold;
+      &:hover{
+        background-color: #e2dede;
+      }
+    }
+  }
+  &:hover{
+    border: solid 0px !important;    
+    .mat-hover-card{
+      -webkit-transition: width 5s; /* Safari */
+      transition: width 5s;
+      transition-timing-function: ease-in-out;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  &.ghost {
+    mat-card-title {
+      background: #E9E9E9;
+      height: 20px;
+      width: 150px;
+    }
+    mat-card-subtitle, mat-card-footer > p  {
+      background: #E9E9E9;
+      height: 10px;
+      width: 150px;
+    }
+    .avatar-image {
+      background: #E9E9E9;
+    }
+  }
+
+}
+mat-card:hover {
+  box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
+  transform: translate3d(0,0,0);
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+}
+
+::ng-deep{
+  app-projects-list{
+    app-project-card{
+      .project-action{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        button{
+          width: 170px !important;
+          margin-right: 0px !important;
+          box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+          background: #FAFAFA !important;
+          color: var(--medium-emphasis) !important;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+          font-size: 11px !important;
+          font-weight: bold !important;
+          &:hover{
+            background-color: var(--medium-emphasis-white) !important;
+          }
+        }
+      }
+      .imx-hide-market-plan{
+        margin-top: 10px;
+      }
+    }
+  }
+}

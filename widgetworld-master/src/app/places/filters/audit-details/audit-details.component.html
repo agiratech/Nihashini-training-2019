@@ -1,0 +1,496 @@
+<div class="audit-jobs-details-collapse" *ngIf="isCollapseDetails" title="Expand the audit details form" (click)="openPlacesDetail()">
+  <mat-icon>filter_list</mat-icon>
+</div>
+<div class="audit-jobs-details" *ngIf="!isCollapseDetails">
+  <form [formGroup]="auditDetailForm" (ngSubmit)="onSubmit(auditDetailForm.value)">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px" class="open-map-link">
+      <mat-icon class="collapse-icon" (click)="collapseDetails()" title="Collapse the audit details form">keyboard_arrow_left</mat-icon>
+      <span fxFlex="1 1 auto"></span>
+      <a class="link" (click)="searchInformation('search')">Google Search</a>
+      <a class="link" (click)="searchInformation('street')">Street View</a>
+      <span fxFlex="1 1 auto"></span>
+      <mat-icon (click)="closeDetails()">close</mat-icon>
+    </div>
+    <div class="field-area" [ngStyle]="{'height.px': contentHeight}" (window:resize)="onResize()" [ngClass]="{'overflow-hidden': isOpenedHours}">
+      <input type="hidden" placeholder="Safegraph ID" formControlName="safegraphId">
+      <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+        <div class="imx-form-field">
+          <mat-form-field>
+            <input matInput placeholder="Place Name" [formControl]="searchTextCtrl">
+            <button type="button" class="search-icon" mat-button matSuffix mat-icon-button title="search" aria-label="search" (click)="onSearch('placeName', searchTextCtrl.value)">
+              <mat-icon class="link">search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+        <!--<div class="imx-field-check">
+          <mat-checkbox [checked]="auditDetailForm.controls.name.value && auditDetailForm.controls.name.value.length>0">Name</mat-checkbox>
+        </div>-->
+        <div class="imx-form-field">
+          <mat-form-field>
+            <mat-label>name<span class="star ml-2">*</span></mat-label>
+            <input matInput formControlName="name" #fName>
+          </mat-form-field>
+        </div>
+      </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.street.value && auditDetailForm.controls.street.value.length>0">Street</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <mat-label>Street<span class="star ml-2">*</span></mat-label>
+              <input matInput formControlName="street">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.city.value && auditDetailForm.controls.city.value.length>0">City</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <mat-label>City<span class="star ml-2">*</span></mat-label>
+              <input matInput formControlName="city">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.state.value && auditDetailForm.controls.state.value.length>0">State</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <mat-label>State<span class="star ml-2">*</span></mat-label>
+              <input matInput formControlName="state">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.zipcode.value && auditDetailForm.controls.zipcode.value.length>0">Zipcode</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <mat-label>Zipcode<span class="star ml-2">*</span></mat-label>
+              <input matInput formControlName="zipcode">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.hereId.value && auditDetailForm.controls.hereId.value.length>0">Here ID</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field" fxLayout="row" *ngIf="this.place['status'] !== 0">
+            <mat-form-field>
+              <input matInput placeholder="Place ID" readonly="readonly" value="{{this.place['place_id'] && this.place['place_id'] || ''}}">
+            </mat-form-field>
+            <!--<span fxFlex="1 1 auto"></span>
+            <mat-icon class="link" title="search" (click)="onSearch('here_place_id',auditDetailForm.get('hereId').value)">search</mat-icon>-->
+          </div>
+        </div>
+
+        <div class="imx-form-field" fxLayout="row" fxLayoutAlign="start center" *ngIf="this.place['status'] !== 0">
+          <mat-form-field>
+              <input matInput placeholder="Parent Place ID" formControlName="parentPlaceID" appNumberOnly >
+          </mat-form-field>
+        </div>       
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <div class="imx-form-field" fxLayout="row">
+            <mat-form-field >
+              <mat-label>Place Type</mat-label>
+              <mat-select formControlName="placeType">
+                <mat-option *ngFor="let type of placeTypes$ | async" [value]="type.place_type_id">{{type.name | titlecase}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="imx-field" fxLayout="column" fxLayoutAlign="start start" formGroupName="hours">
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <!--<div class="imx-field-check">
+                  <mat-checkbox>Hours</mat-checkbox>
+              </div>
+              <div>
+                  <mat-form-field>
+                      <mat-select formControlName="label">
+                        <mat-option *ngFor="let hour of hoursData" [value]="hour.name"> {{hour.name}} </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+              </div>
+              <a class="link imx-ml-10" #overlayOrigin="cdkOverlayOrigin" cdkOverlayOrigin (click)="onOpenHours()">Add</a>
+              <app-dropdown [overlayOrigin]="overlayOrigin" (close)="isOpenedHours = false" (open)="isOpenedHours = true"
+                [dialogClass]="'imx-add-audit-hours'">
+                <div fxLayout="column" fxLayoutAlign="start center">
+                  <div class="width100">
+                    <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+                      <div class="imx-field-check imx-mr-10">
+                        Name
+                      </div>
+                      <div class="imx-form-field">
+                        <mat-form-field>
+                          <input matInput formControlName="hoursName">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <p>Select date for Hours</p>
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <sat-calendar 
+                    [rangeMode]="true"
+                    [beginDate]="dateInlineRange['begin']"
+                    [endDate] = "dateInlineRange['end']"
+                    (dateRangesChange)="inlineRangeChange($event)">
+                    </sat-calendar>
+                  </div>
+                  <div class="hours-save-btn">
+                    <button type="button" mat-raised-button color="primary" (click)="onSaveHours()"> Save </button>
+                  </div>
+                  </div>
+                </div>
+              </app-dropdown>-->
+              
+          </div>
+          <div div fxLayout="row" fxLayoutAlign="end center" class='action-link-div'>
+            <a class="link imx-mlr-20" title="Copy to weekdays" (click)="copyValues(duration.WEEKDAYS)">Apply to weekdays</a>
+            <a class="link imx-mlr-20" title="Copy to all days" (click)="copyValues(duration.ALL)">Apply to all</a>
+            <a class="link imx-mlr-20" title="Clear all feilds" (click)="clearAllTimeData();">Clear all</a>
+          </div>
+          
+        <div class="imx-time-field">
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="mo">
+            <div class="imx-time-label custom-labels"><label>Monday</label></div>
+            <mat-form-field class="time-field mr-10">
+              <mat-select formControlName="from">
+                <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="time-field  mr-10">
+              <mat-select formControlName="to">
+                <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <mat-form-field class="time-field ext-time-field">
+              <mat-select formControlName="ext">
+                <mat-option  [value]=""></mat-option>
+                <ng-container *ngFor="let time of times; let i = index;">
+                  <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                </ng-container>
+              </mat-select>
+            </mat-form-field> -->
+            
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="tu">
+              <div class="imx-time-label custom-labels"><label>Tuesday</label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field  mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+               <!-- <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> -->
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="we">
+              <div class="imx-time-label custom-labels"><label>Wednesday</label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field  mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <!--  <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> --> 
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="th">
+              <div class="imx-time-label custom-labels"><label >Thursday</label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field  mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+               <!-- <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> -->
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="fr">
+              <div class="imx-time-label custom-labels"><label>Friday</label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field  mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+               <!-- <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> -->
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="sa">
+              <div class="imx-time-label custom-labels"><label>Saturday</label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+               <!-- <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> -->
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="start center" formGroupName="su">
+              <div class="imx-time-label custom-labels"><mat-label>Sunday</mat-label></div>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="from">
+                    <mat-option *ngFor="let time of times" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="time-field mr-10">
+                  <mat-select formControlName="to">
+                    <mat-option *ngFor="let time of timesnextday" [value]="time.value">{{time.label}}</mat-option>
+                  </mat-select>
+              </mat-form-field>
+               <!-- <mat-form-field class="time-field ext-time-field">
+                <mat-select formControlName="ext">
+                  <mat-option  [value]=""></mat-option>
+                  <ng-container *ngFor="let time of times; let i = index;">
+                    <mat-option  [value]="time" *ngIf="i > 0 && i < 13">+{{i}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field> -->
+          </div>
+        </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.floors.value && auditDetailForm.controls.floors.value.length>0">Floors</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <input matInput placeholder="Floors" formControlName="floors">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.entrances.value && auditDetailForm.controls.entrances.value.length>0">Entrances</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <input matInput placeholder="Entrances" formControlName="entrances">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+          <!--<div class="imx-field-check">
+            <mat-checkbox [checked]="auditDetailForm.controls.concourses.value && auditDetailForm.controls.concourses.value.length>0">Concourses</mat-checkbox>
+          </div>-->
+          <div class="imx-form-field">
+            <mat-form-field>
+              <input matInput placeholder="Concourses" formControlName="concourses">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+            <!--<div class="imx-field-check">
+              <mat-checkbox [checked]="auditDetailForm.controls.platforms.value && auditDetailForm.controls.platforms.value.length>0">Platforms</mat-checkbox>
+            </div>-->
+            <div class="imx-form-field">
+              <mat-form-field>
+                <input matInput placeholder="Platforms" formControlName="platforms">
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="imx-field" fxLayout="row" fxLayoutAlign="start center">
+            <!--<div class="imx-field-check">
+              <mat-checkbox [checked]="auditDetailForm.controls.gates.value && auditDetailForm.controls.gates.value.length>0">Gates</mat-checkbox>
+            </div>-->
+            <div class="imx-form-field">
+              <mat-form-field>
+                <input matInput placeholder="Gates" formControlName="gates">
+              </mat-form-field>
+            </div>
+        </div>
+        <!-- building area-->
+        <div class="imx-field imx-mtb-20" fxLayout="column" fxLayoutAlign="start start">
+          <div class="imx-field-check width100" fxLayout="row" fxLayoutAlign="space-around center">
+            <div class="imx-time-label">
+              <div class="custom-labels">Building Area<span class="star ml-2">*</span></div>
+            </div>
+            <span fxFlex="1 1 auto"></span>
+            <a class="link" (click)="addNewArea('building')" *ngIf="!buildingAreaPolygon['type']"> Add Building Area </a>
+          </div>
+          <div class="building-area-main" *ngIf="buildingAreaPolygon['type']">
+            <div class="building-area-map" (click)="onOpenFacilityMap('building')" >
+              <app-display-map [properties]="buildAreaProperties"></app-display-map>
+            </div>
+          </div>
+        </div>
+        <!-- Property area-->
+        <div class="imx-field imx-mtb-20" fxLayout="column" fxLayoutAlign="start start">
+          <div class="imx-field-check width100" fxLayout="row" fxLayoutAlign="space-around center">
+            <div class="custom-labels">Property Area<span class="star ml-2">*</span></div>
+            <span fxFlex="1 1 auto"></span>
+            <a class="link" (click)="addNewArea('property')" *ngIf="!propertyArea['type']"> Add Property Area </a>
+          </div>
+          <div class="building-area-main" *ngIf= "propertyArea['type']">
+            <div class="building-area-map" (click)="onOpenFacilityMap('property')" >
+              <app-display-map [properties]="propertyAreaProperties"></app-display-map>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p>Last updated at: {{updatedDate | date:'MMM dd, yyyy hh:mm aaa'}}</p>
+          <p>Last updated by: {{updatedBy}}</p>
+        </div>
+
+        <!--<div class="imx-field imx-mtb-20" fxLayout="column" fxLayoutAlign="start start">
+          &lt;!&ndash; Note list &ndash;&gt;
+          <h4>Notes</h4>
+          <div *ngFor="let note of notes" fxLayout="column wrap" class="notes-area width100">
+            <p class="note-details">{{note.note}}</p>
+            <p class="link">{{note.name}}</p>
+            <mat-divider></mat-divider>
+          </div>         
+          <div formGroupName="notes" class="width100">
+              <div  class="width100">
+                  <mat-form-field  fxFlex="60%">
+                      <input matInput placeholder="Name" formControlName="name">
+                  </mat-form-field>
+              </div>
+            <div class="width100" >
+                <mat-form-field class="width100">
+                    <textarea matInput placeholder="Note" formControlName="note"></textarea>
+                  </mat-form-field>
+            </div>
+        </div>
+        <div class="width100" fxLayout="row" fxLayoutAlign="end">
+          <a class="link" (click)="onAddNoteField()">Add Note</a>
+        </div>
+        </div>
+        <div class="imx-field" fxLayout="column" fxLayoutAlign="start start">
+            <div class="imx-field-check width100" fxLayout="row" fxLayoutAlign="start">
+                <a class="link" (click)="onAddCustomField()"> Add Custom Field </a>
+            </div>
+            <div class="custom-field" formArrayName="customFields" *ngFor="let item of auditDetailForm.get('customFields')['controls']; let i = index;">
+                <div fxLayout="row" fxLayoutAlign="start center" [formGroupName]="i">
+                    <div class="imx-field" fxLayout="column" fxLayoutAlign="start">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                          <div class="fx-width-100">
+                            <label>Field Name</label>
+                          </div>
+                            <mat-form-field>
+                                <input matInput placeholder="Field Name" formControlName="name">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <div class="fx-width-100">
+                              <label>Field value</label>
+                            </div>
+                              <mat-form-field>
+                                  <input matInput placeholder="Field value" formControlName="value">
+                              </mat-form-field>
+                        </div>
+                    </div>
+                    <span fxFlex="1 1 auto"></span>
+                    <div class="delete">
+                      <span><mat-icon class="delete-icon" (click)="onRemoveCustomField(i)">delete</mat-icon></span>  
+                    </div>
+                </div>
+               &lt;!&ndash; dynamic field area &ndash;&gt;
+            </div>
+        </div>-->
+      </div>
+      <mat-divider></mat-divider>
+      <div class="field-action-area auditedControls" *ngIf="this.place['status'] === 0; else auditedControls;">
+          <div class="auditedControlButton"  fxLayout="row" fxLayoutAlign="flex-end center">
+              <button mat-raised-button type="submit" color="primary">Request Insights</button>
+          </div>
+        </div>
+      <ng-template #auditedControls>
+        <div class="field-action-area auditedControls" >
+          <div>
+            <mat-form-field >
+              <mat-label class="imx-primary-color">Audit Status</mat-label>
+              <mat-select formControlName="placeStatus" (selectionChange)="selectAuditStatus($event)">
+                <mat-option *ngFor="let status of statuses$ | async" [value]="status.audit_status_cd" >{{status.status}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field *ngIf="isRequiredReview">
+              <mat-label>Audit Outcome</mat-label>
+              <mat-select formControlName="outcome">
+                <mat-option *ngFor="let outcome of outcomes$ | async" [value]="outcome.audit_outcome_id">{{outcome.outcome | titlecase}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="auditedControlButton"  fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-raised-button class="saveAuditBtn" type="submit" (click)="saveChangesFlag = true">Save Changes</button>
+            <button mat-raised-button color="primary" type="submit">Next Place</button>
+          </div>
+        </div>
+      </ng-template>
+</form>
+</div>

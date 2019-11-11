@@ -1,0 +1,277 @@
+@import "../../../assets/css/variables.less";
+
+.v-center {
+  display    : flex;
+  align-items: center;
+}
+
+.flex-div {
+  display: flex;
+}
+
+.project-view {
+  overflow: auto;
+  .customer-asign-icon {
+    height          : 36px;
+    width           : 36px;
+    opacity         : 0.6;
+    border-radius   : 4px;
+    background-color: #FAFAFA;
+    box-shadow      : 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+
+    a {
+      height       : 36px;
+      align-items  : center;
+      place-content: center;
+    }
+  }
+
+  .project-view-block {
+    padding-top: 40px !important;
+    background: var(--focused-text-area-bg);
+    padding-bottom: 15px !important;
+
+    .breadcrumbs {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .project-inputs {
+      .title {
+        .mat-chip.mat-standard-chip {
+          background-color: var(--primary-bg);
+          color           : #ffffff;
+          padding         : 4px 10px;
+          border-radius   : 17px;
+          margin-right    : 10px;
+        }
+
+        h2 {
+          margin: 0;
+        }
+      }
+
+      .description {
+        margin-top: 20px;
+
+        p {
+          font-weight   : 300;
+          letter-spacing: 0.17px;
+          line-height   : 19px;
+        }
+
+        mat-icon {
+          font-size: 15px;
+          color    : var(--low-emphasis);
+        }
+        .placeholderDes {
+          color: rgba(0,0,0,.54);
+          display: block;
+          font-size: 11px;
+          font-weight: 300;
+          letter-spacing: 0.47px;
+        }
+        .mat-focused {
+          .placeholderDes {
+            display: none ;
+          }
+        }
+      }
+      
+
+      .project-tag {
+        display   : flex;
+        flex-wrap : wrap;
+        margin-top: 20px;
+
+        .edit-icon {
+          font-size  : 15px;
+          color      : var(--low-emphasis);
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  .sub-project-block {
+    margin-top: 20px;
+  }
+
+  .edit-action {
+    margin-bottom: 10px;
+  }
+
+  .edit-save-btn {
+    border-radius: 4px !important;
+    min-width    : 68px !important;
+    font-size    : 12px;
+    height       : 27px;
+    line-height  : 27px;
+  }
+
+  .edit-close-btn {
+    border-radius   : 4px !important;
+    background-color: #FAFAFA;
+    box-shadow      : 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    height          : 26px !important;
+    width           : 26px !important;
+    line-height     : 26px !important;
+
+    mat-icon {
+      color      : var(--high-emphasis) !important;
+      font-size  : 20px !important;
+      line-height: 20px !important;
+    }
+  }
+}
+
+.cancel-btn {
+  border-radius   : 4px !important;
+  background-color: #FAFAFA;
+  box-shadow      : 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  height          : 26px !important;
+  width           : 26px !important;
+  line-height     : 26px !important;
+  margin-left     : 10px;
+
+  mat-icon {
+    color        : var(--high-emphasis) !important;
+    font-size    : 20px !important;
+    line-height  : 20px !important;
+    align-items  : center;
+    display      : flex;
+    width        : 26px;
+    place-content: center;
+  }
+}
+.project-name-area{
+  width: 100%;
+  margin-right: 20px;
+}
+.project-action{
+  align-self: center;
+  button{
+    width: inherit;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 0px 10px 0px 3px;
+    height: 30px;
+    line-height: 30px;
+    mat-icon{
+      font-size: 18px;
+    }
+    &:first-child{
+      margin-right: 10px;
+      background: var(--primary-bg);
+    }
+    &:nth-child(2){
+      background: var(--secondary-bg);
+    }
+  }
+}
+.avatar-image {
+  background: #E6E6E6;
+  width: 40px;
+  height: 40px;
+  border-radius: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  place-content: center;
+  text-transform: uppercase;
+  font-size: 22px;
+}
+.sub-project-list{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  &>h2{
+    margin-bottom: 10px;
+  }
+  .search{
+    .search-icon{
+      cursor: pointer;
+      color: var(--medium-emphasis);
+    }
+    margin-bottom: 20px;
+  }
+}
+.new-sub-project-main{
+  flex-wrap: wrap;
+  .project-cards{
+    margin: 15px;
+  }
+  .new-sub-project-card{
+    min-height: 140px;
+    cursor: pointer;
+    margin: 15px;
+    place-content: center;
+    display: flex;
+    align-items: center;
+    button{
+      width: inherit;
+      border-radius: 0px;
+      padding: 0px 10px;
+      font-size: 18px;
+      font-size: 18px;
+      mat-icon{
+        font-size: 18px;
+      }
+    }
+  }
+}
+.mat-card-title,.font18{
+  font-size: 18px;
+}
+mat-card:hover {
+  box-shadow: 0 8px 8px 8px rgba(0,0,0,.2), 0 8px 8px 0 rgba(0,0,0,.14), 0 8px 8px 0 rgba(0,0,0,.12) !important;
+  transform: translate3d(0,0,0);
+  transition: background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);
+}
+app-scenario-list{
+  margin-top: 20px;
+}
+.sub-project-scenario-section{
+  margin-top: 20px;
+}
+.placeholder-link{
+  color: var(--primary-bg);
+  font-weight: 700;
+}
+.mat-menu-item {
+  .mat-icon {
+    margin-right: 6px;
+  }
+}
+.attach-file{
+  width: 135px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  border-radius   : 4px !important;
+  background-color: #FAFAFA;
+  box-shadow      : 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  font-size: 11px;
+  font-weight: bold;
+  color: var(--high-emphasis);
+  mat-icon{
+    font-size: 18px;
+    margin-left: -6px;
+  }
+}
+
+.add-campaign-container {
+  text-align: right;
+  width: 100%;
+  position: relative;
+  .search-container {
+    position: absolute;
+    right: 130px;
+  }
+  .position-icon {
+    position: relative;
+    top: 10px;
+  }
+}

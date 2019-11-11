@@ -1,0 +1,20 @@
+<div class="inventory-set-container"> 
+    <mat-form-field floatLabel="never" fxFlexFill class="search-field"  >
+      <input class="inventory-search-field" [(ngModel)]="searchQuery" type="text" appSearch key="name" [sourceData]="packages" (filter)="filterPackages($event)" matInput placeholder="Search Saved Inventory Set">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <mat-selection-list class="inventory-sets" #selectInventoryList [(ngModel)]="selectedInventoryOptions" [compareWith]="compare">
+      <mat-list-option *ngFor="let Package of searchedPackages"  [value]="Package" checkboxPosition="before" title="{{Package.name}}" >
+          <span fxHide.xs [innerHTML]="Package.name | truncate:'middle':45:6 | highlight: searchQuery"></span>
+          <span fxShow.xs fxHide [innerHTML]="Package.name | truncate:'middle':8:6 | highlight: searchQuery"></span>
+        <mat-icon matListIcon (click)="$event.stopPropagation();onEditInventorySet(Package)" [ngClass]="{ 'module-disable':allowInventory === 'disabled'}" class="test-inv-edit-icon">edit</mat-icon>
+        <mat-icon matListIcon (click)="$event.stopPropagation();onDeleteInventorySet(Package)" [ngClass]="{ 'module-disable':allowInventory === 'disabled'}">delete</mat-icon>
+      </mat-list-option>
+      <p *ngIf="searchedPackages.length <= 0" class="text-center">No Inventory set data found</p>
+    </mat-selection-list>
+    <div class="action-container" [ngClass]="{ 'module-disable':allowInventory === 'disabled'}">
+      <button mat-raised-button class="btn-clear" type="button" (click)='onClearInventorySet()'  [ngClass]="{ 'module-disable':(allowInventory === 'disabled' || allowScenarios === 'disabled')}">CLEAR</button>
+      <button mat-raised-button class="btn-primary-color" type="button" (click)='onApply()'  [ngClass]="{ 'module-disable':(allowInventory === 'disabled' || allowScenarios === 'disabled')}">APPLY</button>
+    </div>
+  </div>
+<button hidden #submitMoreFilters>Submit</button>

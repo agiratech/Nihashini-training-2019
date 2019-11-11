@@ -1,0 +1,79 @@
+@import url(../../../../assets/css/variables.less);
+
+.project-name {
+  h3 {
+    margin: 0px;
+  }
+
+  mat-icon {
+    color      : var(--low-emphasis);
+    margin-left: 16px;
+  }
+}
+.project-description{
+  margin-top:40px;
+}
+.project-new-dialog{
+  width: 600px;
+  mat-form-field text-area{
+    min-height: 24px !important;
+  }
+}
+.mat-dialog-actions{
+  margin: 10px 0px 0px;
+  button{
+    text-transform: uppercase;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+    font-size: 13px;	
+    font-weight: bold;	
+    letter-spacing: 1.08px;
+    &.cancel-btn{
+      color: rgba(117,117,117,1);
+      border-radius: 4px;	
+      background-color: #FAFAFA;	
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+    }
+    &.continue-btn{
+      background-color: var(--primary-bg);
+      color: #ffffff;
+    }
+  }
+}
+::ng-deep{
+  app-new-project-dialog{
+    .modal-title{
+      margin-top: 0px;
+    }
+    form{
+      padding: 0px 10px;
+    }
+    .mat-icon-close{
+      color      : var(--low-emphasis);
+      cursor: pointer;
+    }
+    .dialog-footer{
+      display: flex;
+      place-content: flex-end;
+      button{
+        text-transform: uppercase;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+        font-size: 13px;	
+        font-weight: bold;	
+        letter-spacing: 1.08px;
+        &.cancel-btn{
+          margin-right: 10px;
+          color: rgba(117,117,117,1);
+          border-radius: 4px;	
+          background-color: #FAFAFA;	
+          box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.2);
+        }
+        &.continue-btn{
+          background-color: var(--primary-bg);
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

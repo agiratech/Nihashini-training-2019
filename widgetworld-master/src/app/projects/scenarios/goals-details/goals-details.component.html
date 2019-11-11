@@ -1,0 +1,49 @@
+<form method="post" class="noAnimation latest-form" [formGroup]="goalsForm" novalidate autocomplete="off"
+		 (ngSubmit)='onSubmit()' >
+  <div class="goal-area" fxLayout="row wrap" fxFlex.xs="33%" fxLayoutGap="20px" fxFlex.sm="100%" fxLayoutAlign="space-between center">
+    <div>
+      <h5>Weekly TRPs</h5>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput appNumberFormatter formControlName="trp">
+        <mat-error>It should be a numeric value</mat-error>
+      </mat-form-field >
+    </div>
+    <!-- <div>
+        <h5>Reach</h5>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput appNumberFormatter formControlName="reach">
+        <mat-error>It should be a numeric value</mat-error>
+      </mat-form-field >
+    </div>
+    <div>
+        <h5>Frequency</h5>
+      <mat-form-field floatPlaceholder="always">
+        <input matInput appNumberFormatter formControlName="frequency">
+        <mat-error>It should be a numeric value</mat-error>
+      </mat-form-field >
+    </div> -->
+    <div>
+        <h5>Plan Length - <span class="week-label">Week(s)</span></h5>
+        <mat-button-toggle-group class="plan-length" value="{{defaultDuration}}" #durationGroup="matButtonToggleGroup" (click)="onChangeDuration(durationGroup)">
+          <mat-button-toggle *ngFor="let duration of weeklyDurations" value="{{duration.duration}}">{{duration.duration}}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <div>
+        <h5>Effective Reach</h5>
+        <mat-button-toggle-group  #effectiveReachGroup="matButtonToggleGroup" (click)="onChangeEffectiveReach(effectiveReachGroup)" value="{{defaultEffectiveReach}}">
+          <mat-button-toggle *ngFor="let reach of effectiveReach" value="{{reach.value}}">{{reach.label}}</mat-button-toggle>
+        </mat-button-toggle-group>
+     </div>
+    <div>
+        <h5>Allocation Method</h5>
+      <mat-form-field floatPlaceholder="always" >
+        <mat-select formControlName="allocationMethod">
+          <mat-option value="equal">Equal</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <!-- <div *ngIf="innerMediaGoalForm" fxLayout="row" fxLayoutAlign="center end" class="optional-update">
+      <button mat-raised-button class="surface subtitle-2">Update</button>
+    </div> -->
+  </div>
+</form>

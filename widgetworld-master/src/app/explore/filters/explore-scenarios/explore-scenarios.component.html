@@ -1,0 +1,31 @@
+<div class="saved-scenarios-section">
+      <mat-form-field floatLabel="never" fxFlexFill class="search-field scenario-search">
+        <input matInput [(ngModel)]="searchQuery" class="ta-search-text operator-search scenario-search-field" type="text" appSearch key="displayName" filterName="scenario" [sourceData]="scenarios" (filter)="filterScenarios($event)" [keyboardEventsManager]="keyboardEventsManager" [listItems]="listItems" #scenarioSearch placeholder="Search Saved {{this.workFlowLabels?.scenario[1]}}">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div class="radio-group-section">
+        <mat-radio-group>
+          <app-arrow-navigation *ngFor="let scenario of filteredScenarios; let i=index" [option]="scenario" [selectedOption]="selectedScenarios" (setSelectedOption)="setSelectedScenario($event)" (submit)="submit($event)" fxLayout="column">
+            <div fxLayout="row" fxFlexFill class="scenario-set cursor-link" > 
+                <div  fxLayoutAlign="space-between center"  fxFlex="100%" >
+                  <mat-radio-button  (change)="onRadioBtnChange(scenario);" [checked] = "scenario['_id'] == selectedScenario['_id']" value="{{scenario['_id']}}" disableRipple>
+                    <div class="font-normal" fxHide.xs  title="{{scenario.displayName}}" [innerHTML]="scenario.displayName | truncate:'middle':60:6 | highlight:searchQuery"></div>
+                    <div class="font-normal" fxShow.xs fxHide title="{{scenario.displayName}}" [innerHTML]="scenario.displayName | truncate:'middle':16:6 | highlight:searchQuery"></div>
+                  </mat-radio-button>
+                    <div>
+                      <mat-icon (click)="$event.stopPropagation();editScenario(scenario)" [ngClass]="{ 'module-disable':(allowInventory === 'disabled' || allowScenarios === 'disabled')}">edit</mat-icon>
+                      <mat-icon (click)="$event.stopPropagation();deleteScenario(scenario)" [ngClass]="{ 'module-disable':(allowInventory === 'disabled' || allowScenarios === 'disabled')}">delete</mat-icon>
+                    </div> 
+                </div>
+            </div>
+          </app-arrow-navigation>
+        </mat-radio-group>
+      </div>
+
+      
+      <p *ngIf="filteredScenarios.length <= 0" class="text-center">No {{this.workFlowLabels.scenario[0]}} Found</p>
+      <div class="action-container" [ngClass]="{ 'module-disable':(allowInventory === 'disabled' || allowScenarios === 'disabled')}">
+          <button mat-raised-button class="btn-clear" type="button" (click)="clearFilter()">CLEAR</button>
+          <button mat-raised-button class="btn-primary-color" type="button"  (click)= "onApply()">APPLY</button>
+      </div>
+    </div>

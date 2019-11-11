@@ -1,0 +1,144 @@
+<div fxLayout="column" fxLayoutAlign="start" class="project-view" [ngStyle]="{'height.px':contentHeight}"
+  (window:resize)="onResize()">
+  <form method="post" class="noAnimation latest-form" [formGroup]="projectViewForm" novalidate autocomplete="off"
+    (ngSubmit)='onSubmit(projectViewForm)'>
+    <div class="project-view-block outer-space-40">
+      <div class="project-inputs">
+        <div class="title" fxLayout="row" fxLayoutAlign="start center">
+          <div class="project-name-area">
+            <div fxLayout="row" fxLayoutAlign="start center">
+              <div>
+                <div mat-card-avatar class="avatar-image">{{projectTitle | slice:0:1}}</div>
+              </div>
+              <h2 *ngIf="!isEditProject" class="cursor-link h1-letterspacing" (click)="onEditProject()" #fName>
+                {{ projectTitle }}
+                <mat-icon matSuffix class="edit-icon-color hide-when-edit mat-icon-position">mode_edit</mat-icon>
+              </h2>
+              <mat-form-field class="full-width width90 name-edit-input edit-input" *ngIf="isEditProject">
+                <input matInput (keydown.enter)="$event.preventDefault()" #fName formControlName="name">
+                <mat-icon matSuffix class="icon-color hide-when-edit">mode_edit</mat-icon>
+              </mat-form-field>
+
+            </div>
+          </div>
+          <span fxFlex="1 1 auto"></span>
+          <app-plan-options [projectId]="projectId" (triggerAction)="triggerAction($event)" [currentPlan] = 'currentPlan'></app-plan-options>
+          <!-- <button type="button" mat-icon-button class="attach-file" *ngIf="attachmentAccess['status'] === 'active'" (click)="attchmentFile()"><mat-icon>attach_file</mat-icon> ATTACH FILES </button> -->
+          <button *ngIf="attachmentAccess['status'] === 'active'" mat-button [matMenuTriggerFor]="menuProject"
+            type="button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menuProject="matMenu">
+            <button mat-menu-item (click)="attchmentFile('attachFile')">
+              <mat-icon>attach_file</mat-icon>Attach Files
+            </button>
+            <button mat-menu-item (click)="attchmentFile('view')">
+              <mat-icon>attachment</mat-icon>View Attachments
+            </button>
+          </mat-menu>
+          <!-- <button type="button" mat-icon-button class="primary-bg" (click)="onOpenConfirmation()">DELETE</button></div> -->
+        </div>
+        <mat-error *ngIf="projectViewForm['controls'].name.hasError('required')">{{label['project'][0]}} Name can't
+          blank</mat-error>
+        <mat-error *ngIf="nameUniqueError">{{labels['project'][0]}} Name already exists.</mat-error>
+        <div class="description">
+          <p *ngIf="!isEditProject" class="description-margin cursor-link"
+            [ngClass]="{'placeholder':!projectDescription}" (click)="onEditProject()">
+            {{ projectDescription ? projectDescription : ''}}
+          </p>
+          <mat-form-field class="full-width input-no-padding edit-input mat-text-area" floatPlaceholder="always"
+            *ngIf="isEditProject">
+            <mat-label></mat-label>
+            <textarea matInput matTextareaAutosize class="body-1"
+              placeholder="{{ (!isSubProject ? labels['project'][0] : (subProjectLevel < 2 ? labels['subProject'][0] : labels['folder'][0])) | uppercase }} DESCRIPTION"
+              formControlName="description"></textarea>
+            <span class="placeholderDes"
+              *ngIf="!projectDescription">{{(!isSubProject ? labels['project'][0] : (subProjectLevel < 2 ? labels['subProject'][0] : labels['folder'][0])) | uppercase}}
+              DESCRIPTION</span>
+          </mat-form-field>
+        </div>
+        <div class="project-tag">
+          <app-tags-input
+            placeholder="{{ !isSubProject ? labels['project'][0] : (subProjectLevel < 2 ? labels['subProject'][0] : labels['folder'][0])}} tags. To enter multiple tags, press Enter after each tag."
+            [chips]="tags" [form]="true" [editable]="isEditProject" [keysCodes]="scenarioKeysCodes"
+            [ngClass]="{'full-width':isEditProject}" (enableEdit)="onEditProject()"></app-tags-input>
+          <p *ngIf="!isEditProject && tags.length===0" class="placeholder placeholder-link cursor-link"
+            (click)="onEditProject()"> Add Tags </p>
+          <div class="edit-action" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" *ngIf="isEditProject">
+            <button type="submit" mat-raised-button
+              class="button-primary-color btn-small font-normal capitalize edit-save-btn" (click)="onSaveProject()"
+              [disabled]="!projectViewForm.valid">save</button>
+            <button type="button" mat-icon-button class="edit-close-btn" (click)="onCancelProject()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="sub-project-list outer-space-40"
+    *ngIf="((subProjectAccess['status'] === 'active' && subProjectAccess['depth'] > subProjectLevel) && (isBrandsEnabled || subProjectLevel < 1))">
+    <h2 *ngIf="subProjectLevel < 1 && isBrandsEnabled; else showSubProject;">{{labels['subProject'][1]}}</h2>
+    <ng-template #showSubProject>
+      <h2>{{labels['folder'][1]}}</h2>
+    </ng-template>
+    <div fxLayout.xs="row wrap" class="new-sub-project-main">
+      <div *ngIf="subProjectLevel !== 1 && isBrandsEnabled" fxLayout="row wrap">
+        <mat-card class="new-sub-project-card mat-elevation-z3" fxLayout="row" fxLayoutAlign="center center"
+          (click)="onNewSubProject('direct',false, [], projectId)" fxFlex="30%">
+          <mat-icon class="font18">add</mat-icon>
+          <mat-card-title-group>
+            <mat-card-title *ngIf="subProjectLevel < 1; else showSubTitle;">New {{labels['subProject'][0]}}
+            </mat-card-title>
+          </mat-card-title-group>
+        </mat-card>
+        <ng-container *ngFor="let subProject of subProjects">
+          <div class="project-cards" fxFlex="30%" *ngIf="subProject.name !== '--noBrand--'">
+            <app-sub-project-card [subProjectLevel]="subProjectLevel" [subProject]="subProject" [projectId]="projectId"
+              (loadSubProject)='listSubProject()' (deleteSubProject)="deleteSubProject($event)"></app-sub-project-card>
+          </div>
+        </ng-container>
+      </div>
+      <div fxLayout="column" fxLayoutAlign="start stretch" *ngIf="subProjectLevel == 1 || !isBrandsEnabled">
+        <div class="add-campaign-container">
+          <div class="search search-container">
+            <mat-icon *ngIf="isSearchHide" class="search-icon position-icon" (click)="isSearchHide = !isSearchHide">
+              search
+            </mat-icon>
+            <mat-form-field *ngIf="!isSearchHide">
+              <input matInput placeholder="search" [(ngModel)]="searchQuery" [debounce]="300"
+                (onDebounce)="filterSubProject($event)">
+              <mat-icon matSuffix (click)="clearSearch()">close</mat-icon>
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-raised-button type="button" (click)="onNewSubProject('direct', true, parentProjects)" *ngIf="!isBrandsEnabled; else noBrandBtn">
+              <mat-icon>add</mat-icon>{{labels['folder'][0]}}
+            </button>
+            <ng-template #noBrandBtn>
+              <button mat-raised-button type="button" (click)="onNewSubProject('direct', true, [], projectId)">
+                <mat-icon>add</mat-icon>{{labels['folder'][0]}}
+              </button>
+            </ng-template>
+          </div>
+        </div>
+        <div fxFlex="100%" *ngIf="subProjectLevel == 1 || !isBrandsEnabled">
+          <app-campaign-tabular-view [subProjects]="subProjects" [brandName]="brandName" [labels]="labels"
+            (loadSubProject)='listSubProject()' (deleteSubProject)="deleteSubProject($event)">
+          </app-campaign-tabular-view>
+        </div>
+      </div>
+      <!-- <div  fxFlex="100%" *ngIf="subProjectLevel == 1">
+          <app-campaign-tabular-view  [subProjects]="subProjects" [brandName]="brandName"
+          [currentProject]="currentProject"
+          [labels]="labels" (loadSubProject)='listSubProject()' (deleteSubProject)="deleteSubProject($event)"></app-campaign-tabular-view>
+      </div> -->
+    </div>
+
+  </div>
+  <div class="sub-project-scenario-section outer-space-40" *ngIf="(isBrandsEnabled || (!isBrandsEnabled && subProjectLevel > 0))">
+    <app-scenario-list [subProjectLevel]="subProjectLevel" [scenarios]="scenarios" [isSubProject]="isSubProject"
+      [projectId]="projectId"></app-scenario-list>
+  </div>
+</div>

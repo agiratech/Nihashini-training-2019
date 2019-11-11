@@ -1,0 +1,96 @@
+<div>
+    <section class="header-section">
+        <app-header fxFlexFill="">
+            <div class="projected-title">
+                <mat-icon class="mobile-hide">home</mat-icon>
+                <span class="uppercase">home</span>
+            </div>
+        </app-header>
+    </section>
+    <div class="home-div">
+        <section class="content">
+            <!-- Modal -->
+            <div class="content-container" fxLayout="row" fxLayout.xs="column" fxFlexFill>
+                <div class="left-panel" fxLayout="column" fxFlex="28" fxLayoutAlign="center start" class="sec1 home-tiles"
+                     fxFlex.xs="55">
+                    <div *ngFor="let module of moduleDetails;" class="left-panel-element" fxLayout="column"
+                         fxFlex.xs="55" fxFlexFill (click)="selectPanel(module.moduleName)">
+                        <div class="left-panel-title" fxLayout="row"
+                             [ngClass]="[(module.isAudienceDisplay) ? 'title-active' : '', (module.isWorkspaceDisplay) ? 'title-active' : '', (module.isExploreDisplay) ? 'title-active' : '', (module.isPlacesDisplay) ? 'title-active' : '', (module.isReportsDisplay) ? 'title-active' : '']">
+                            <mat-icon *ngIf="module.moduleName != 'audiences'; else showSpotlight" class="module-icon">
+                                {{module.icon}}
+                            </mat-icon>
+                            <ng-template #showSpotlight>
+                                <mat-icon class="spotlight-icon"></mat-icon>
+                            </ng-template>
+                            <h5 title="{{module.name}}">{{module.name | truncate:'middle':18:6 }}</h5>
+                        </div>
+                        <div class="left-panel-desc"
+                             fxFlex.xs="55"
+                             [ngClass]="{'desc-active': module.isAudienceDisplay ||
+                                         module.isWorkspaceDisplay ||
+                                         module.isExploreDisplay ||
+                                         module.isPlacesDisplay ||
+                                         module.isReportsDisplay}"
+                             [innerHTML]="module.description | truncate:'end':144" title="{{module.description}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="right-panel" fxFlex="72">
+                    <div id="home-highlights" class="right-panel-element" fxLayout="column" fxFlexFill *ngIf="isAudienceDisplay">
+                        <div class="right-panel-title" fxLayout="row"><h2> </h2></div>
+                        <div class="right-panel-desc">
+                            <h4></h4>
+                        </div>
+                        <div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+                            <button type="button" mat-raised-button
+                                    class="home-audience button button-primary uppercase pull-right no-radius"
+                                    (click)="redirectModule('audiences')">Go to Audiences
+                            </button>
+                        </div>
+                    </div>
+                    <div id="home-workspace" class="right-panel-element" fxLayout="column" fxFlexFill *ngIf="isWorkspaceDisplay">
+                        <div class="right-panel-title" fxLayout="row"><h2>All Your Assets Together in One Place</h2></div>
+                        <div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+                            <button type="button" mat-raised-button
+                                    class="button button-primary uppercase pull-right no-radius"
+                                    (click)="redirectModule('workspace')">Go to Workspace
+                            </button>
+                        </div>
+                    </div>
+                    <div id="home-explore" class="right-panel-element" fxLayout="column" fxFlexFill *ngIf="isExploreDisplay">
+                        <div class="right-panel-title" fxLayout="row"><h2>An Audience-First Inventory Experience in a
+                            Visual Space</h2></div>
+                        <div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+                            <button type="button" mat-raised-button
+                                    class="button button-primary uppercase pull-right no-radius"
+                                    (click)="redirectModule('explore')">Go to Explore
+                            </button>
+                        </div>
+                    </div>
+                    <div id="home-places" class="right-panel-element" fxLayout="column" fxFlexFill *ngIf="isPlacesDisplay">
+                        <div class="right-panel-title" fxLayout="row"><h2>Find, Build, and Analyze Groups of Places, or Points of Interest</h2></div>
+                        <div class="button-container" fxLayout="row" fxLayoutAlign="start center">
+                            <button type="button" mat-raised-button
+                                    class="button button-primary uppercase pull-right no-radius"
+                                    (click)="redirectModule('places')">Go to Places
+                            </button>
+                        </div>
+                    </div>
+                    <div id="home-reports" class="right-panel-element" fxLayout="column" fxFlexFill *ngIf="isReportsDisplay">
+                        <div class="right-panel-title" fxLayout="row"><h2>Actionable Insights on Audience and Delivery. Customized by You.</h2></div>
+                        <div class="right-panel-desc">
+                            <h4>Coming Soon</h4>
+                        </div>
+                        <!--<div class="button-container" fxLayout="row" fxLayoutAlign="start center">-->
+                            <!--<button type="button" mat-raised-button-->
+                                    <!--class="button button-primary uppercase pull-right no-radius"-->
+                                    <!--(click)="redirectModule('reports')">Go to Reports-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

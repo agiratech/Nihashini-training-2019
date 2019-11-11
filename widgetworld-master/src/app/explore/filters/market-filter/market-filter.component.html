@@ -1,0 +1,44 @@
+<div class="markets-section" fxLayout="column">
+  <div class="search-section" fxLayout="row">
+    <div fxFlex="50">
+      <mat-form-field floatLabel="never" fxFlexFill class="search-field market-search">
+        <input type="text" [formControl]="searchCtrl" appSearch key="name" [sourceData]="markets" (filter)="filterMarkets($event)" [marketSelectionType]= "marketSelectionCtrl.value" matInput placeholder="Search Markets" [keyboardEventsManager]="keyboardEventsManager" [listItems]="listItems" filterName="market" arrowNavigation="true" [selectedOption]="selectedMarket" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutGap="10px" fxFlex="50" fxLayoutAlign="end" class="market-selection">
+      <mat-label>Type:</mat-label>
+      <mat-radio-group fxLayoutGap="20px" [formControl]="marketSelectionCtrl" class="market-type-selector">
+        <mat-radio-button name="Market" value="DMA">DMA</mat-radio-button>
+        <mat-radio-button name="Market" value="CBSA">CBSA</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="radio-group-section" [ngClass]="{'no-audience':audienceLicense['status']==='hidden'}" infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="0"
+  [infiniteScrollDisabled]="marketSelectionCtrl.value !== 'CBSA'"
+  (scrolled)="loadMore()"
+  [scrollWindow]="false">
+    <mat-radio-group fxLayout="column">
+      <app-arrow-navigation *ngFor="let market of filteredMarkets; let i=index" [option]="market" [selectedOption]="selectedMarket" (setSelectedOption)="setSelectedMarket($event)" (submit)="submitMarket($event)" fxLayout="column" [ngClass]="{'arrow-active-position':selectedMarket===market}">
+        <div class="market-options" >
+          <span class="slno" *ngIf="marketSelectionCtrl.value === 'DMA'">{{market.slno}}.</span>
+          <span class="slno" *ngIf="marketSelectionCtrl.value === 'CBSA'">{{i+1}}.</span>
+          <mat-radio-button class= "e2e-active-market-option" (click)="selectedMarket=market;" [checked] = "market['id'] == selectedMarket['id']" value="{{market['id']}}" disableRipple="true">
+          </mat-radio-button>
+          <div  fxLayoutAlign="space-between center"  fxFlex="100%">
+            <div fxHide.xs (click)="selectedMarket=market;" title="{{market.name}}" class="width100 test-market-name" [innerHTML]="market.name | truncate:'middle':50 | highlight : searchCtrl.value" [ngClass]="{'e2e-active-market-option':market['id'] == selectedMarket['id']}"></div>
+            <div fxShow.xs fxHide (click)="selectedMarket=market;" title="{{market.name}}" class="width100 test-market-name" [innerHTML]="market.name | truncate:'middle':25 | highlight : searchCtrl.value"></div>
+          </div>
+        </div>
+
+      </app-arrow-navigation>
+    </mat-radio-group>
+    <p *ngIf="filteredMarkets.length <= 0" class="text-center" class="e2e-no-market-found">No Market Found</p>
+  </div>
+  <div class="action-container" [ngClass]="{ 'module-disable':allowInventory === 'disabled'}">
+    <button mat-raised-button class="btn-clear" type="button" (click)="clearFilter()">CLEAR</button>
+    <button mat-raised-button class="btn-primary-color e2e-apply-market-btn" type="button"  (click)= "submitMarket()">APPLY</button>
+  </div>
+</div>

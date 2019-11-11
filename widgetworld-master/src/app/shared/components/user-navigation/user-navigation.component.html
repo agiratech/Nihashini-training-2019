@@ -1,0 +1,63 @@
+<div  [matMenuTriggerFor]="menu" #usernav="matMenuTrigger"  >
+  <a fxLayout="row" fxHide.xs class="user-nav mobile-hide">
+    <span fxLayoutAlign="start">{{ userData.name ? 'Welcome back, ' + userData.name : userData.email}}</span>
+     <div *ngIf="isGpLoginRequired">
+      <mat-icon class="checkIcon" *ngIf="userData.gpLoginStatus; else warningBlock">check_circle</mat-icon>
+      <ng-template #warningBlock>
+        <mat-icon class="warning">warning</mat-icon>
+      </ng-template>
+    </div>
+    <mat-icon class="expand" fxLayoutAlign="end" >{{usernav.menuOpen ?'expand_less':'expand_more'}}</mat-icon>
+  </a>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="after" class="user-navigation-sub-menu">
+  <div class="logged" *ngIf="isGpLoginRequired">
+    <mat-icon class="gpstatus" [ngClass]="userData.gpLoginStatus ? 'checkIcon' : 'warningIcon'">{{userData.gpLoginStatus ? 'check_circle' : 'warning'}}</mat-icon>
+    <span href="javascript:void(0)" class="laggedUser">
+      <div *ngIf="userData.gpLoginStatus; else statusFail" class="statusLogin">You are logged in and authenticated.</div>
+      <ng-template #statusFail>
+        <p class="statusLogin">You are logged in but not authenticated. <br>Click <span (click)="onLogout()" class="hereText">here</span> to solve this issue.</p></ng-template>
+    </span>
+  </div>  
+  <a href="javascript:void(0)" mat-menu-item *ngIf="themeSettings && !themeSettings.publicSite" authenticate module="profile"
+    >User Profile</a>
+    <a href="javascript:void(0)" mat-menu-item *ngIf="themeSettings && !themeSettings.publicSite" authenticate module="settings">Settings</a>
+    <a href="javascript:void(0)" mat-menu-item (click)="onLogout()">Log Out</a>
+</mat-menu>
+<div class="mobile-menu">
+    <div [ngClass]="(this.router.url === '/projects') || (this.router.url === '/reports') ? 'show-settings-only' : ''" class="mobile-menu-item settings"  [matMenuTriggerFor]="menu" #mobilesettings="matMenuTrigger" >
+      <i class="material-icons" [ngClass]="{'active': mobilesettings.menuOpen }" >
+      settings
+      </i>
+    </div>
+    <div *ngIf="((this.router.url != '/projects') && (this.router.url != '/reports') && (allowInventory == 'active' || allowInventory == 'disabled'))" class="menu-item-divider"></div>
+    <div *ngIf="((this.router.url != '/projects') && (this.router.url != '/reports') && (allowInventory == 'active' || allowInventory == 'disabled'))" class="mobile-menu-item filters" (click)="openFilterSiderbar()"> 
+      <i class="material-icons" >filter_list</i>
+    </div>
+
+</div>
+
+<!-- <div class="pull-right" id="component-container">
+    <div class="user-navigation">
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav user-navigation-menu">
+          <li class="dropdown user user-menu">
+            <div class="mobile-menu">
+                <div [ngClass]="(this.router.url === '/projects') || (this.router.url === '/reports') ? 'show-settings-only' : ''" class="mobile-menu-item settings"  [matMenuTriggerFor]="menu" #mobilesettings="matMenuTrigger" >
+                <i class="material-icons" [ngClass]="{'active': mobilesettings.menuOpen }" >
+                settings
+                </i>
+              </div>
+                <div *ngIf="((this.router.url != '/projects') && (this.router.url != '/reports') && (allowInventory == 'active' || allowInventory == 'disabled'))" class="menu-item-divider"></div>
+              <div *ngIf="((this.router.url != '/projects') && (this.router.url != '/reports') && (allowInventory == 'active' || allowInventory == 'disabled'))" class="mobile-menu-item filters" (click)="openFilterSiderbar()"> 
+                <i class="material-icons" >
+                filter_list
+                </i>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->

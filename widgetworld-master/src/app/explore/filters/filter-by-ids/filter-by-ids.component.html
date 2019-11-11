@@ -1,0 +1,42 @@
+<mat-accordion [displayMode]="'flat'" class="specific-units-section">
+  <div fxLayout="row" fxLayoutGap="50px">
+    <div class="id-container">
+      <mat-panel-title>
+        Geopath Spot ID<span *ngIf="appliedFilters['selected'] === 'geoPanelId';" [matBadge]="appliedFilters['data'].length" matBadgeOverlap="false"></span>
+      </mat-panel-title>
+      <div>
+        <app-tags-input placeholder="PASTE OR TYPE IDS HERE" [chips]="geoPanelIds"
+        [invalidChips]="invalidGeoPanelIds"
+        [removedInvalidChipsStatus]="removedInvalidChipsStatus"
+        [exploreFilters]="true"
+        [type]="'geoPanelId'"
+        (clearUnitIds) = "clearUnitIds($event)"
+        ></app-tags-input>
+      </div>
+    </div>
+    <div class="id-container">
+      <mat-panel-title>
+        Operator Spot ID<span *ngIf="appliedFilters['selected'] === 'plantUnitId'" [matBadge]="appliedFilters['data'].length" matBadgeOverlap="false"></span>
+      </mat-panel-title>
+      <div>
+        <app-tags-input placeholder="PASTE OR TYPE IDS HERE" [chips]="plantUnitIds"
+        [invalidChips]="invalidPlantUnitIds"
+        [removedInvalidChipsStatus]="removedInvalidChipsStatus"
+         [exploreFilters]="true"
+         [type]="'plantUnitId'"
+         (clearUnitIds) = "clearUnitIds($event)"
+         ></app-tags-input>
+      </div>
+    </div>
+</div>
+
+<div *ngIf="allEnteredIds">
+  <app-tags-input-ids-table [allEnteredIds]="allEnteredIds"
+                            (valueChange)="removedIdsStatus($event)">Loading...</app-tags-input-ids-table>
+</div>
+
+<div class="action-container" [ngClass]="{ 'module-disable':allowInventory === 'disabled'}">
+  <button mat-raised-button class="btn-clear" type="button" (click)="clearAllFilter();">CLEAR</button>
+  <button mat-raised-button class="btn-primary-color" type="button" (click)="onApply()">APPLY</button>
+</div>
+</mat-accordion>

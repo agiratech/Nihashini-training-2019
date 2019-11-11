@@ -1,0 +1,18 @@
+    <div mat-dialog-content class="duplicate-scenario-container save-workspace-dialog">
+      <div class="modal-dialog save-workspace-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h5 class="modal-title login-title">Enter a Name for Your New {{this.labels['scenario'][0]}}</h5>
+            <mat-form-field class="full-width width90" floatPlaceholder="always">
+              <input matInput [(ngModel)]="scenarioName"  autocomplete="off" placeholder="{{this.labels['scenario'][0]}} Name">
+            </mat-form-field>
+            <mat-error *ngIf="isScenarioNameError">{{errorMessage}}</mat-error>
+          </div>
+          <div class="modal-footer">
+            <button type="button" mat-raised-button class="button button-primary uppercase pull-right no-radius" (click)="scenarioSubmit()">Create {{this.labels['scenario'][0]}}</button>
+            <button mat-button type="button" class="button pull-right popup-left-btn button-primary-link no-radius" (click)="onCancelDuplicateScenario()" data-toggle="modal" data-target="#duplicate-scenario" #close_reset>CANCEL</button>  
+          </div>
+        </div>
+      </div>
+    </div>
+    

@@ -1,0 +1,115 @@
+<div fxFlexFill class="mat-table-responsive" infiniteScroll [infiniteScrollDistance]="1"
+[infiniteScrollThrottle]="0" (scrolled)="loadMore()" [scrollWindow]="false"> 
+<!--   (scroll)="onTableScroll($event)" -->
+  <mat-table matSort [dataSource]="dataSource"  matSortStart="desc"(matSortChange)= "sortColumn($event)" [ngStyle]="{'width.px':displayedColumns.length*130}">
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.value"  [sticky]="column.value == 'checked'">
+      <mat-header-cell *matHeaderCellDef mat-sort-header [disabled]="column.value | disableSort" [ngClass]="{'sort-enable':!(column.value | disableSort)}">
+        <ng-template [ngIf]="column['name'] == 'CHECKBOX' && (features && features.length > 0)">
+          <mat-checkbox [(ngModel)]="selectAllCheckbox" (click)="onSelectDeselectAll()" [indeterminate]="!selectAllCheckbox && selectedCount != 0" disableRipple></mat-checkbox>
+        </ng-template>
+        <ng-template [ngIf]="column['name'] != 'CHECKBOX'">
+          {{ column.displayname }}
+        </ng-template>        
+      </mat-header-cell>
+
+      <mat-cell *matCellDef="let element">
+        <ng-template [ngIf]="column['name'] == 'CHECKBOX' && element['status'] != 'disabled'">
+          <mat-checkbox [(ngModel)]="element.checked" (click)="onSelectDeselect(element)" ></mat-checkbox>
+        </ng-template>
+        <ng-template [ngIf]="column['name'] == 'CHECKBOX' && element['status'] == 'disabled'">
+          <mat-checkbox  [(ngModel)]="element.checked"  disabled ></mat-checkbox>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'opp'" >
+          <span title="{{element[column['value']]}}">{{ (element[column['value']] | uppercase) | truncate: 'middle':16 }}</span>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'fid' || column['value'] == 'pid' || column['value'] == 'sid'">
+          {{ element[column['value']]}}
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'mt' || column['value'] == 'media_name'" >
+          <span title="{{element[column['value']]}}">{{ element[column['value']] | truncate: 'middle':16}}</span>
+        </ng-template>
+        <ng-template [ngIf]="((column['value'] == 'totwi' || column['value'] == 'tgtwi' || column['value'] == 'tgtinmi' || column['value'] == 'totinmi') && (element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] > 0))">
+          {{ element[column['value']] | convert:'ABBREVIATE':0 }}
+        </ng-template>
+        <ng-template [ngIf]="((column['value'] == 'totwi' || column['value'] == 'tgtwi' || column['value'] == 'tgtinmi' || column['value'] == 'totinmi') && !(element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] > 0))">
+          {{ 'N/A' }}
+        </ng-template>
+
+        <ng-template [ngIf]="((column['value'] == 'compi') && (element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] > 0))">
+          {{ element[column['value']] | convert:'THOUSAND' }}
+        </ng-template>
+        <ng-template [ngIf]="((column['value'] == 'compi') && !(element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] > 0))">
+          {{ 'N/A' }}
+        </ng-template>
+
+        <ng-template [ngIf]="(column['value'] == 'trp')" >
+          {{(element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] >= 0 ? (formatService.convertToDecimalFormat(element[column['value']], 2)) : 'n/a')}}
+      </ng-template>
+        <ng-template [ngIf]="column['value'] == 'reach' || column['value'] == 'cwi'  || column['value'] == 'tgtinmp' || column['value'] == 'compinmi' || column['value'] == 'totinmp' ">
+          {{(element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] >= 0 ? (formatService.convertToDecimalFormat(element[column['value']], 2)) + '%' : 'n/a')}}
+        </ng-template>
+
+        <ng-template [ngIf]="column['value'] == 'freq'">
+          {{(element[column['value']] !== 'undefined' && element[column['value']] != null  && element[column['value']] >= 0 ? (formatService.convertToDecimalFormat(element[column['value']], 1)) : 'n/a')}}
+        </ng-template>
+
+        <ng-template [ngIf]="column['value'] == 'classification_type' || column['value'] == 'construction_type' || column['value'] == 'illumination_type' || column['value'] == 'primary_artery' || column['value'] == 'zip_code' || column['value'] == 'longitude' || column['value'] == 'latitude' || column['value'] == 'orientation'">
+            {{(element[column['value']] && element[column['value']] || '')}}
+        </ng-template>
+
+        <ng-template [ngIf]="column['value'] == 'digital'">
+            
+        </ng-template>
+
+        <ng-template [ngIf]="column['value'] == 'max_height' || column['value'] == 'max_width'">
+            {{(element[column['value']] && element[column['value']] || '')}}
+        </ng-template>
+
+
+        <ng-template [ngIf]="column['value'] == 'tgt_aud_impr'">
+            {{(element[column['value']] > 0 ? element[column['value']]:0) | convert:'THOUSAND' }}
+        </ng-template>
+
+      </mat-cell>
+      <mat-footer-cell *matFooterCellDef [ngClass]="{'hide':(units.length <= 0)}"> 
+        <ng-template [ngIf]="column['value'] == 'tgtwi' || column['value'] == 'totwi' || column['value'] == 'totinmi' || column['value'] == 'tgtinmi' ">
+          <div>TOTAL<span class="value">{{inventoryTotalSummary[column['value']] && (inventoryTotalSummary[column['value']] | convert:'ABBREVIATE':0) || '-' }}</span></div>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'compinmi' || column['value'] == 'cwi' || column['value'] == 'tgtinmp' || column['value'] == 'totinmp'">
+          <div>AVERAGE<span class="value">{{inventoryTotalSummary[column['value']] && (inventoryTotalSummary[column['value']] | convert:'PERCENT') + '%' || '-' }}</span></div>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'trp'">
+          <div>TRP<span class="value">{{inventoryTotalSummary['trp'] ? inventoryTotalSummary['trp'].toFixed(3) : '-'}}</span></div>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'compi'">
+          <div>INDEX<span class="value">{{inventoryTotalSummary['compi'] && (inventoryTotalSummary['compi'] | convert: 'PERCENT') || '-'}}</span></div>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'freq'">
+          <div>FREQUENCY<span class="value">
+<!-- 
+            {{summary['package'] && scenarioId && summary['package']['freq'] && (summary['package']['freq'] | convert:'DECIMAL':1) || '-' }} -->
+            <span *ngIf="!isInventoryChangeState">
+                {{ scenarioId && calReachFrq['freq_avg'] && (calReachFrq['freq_avg'] | convert:'DECIMAL':1) || 'N/A' }}
+            </span>
+            <a (click)="!isCalculating && onCalculate()" *ngIf="isInventoryChangeState"> <img src="../../../../assets/images/loader-small.svg" *ngIf="isCalculating"> <span [ngClass]="{'calculating':isCalculating}">{{isCalculating && 'Calculating' || 'Calculate'}}</span></a>
+
+          </span></div>
+        </ng-template>
+        <ng-template [ngIf]="column['value'] == 'reach'">
+          <div>REACH<span class="value">
+            <span *ngIf="!isInventoryChangeState">
+                {{ scenarioId && calReachFrq['reach_pct'] && (calReachFrq['reach_pct'] | convert:'DECIMAL') + '%' || 'N/A' }}
+            </span>
+            <a (click)="!isCalculating && onCalculate()" *ngIf="isInventoryChangeState"> <img src="../../../../assets/images/loader-small.svg" *ngIf="isCalculating"> <span [ngClass]="{'calculating':isCalculating}">{{isCalculating && 'Calculating' || 'Calculate'}}</span></a>
+          </span></div>
+        </ng-template>
+      </mat-footer-cell>
+
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'clsDisabled':(row['status'] == 'disabled')}" title="{{(row['status'] == 'disabled')?'Unit cannot be included in calculations because it is under review.': null}}"></mat-row>
+    <mat-footer-row [ngClass]="{'hide':(units.length <= 0)}"  *matFooterRowDef="displayedColumns;sticky: true"></mat-footer-row>
+  </mat-table>
+  <div class="noDataFound" *ngIf="(!features || features.length <= 0) && !loadingInventories">No Inventories to display.</div>
+  <div class="noDataFound" *ngIf="loadingInventories">Loading...</div>
+</div>

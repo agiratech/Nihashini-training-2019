@@ -1,0 +1,62 @@
+<div class="project-list-div" [ngStyle]="{'height.px':contentHeight}" (window:resize)="onResize()">
+    <div>
+      <!-- <div class="small-heading uppercase"> Workspace </div> -->
+      <div class="title project-list-block" fxLayout="row" fxLayoutAlign="start">
+        <div fxFlex="74%">
+            <h1 class="heading-text"> My {{labels['project'][1]}} </h1>
+        </div>
+    
+      <!--  Not need for this release -->
+      <!-- <div class="project-list-search">
+          <a *ngIf="!showSearchField" id="searchFieldToggle" class="parent-search-icon" (click)="showSearch()"><i class="material-icons">search</i></a>
+             <mat-form-field id="searchFieldContainer" *ngIf="showSearchField" floatLabel="always" class="mat-filter-input search-place">
+              <i class="material-icons search-icon" matSuffix>search</i>
+              <mat-label></mat-label>
+              <input matInput [(ngModel)]="searchQuery" placeholder="Search {{labels['project'][0}}" >
+            </mat-form-field>
+            <a *ngIf="showSearchField" (click)="showSearch()"><i class="material-icons close-project-field">highlight_off</i></a>
+      </div> -->
+      </div>
+      <div class="content-container" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="20px">
+        <div market class="left-panel" fxLayout="column" class="action-tiles" fxFlex="30%"
+            fxFlex.xs="55" fxFlexAlign="center" *ngIf="projectPermission['scenarios'] && projectPermission['scenarios']['marketPlans'] && projectPermission['scenarios']['marketPlans']['status'] !== 'hidden'"> 
+            
+          <mat-card class="market-card" fxLayout="row" fxLayoutAlign="center center">
+            <mat-card-title-group (click)="createScenario('market')">
+                <mat-card-title>Create New Market Plan</mat-card-title>
+                <mat-card-subtitle>{{ 'Start your Scenario with the Market Planning Tool. Enter goals and
+                  see estimated quantities needed to achieve.' }}</mat-card-subtitle>
+            </mat-card-title-group>
+          </mat-card>
+        </div>
+        <div inventory class="right-panel action-tiles" fxLayout="column"
+              fxFlex.xs="55" fxFlexAlign="center" fxFlex="30%" *ngIf="projectPermission['scenarios'] && projectPermission['scenarios']['package'] && projectPermission['scenarios']['package']['status'] !== 'hidden'">
+          <mat-card class="inventory-card" (click)="createScenario()" fxLayout="row" fxLayoutAlign="center center">
+            <mat-card-title-group>
+                <mat-card-title>Create New Inventory Plan</mat-card-title>
+                <mat-card-subtitle>{{ 'Start your ' + labels['scenario'][0] + ' with Selected Inventory Tool. Load the specific inventory set you have and see package reach and frequency.' }}</mat-card-subtitle>
+            </mat-card-title-group>
+  
+          </mat-card> 
+        </div>
+      </div>
+        <!-- </div> -->
+      <div *ngIf="dataLoading">
+        <div class='loader'></div>
+      </div>
+      <div class="projects-content outer-space-40" fxLayout.xs="row" *ngIf="!dataLoading"> 
+        <mat-card class="new-project-card mat-elevation-z3" fxFlex="30%" fxLayout="row" fxLayoutAlign="center center" (click)="createProject()">
+            <mat-icon>add</mat-icon>
+            <mat-card-title-group>
+              <mat-card-title>New {{labels['project'][0]}}</mat-card-title>
+          </mat-card-title-group>
+        </mat-card>
+      <div class="project-cards" fxFlex="30%" *ngFor="let project of projects | async">
+        <app-project-card [project]="project" (loadProject)='listProject()' (deleteProject)='deleteProject($event)'></app-project-card>
+      </div>
+      <div *ngFor="let ghosts of ghost">
+        <app-projects-ghost [ghost]="ghost"></app-projects-ghost>
+       </div>
+     </div>
+  </div>
+</div>

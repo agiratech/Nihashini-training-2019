@@ -1,0 +1,10 @@
+<div class="upload-list">
+  <div *ngFor='let ghosts of ghost' class='ghost_item'>
+    <div class="icon">
+    </div>
+    <div class="lines">
+      <p></p>
+    </div>
+  </div>
+  <div class="notify-message" *ngIf="attachments.length === 0">No attachments found</div>
+</div>

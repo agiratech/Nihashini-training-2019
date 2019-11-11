@@ -1,0 +1,83 @@
+<div fxFlexFill class="inventory-summary-card" fxLayout="column" *ngIf="measuresLicense === 'active'">
+  <div class="card-heading" fxLayout="row" fxLayoutAlign="space-between center">
+      <h6>SPOT SUMMARY LIST</h6>
+      <a *ngIf="!mobileView && !isSmallScreen && allowInventory !== 'hidden' && allowInventory !== 'disabled'" (click)="expandTable();" >View as Table</a>
+  </div>
+  <div class="card-content">
+    <p class="subtitle-1 margin-bottom-10 margin-bottom-5"  *ngIf="measuresLicense === 'active' && !isSmallScreen">Weekly Metrics:</p>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" *ngIf="measuresLicense === 'active' && !isSmallScreen">
+        <div fxLayout="column">
+          <span class="metric-item-value" title="{{ (inventorySummary.trp >= 0) ?inventorySummary.trp : '-'}}">{{(inventorySummary.trp >= 0) ?(inventorySummary.trp | convert:'ABBREVIATE':0) :'-'}}</span>
+            <span class="overline" title="Target Rating Points">TRP</span>
+        </div>
+        <div fxLayout="column"  >
+            <span class="metric-item-value" title="{{getTargetComposition()}}">{{getTargetComposition()}}</span>
+            <span class="overline" title="Target Composition">TARGET Comp.</span>
+        </div>
+        <div fxLayout="column"  >
+            <span class="metric-item-value" title="{{(inventorySummary.index_comp_target >= 0) ? ((inventorySummary.index_comp_target !== null)? (inventorySummary.index_comp_target) : '0') : '-'}}">{{(inventorySummary.index_comp_target >= 0) ? ((inventorySummary.index_comp_target !== null)? (inventorySummary.index_comp_target | number:'1.0-0') : '0')  : '-'}}</span>
+            <span class="overline" title="Composition Index">COMP.INDEX</span>
+        </div>
+        <div fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="30px" class="m-t-10">
+            <div fxLayout="column">
+                <span class="metric-item-value" title="{{(inventorySummary.imp  >= 0) ?inventorySummary.imp: '-'}}">{{inventorySummary.imp >= 0 ? (inventorySummary.imp | convert:'ABBREVIATE':0) :'-'}}</span>
+                <span class="overline" title="Total Impressions">TOTAL IMP.</span>
+            </div>
+            <div fxLayout="column" >
+                <span class="metric-item-value" title="{{inventorySummary.imp_target >= 0 ? (inventorySummary.imp_target) : '-'}}">{{inventorySummary.imp_target >= 0 ?(inventorySummary.imp_target | convert:'ABBREVIATE':0) : '-'}}</span>
+                <span class="overline" title="Target Impressions">TARGET IMP.</span>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile view Design-->
+    <div *ngIf="isSmallScreen" fxLayout="column" class="mobile-left-padding">
+        <div fxFlexFill>
+          <span class="overline" >TARGET RATING POINTS : <span class="metric-item-value" title="{{(inventorySummary.trp >= 0) ? inventorySummary.trp : '-' }}">{{ (inventorySummary.trp >= 0) ? (inventorySummary.trp | convert:'ABBREVIATE':0) : '-'}}</span> </span>
+        </div>
+        <div fxFlexFill>         
+          <span class="overline">TARGET COMPOSITION:  <span class="metric-item-value" title="{{getTargetComposition()}}">{{getTargetComposition()}}</span></span>
+        </div>
+        <div fxFlexFill>          
+          <span class="overline">COMPOSITION INDEX: <span class="metric-item-value" title="{{(inventorySummary.comp_index >= 0) ? inventorySummary.comp_index : '-'}}">{{ (inventorySummary.comp_index >= 0) ? (inventorySummary.comp_index | convert: 'PERCENT') : '-'}}</span></span>
+        </div>
+        <div fxFlexFill>          
+            <span class="overline">TOTAL IMPRESSIONS : <span class="metric-item-value" title="{{inventorySummary.total_impressions >= 0 ? (inventorySummary.total_impressions) : '-'}}">{{inventorySummary.total_impressions >= 0 ? (inventorySummary.total_impressions | convert:'ABBREVIATE':0) : '-'}}</span></span>
+        </div>
+        <div fxFlexFill>          
+          <span class="overline">TARGET IMPRESSIONS : <span class="metric-item-value" title="{{inventorySummary.target_impressions >= 0 ? (inventorySummary.target_impressions) :'-'}}">{{inventorySummary.target_impressions >= 0 ? (inventorySummary.target_impressions | convert:'ABBREVIATE':0) : '-'}}</span></span>
+        </div>
+    </div>
+
+
+  </div>
+  <div class="card-footer">
+      <div *ngIf="audienceLicense['status'] === 'active'" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+        <div title="{{marketName}}" *ngIf="marketName != ''" fxLayoutAlign="space-between center">
+          <mat-icon>my_location</mat-icon><span class="e2e-applyed-market-name">{{marketName | truncate: 'middle' : 8}}</span>
+        </div>
+        <div title="{{targetName}}" fxLayoutAlign="space-between center">
+          <mat-icon>group_add</mat-icon>
+          <span class="e2e-applyed-audience-name">{{targetName | truncate: 'middle' : 8}}</span>
+        </div>
+      </div>
+  </div>
+</div>
+<mat-divider *ngIf="!isSmallScreen && measuresLicense === 'active'"></mat-divider>
+<div fxLayout="column" fxLayoutAlign="start" class="subtitle-1 inventory-list-count" *ngIf="!isSmallScreen && !filterApiCallLoaded">
+  <div *ngIf="selectedFidsArray.length < 0" class="e2e-inventory-count">
+      Discovering Spots...
+  </div>
+  <div *ngIf="measuresLicense !== 'active'" class="measure-table">
+    <h6>SPOT LIST</h6>
+    <span fxFlex="1 1 auto"></span>
+    <a (click)="expandTable();" class="button-primary-link">View as Table</a>
+  </div>
+  <div fxLayout="row">
+    <div *ngIf="selectedFidsArray.length <= 50000" class="e2e-inventory-count">
+        {{selectedCount | convert:'THOUSAND' }} {{' selected of '}}{{selectedFidsArray.length | convert:'THOUSAND'}}{{' Spots in filter'}}
+    </div>
+    <div *ngIf="selectedFidsArray.length  > 50000" class="e2e-inventory-count">
+        {{inventorySummary['spots'] | convert:'THOUSAND' }}{{' Spots in filter'}}
+    </div>
+  </div>
+</div>

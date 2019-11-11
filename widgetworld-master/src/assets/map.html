@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Create and style clusters</title>
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      .mapboxgl-ctrl-compass {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiaW50ZXJteCIsImEiOiJjamQ5aXFhN201enljMnduMm9nMGZyNWh1In0.Y8GfajEUaD4dGZYornmJBA";
+      var map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/intermx/cjd6t1epr350e2sp8h6tf5ij2",
+        center: [-98.5, 39.8], // starting position
+        zoom: 3 // starting zoom
+      });
+
+      // disable map rotation using right click + drag
+      map.dragRotate.disable();
+      map.touchZoomRotate.disableRotation();
+
+      // Add zoom and rotation controls to the map...  use css to remove compass .mapboxgl-ctrl-compass {display: none !important;}
+      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      map.on("zoom", function() {
+        console.log("zoom", map.getZoom());
+      });
+      map.on("load", function() {
+        map.addSource("allPanels", {
+          type: "vector",
+          url: "mapbox://intermx.0ohv4s00"
+        });
+        map.addLayer({
+          id: "frameCluster0",
+          type: "circle",
+          source: {
+            type: "vector",
+            url: "mapbox://intermx.745i04kk"
+          },
+          "source-layer": "GPAPI2380_gp_spots_view_KmFrames",
+          minzoom: 0,
+          maxzoom: 5,
+          paint: {
+            "circle-opacity": 0.6,
+            "circle-color": "#008D97",
+            "circle-radius": 1
+          }
+        });
+        map.addLayer({
+          id: "frameCluster5",
+          type: "circle",
+          source: { type: "vector", url: "mapbox://intermx.4y4yv3dy" },
+          "source-layer": "GPAPI2380_gp_spots_view_3mFrames",
+          minzoom: 5,
+          maxzoom: 7,
+          paint: {
+            "circle-opacity": 0.6,
+            "circle-color": "#008D97",
+            "circle-radius": { base: 1, stops: [[5, 1], [7, 3]] }
+          }
+        });
+        map.addLayer({
+          id: "color_frames_panel",
+          type: "circle",
+          source: "allPanels",
+          "source-layer": "GPAPI2380_gp_spots_view_allFrames",
+          minzoom: 7,
+          maxzoom: 11,
+          paint: {
+            "circle-opacity": 0.8,
+            "circle-radius": 3,
+            "circle-color": [
+              "match",
+              ["get", "mtid"],
+              ["21", "20"],
+              "#FF5A14",
+              ["30", "40", "31", "41"],
+              "#FFCD00",
+              ["51", "50"],
+              "#98D037",
+              ["10", "11"],
+              "#AE57FF",
+              ["999", "990"],
+              "#1C8DD3",
+              "#AE57FF"
+            ]
+          }
+        });
+        map.addLayer({
+          id: "grayed_frames_panel",
+          type: "circle",
+          source: "allPanels",
+          "source-layer": "GPAPI2380_gp_spots_view_allFrames",
+          minzoom: 7,
+          layer: {
+            visibility: "visible"
+          },
+          paint: {
+            "circle-opacity": 0.2,
+            "circle-radius": {
+              base: 3,
+              stops: [[9, 3], [11, 4]]
+            },
+            "circle-color": "#878787"
+          }
+        });
+
+        map.addLayer({
+          id: "frames_panel",
+          type: "symbol",
+          source: "allPanels",
+          "source-layer": "GPAPI2380_gp_spots_view_allFrames",
+          minzoom: 10.5,
+          layout: {
+            "text-line-height": 1,
+            "text-padding": 0,
+            "text-anchor": "bottom",
+            "text-allow-overlap": true,
+            "text-field": [
+              "match",
+              ["get", "mtid"],
+              ["999"],
+              "c",
+              ["10"],
+              "a",
+              ["51"],
+              "g",
+              ["30", "40"],
+              "e",
+              ["21"],
+              "e",
+              ["990"],
+              "d",
+              ["11"],
+              "b",
+              ["50"],
+              "h",
+              ["31", "41"],
+              "f",
+              ["20"],
+              "f",
+              "g"
+            ],
+            "text-offset": [0, 0.7],
+            "text-optional": true,
+            "text-font": ["imx-map-font-31 map-font-31"],
+            "text-size": 17,
+            "text-rotation-alignment": "map",
+            "text-rotate": ["get", "o"]
+          },
+          paint: {
+            "text-translate-anchor": "viewport",
+            "text-color": [
+              "match",
+              ["get", "mtid"],
+              ["999"],
+              "#1C8DD3",
+              ["10"],
+              "#AE57FF",
+              ["51"],
+              "#98D037",
+              ["30", "40"],
+              "#FFCD00",
+              ["21"],
+              "#FF5A14",
+              ["990"],
+              "#1C8DD3",
+              ["11"],
+              "#AE57FF",
+              ["50"],
+              "#98D037",
+              ["31", "41"],
+              "#FFCD00",
+              ["20"],
+              "#FF5A14",
+              "#98D037"
+            ]
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

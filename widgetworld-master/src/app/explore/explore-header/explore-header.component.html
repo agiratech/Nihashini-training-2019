@@ -1,0 +1,16 @@
+<app-header fxFlexFill>
+  <div class="projected-title">
+    <mat-icon class="mobile-hide">explore</mat-icon>
+    <span class="uppercase">Explore</span>
+  </div>
+  <div class="explore-header content-breadcrumb navbar-default projected-secondary"  *ngIf="!mobileView && (allowInventory == 'active' || allowInventory == 'disabled')">
+  	<div fxLayout="row" fxLayoutAlign="start stretch">
+      <div (mouseenter)="mouseHover($event)" (mouseleave)="mouseLeave($event)" fxLayout="row">
+          <div *ngIf="marketLicense.status === 'active' || audienceLicense.status === 'active'" class="explore-filter-btn" [ngClass]="{'active':currentTab == 'target'}" fxLayoutAlign="center center" (click)="openFilterSiderbar('target')" id="define-target">DEFINE TARGET</div>
+          <div class="explore-filter-btn test-filter-inventory" [ngClass]="{'active':currentTab == 'inventory'}" fxLayoutAlign="center center" (click)="openFilterSiderbar('inventory')" (mouseenter)="mouseHover($event)" >FILTER INVENTORY <span *ngIf="inventoryApplyCount>0">({{ inventoryApplyCount }})</span></div>
+          <div class="explore-filter-btn display-layer" [ngClass]="{'active':currentTab == 'layer'}" fxLayoutAlign="center center" (click)="openFilterSiderbar('layer')" >LAYERS & DISPLAY OPTIONS</div>
+          <div class="explore-filter-btn actions-hd-tab test-action-menu" [ngClass]="{'active':currentTab == 'actions'}" fxLayoutAlign="center center" (click)="openFilterSiderbar('actions')" >ACTIONS</div>
+      </div>
+  	</div>
+  </div>
+</app-header>

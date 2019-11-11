@@ -1,0 +1,834 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.all-caps {
+  text-transform: uppercase !important;
+}
+
+.loading {
+  position: fixed;
+  z-index: 1200;
+  /* height: 2em; */
+  /* width: 20em; */
+  overflow: visible;
+  margin: auto;
+  top: 40%;
+  left: 50%;
+  /* bottom: 0; */
+  /* right: 0; */
+  text-align: center;
+}
+
+/* Transparent Overlay */
+
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.msgBox {
+  position: relative;
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.spinner {
+  margin: auto;
+  width: 70px;
+  height: 70px;
+}
+
+.loader2-overlay {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  z-index: 1200;
+}
+
+#loader2 {
+  position: fixed;
+  z-index: 1201;
+  /* height: 2em; */
+  /* width: 20em; */
+  overflow: visible;
+  margin: auto;
+  top: 40%;
+  left: 50%;
+  /* bottom: 0; */
+  /* right: 0; */
+  border: 10px solid transparent;
+  border-radius: 70%;
+  border-top: 10px solid #212121;
+  border-right: 10px solid #212121;
+  border-left: 10px solid #212121;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.download_us_pdf #loader,.mobile_loader #loader,.list-item-location #loader, #popup-impressions #loader,#inventoryDetailedOverview #loader,.place-suggestion-autocomplete #loader, #popup-see-more #loader, .suggestion-autocomplete #singleUnitLoader {
+  position: initial;
+  z-index: 1201;
+  overflow: visible;
+  margin-left: -20px !important;
+  margin-top: 2px !important;
+  border: 5px solid transparent;
+  border-radius: 60%;
+  border-top: 5px solid #878787;
+  border-right: 5px solid #878787;
+  border-left: 5px solid #878787;
+  width: 22px;
+  height: 22px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+#inventoryDetailedOverview #loader{
+  margin-left: 90px !important;
+  margin-top: 20px !important;
+}
+.mobile-map-popup .download_us_pdf #loader,.mobile_loader #loader,.list-item-location #loader,.place-suggestion-autocomplete #loader, .suggestion-autocomplete #singleUnitLoader {
+  width: 34px !important;
+  height: 34px !important;
+}
+.mobile_loader #loader, .list-item-location #loader, .suggestion-autocomplete #singleUnitLoader{
+  left: 55%;
+  position: relative;
+  transform: translate(-50%, -50%);
+}
+.list-item-location #loader,.place-suggestion-autocomplete #loader{
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+#popup-impressions #loader{
+  left: 25%;
+  top: -10px;
+  width: 30px !important;
+  height: 30px !important;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  margin: 0 !important;
+
+}
+#popup-see-more #loader{
+  left: 50%;
+  width: 30px !important;
+  height: 30px !important;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  margin: 0 !important;
+
+}
+#mobile-popup-impressions #loader {
+  position: absolute;
+  top: 45px;
+  left: 175px;
+  width: 20px !important;
+  height: 20px !important;
+}
+.mobile-impressions-under-review {
+  color: #fcbd32;
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 1024px) {
+  .loading {
+    left: 38%;
+  }
+
+  .msgBox {
+    position: relative;
+    font-size: 20px !important;
+    color: #fff;
+    font-weight: bold;
+  }
+}
+
+/*#tooltipContainer {
+     margin:-10px -10px -15px;
+}
+*/
+
+.mapboxgl-popup .mapboxgl-popup-content {
+  background: rgba(255, 255, 255, 0.85);
+  width: 294px !important;
+  height: auto !important;
+  padding: 0px 0px 0px !important;
+  -webkit-box-shadow: 0 -6px 18px rgba(204, 214, 221, 0.8);
+  -moz-box-shadow: 0 -6px 18px rgba(204, 214, 221, 0.8);
+  -ms-box-shadow: 0 -6px 18px rgba(204, 214, 221, 0.8);
+  box-shadow: 0 -6px 18px rgba(204, 214, 221, 0.8);
+}
+
+.mapboxgl-ctrl-compass {
+  display: none !important;
+}
+
+#tooltipContainer .image_container {
+  width: 294px;
+  height: 126px;
+  position: relative;
+}
+
+#tooltipContainer .image_container img {
+  width: 100%;
+  height: 100%;
+}
+
+#tooltipContainer .text_container {
+  text-align: center;
+  color: #63686b;
+  font-family: 'Product Sans', sans-serif;
+  padding: 20px 14px 15px 14px;
+}
+
+#tooltipContainer .width_container {
+  width: 100%;
+  float: left;
+}
+
+.width_container_hei {
+  width: 149px;
+  margin: 10px auto 0px auto;
+  background-color: #ccd6dd;
+  height: 1px;
+}
+
+.bottom_container {
+  width: 100%;
+  float: left;
+  margin-top: 6px;
+  padding: 10px 25px;
+}
+
+.airport_name {
+  width: 100%;
+  float: left;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Product Sans', sans-serif;
+  color: #63686b;
+}
+
+.airport_address {
+  width: 100%;
+  float: left;
+  font-weight: 600;
+  font-family: 'Product Sans', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.bottom_left {
+  width: 50%;
+  float: left;
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 3px;
+}
+
+.bottom_right {
+  width: 50%;
+  float: left;
+}
+
+.number_container {
+  float: left;
+  width: auto;
+}
+
+.view_data_container {
+  width: 100%;
+  float: left;
+  background: #00608a;
+  text-align: center;
+  padding: 19px 15px;
+}
+
+.view_data_container02 {
+  width: 100%;
+  float: left;
+  background: #00608a;
+  text-align: center;
+}
+
+a.view_data {
+  padding: 7px 25px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid #FFFFFF;
+  border-radius: 50px;
+  text-decoration: none;
+  -webkit-transition: background linear 350ms;
+  background: #00608a;
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -ms-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+}
+
+a.view_data:hover {
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  background: #0096D6;
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  -ms-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+}
+
+a.view_data:focus {
+  outline: none;
+}
+
+.content-section {
+  height: 100%;
+  /* display: grid;
+     */
+  position: absolute;
+  top: 0;
+  /* background: #fff;
+     */
+  /* z-index: 1;
+     */
+  width: 100%;
+  padding-bottom: 50px;
+  padding-top: 50px;
+}
+
+/* Chart Slider Div */
+
+#mapbox {
+  width: 100%;
+  height: 100%;
+}
+
+.slider-div {
+  z-index: 10;
+  position: absolute;
+  height: 100%;
+  border: 1px solid #ecf0f6;
+  background: #ecf0f5;
+  padding: 0px;
+  overflow: hidden;
+}
+
+.silder-header {
+  background: #222d32;
+}
+
+.silder-header .silder-header-title {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.silder-header .silder-header-content {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  margin: -5px 0px 10px 0px;
+}
+
+.silder-header .close-silder {
+  position: absolute;
+  z-index: 10;
+  color: #fff;
+  font-size: 25px;
+  right: 5px;
+  top: 0px;
+}
+
+.silder-content {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: 61px;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.map-loader {
+  text-align: center;
+  top: Calc(50% - 61px);
+  position: absolute;
+  left: 50%;
+}
+
+.marketChartContainers {
+  width: 100%;
+  padding: 10px 30px;
+}
+
+.breakdown-section {
+  width: 98%;
+  padding: 20px 10px 20px 10px;
+  background-color: #fff;
+  margin: 10px;
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -ms-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+}
+
+.summaryBrokedownBar {
+  width: 100%;
+  height: 450px;
+}
+
+.summaryBrokedownBar svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chart_title {
+  color: #63686b;
+  font-size: 25px;
+  padding-left: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px
+}
+
+.toolTip {
+  display: none;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  padding: 10px;
+  z-index: 1;
+}
+
+.toolTip .tooltip_title {
+  border-bottom: 1px dotted;
+  color: #d0d6da;
+  padding-bottom: 5px;
+}
+
+.toolTip span.arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #000;
+  position: absolute;
+  bottom: -15px;
+  left: 35%;
+}
+
+.weeklyByHourChart {
+  width: 100%;
+  height: 500px;
+}
+
+.linelegend {
+  position: absolute;
+  top: 9px;
+  right: 0;
+  min-width: 200px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 16px;
+  padding: 10px 0px 10px 0;
+  margin-right: 40px;
+}
+
+.linelegend > div {
+  margin: 0px 25px 10px 0px;
+  flex-grow: 0;
+}
+
+.linelegend .series-marker {
+  height: 1em;
+  width: 1em;
+  background-color: crimson;
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: -4px;
+  border-radius: 50%;
+}
+
+.linelegend .indLegend {
+  margin-right: 10px;
+}
+
+.weeklyByHours {
+  position: relative;
+  margin: 0px;
+  width: 100%;
+}
+
+.weeklyByHours .toolTip {
+  width: 300px;
+}
+
+.toolTip .series-marker {
+  height: 11px;
+  width: 11px;
+  background-color: crimson;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 50%;
+  float: left;
+  margin-top: 2px;
+  display: inline-block;
+}
+
+.line_tooltip_title {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+  margin-bottom: 10px;
+}
+
+.line_tooltip_title text {
+  color: #63686b !important;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Product Sans', sans-serif;
+}
+
+.line_tooltip_text {
+  float: left;
+  margin-left: 5px;
+  color: #63686b !important;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.line_tooltip_value {
+  float: right;
+  margin-left: 20px;
+  color: #fff !important;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tripDetailChartsSection {
+  background-color: #fff;
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -ms-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  width: 380px;
+  float: left;
+}
+
+.tripDetailChartsSection:first-child {
+  margin-right: 40px;
+}
+
+.tripDetailCharts {
+  margin: 35px 0px;
+}
+
+/*-----start of piechart tab-----*/
+
+.tripincome_trip_section {
+  width: 100%;
+  float: left;
+}
+
+.trip_duration_part {
+  width: 50%;
+  color: #2f3132;
+  font-size: 15px;
+  font-weight: 700;
+  float: left;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  text-align: center;
+  padding: 18px 18px;
+  cursor: default;
+}
+
+.legend-entry {
+  display: inline-block;
+  float: left;
+}
+
+.addstyle {
+  background-color: #d1d8df;
+  padding: 18px 18px;
+  cursor: pointer;
+}
+
+.tripincome_mainbody_section {
+  width: 100%;
+  float: left;
+  padding: 10px 20px;
+}
+
+.circleContainer {
+  text-align: center;
+}
+
+/*-----end of piechart tab-----*/
+.countrySection {
+  float: left;
+}
+
+.countrySection:first-child {
+  margin-right: 40px;
+}
+
+.widgetSection {
+  background-color: #fff;
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -ms-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  width: 380px;
+}
+
+.widgetSectionHeader {
+  width: 100%;
+  padding: 18px 16px 16px 26px;
+  border-bottom: 1px solid #dadada;
+}
+
+.widgetSectionHeader .text {
+  color: #2f3132;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.widgetSectionContent {
+  width: 100%;
+  height: 250px;
+  overflow-y: auto;
+}
+
+.widgetSectionContent ul {
+  list-style: none;
+  padding: 10px 0px;
+}
+
+.widgetSectionContent li {
+  padding-bottom: 18px;
+  width: 100%;
+}
+
+.widgetSectionContent li .serial_number {
+  color: #666b6e;
+  font-size: 16px;
+  font-weight: 300;
+  float: left;
+  text-align: right;
+  width: 38px;
+}
+
+.widgetSectionContent li .list_percentage {
+  color: #66c0e6;
+  font-size: 16px;
+  font-weight: bold;
+  float: right;
+  text-align: right;
+  margin-right: 15px
+}
+
+.widgetSectionContent li .list_text_outofmarket {
+  color: #666b6e;
+  font-size: 16px;
+  font-weight: 700;
+  padding-left: 10px;
+  width: 180px;
+  float: left;
+  text-align: left;
+}
+
+.widgetSectionBottom {
+  width: 100%;
+  background-color: #253136;
+  height: 65px;
+}
+
+#county-map {
+  display: none;
+  width: 94%;
+  height: 85%;
+  position: relative;
+  overflow: hidden;
+  padding: 0
+}
+
+#countiesMap {
+  width: 100%;
+  height: 89%;
+  position: relative !important;
+  bottom: 0;
+  padding-top: 0px !important;
+  right: 24px;
+  left: 0;
+}
+
+.widget-btn {
+  font-size: 13px;
+  font-weight: 700;
+  width: 135px;
+  border: 2px solid #FFFFFF;
+  padding: 9px 0px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  text-align: center;
+  margin: 13px auto 14px auto;
+  -webkit-transition: background linear 350ms;
+  background: #253136;
+  color: #feffff;
+  display: block;
+
+  -webkit-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  -ms-box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .2);
+}
+
+.widget-btn:hover {
+  background: #455054;
+  color: #feffff !important;
+  text-decoration: none !important;
+
+  -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  -ms-box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .5);
+}
+
+.widget-btn:focus {
+  color: #feffff !important;
+  outline: none;
+  text-decoration: none !important;
+}
+
+.widget-btn a {
+  color: #feffff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.widget-btn a:hover {
+  text-decoration: none;
+}
+
+.swal2-container {
+  z-index: 2000 !important;
+}
+
+/**
+IE support popup styles
+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* Put your IE-only styles here. Works for IS 10 & IE 11*/
+  #ie-no-support {
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    color: #878787;
+    display: table !important;
+  }
+
+  #ie-no-support > div {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  #ie-no-support .unsupported {
+    width: 400px;
+    padding: 20px;
+    margin: 0 auto;
+  }
+
+  .unsupported > h4 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .unsupported > table {
+    border: none;
+    margin: 0 auto 20px auto;
+  }
+
+  .unsupported > table img {
+    margin: 0 10px;
+  }
+
+  .unsupported > p {
+    text-align: center;
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-in,
+  .mapboxgl-ctrl-group .mapboxgl-ctrl-zoom-out
+   {
+     display: none !important;
+   }
+   /* .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl{
+      margin: 48px 0px 10px 10px !important;
+   } */
+ }
+
+ .mapboxgl-ctrl > button.mapboxgl-ctrl-icon.mapboxgl-ctrl-locate {
+   background-image: url(assets/images/icons/locate.svg);
+ }
+ .mapboxgl-ctrl > button.mapboxgl-ctrl-icon.mapboxgl-ctrl-locate.mapboxgl-ctrl-locate-active {
+   background-image: url(assets/images/icons/locate-active.svg);
+ }
+  .mapboxgl-ctrl > button.mapboxgl-ctrl-icon.mapboxgl-ctrl-locate.mapboxgl-ctrl-geolocate-waiting {
+    background-image: url(assets/images/icons/locate-active.svg);
+    -webkit-animation: mapboxgl-spin 2s infinite linear;
+    animation: mapboxgl-spin 2s infinite linear;
+  }
+ .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl-group {
+   border-radius: 20px !important;
+   button {
+     background-color: #fefefe !important;
+   }
+ }
+

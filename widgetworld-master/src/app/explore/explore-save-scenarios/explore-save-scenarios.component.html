@@ -1,0 +1,88 @@
+<div class="save-scenario-container-begin">
+	<div mat-dialog-content class="save-scenario-container save-workspace-dialog">
+		<div *ngIf="projects.length > 0 && !dataLoading">
+    	<form  method="post" class="scenarioForm noAnimation" [formGroup]="scenarioForm" novalidate autocomplete="off" (ngSubmit)='onSubmit(scenarioForm)'>
+	    	<div class="modal-body">
+	      	<h4 class="modal-title login-title test-scenario-title">New {{this.workFlowLabels.scenario[0]}}</h4>
+	      		<mat-form-field  class="full-width" floatPlaceholder="always">
+							<input matInput placeholder="* {{this.workFlowLabels.scenario[0]}} Name" id="scenario-name" formControlName="name" autocomplete="off">
+							<mat-error *ngIf="scenarioForm.controls.name">{{this.workFlowLabels.scenario[0]}} Name can't blank</mat-error>
+			      </mat-form-field>
+			      <mat-form-field  class="full-width" floatPlaceholder="always">
+							<input matInput placeholder="* Inventory Set Name" id="package-name" formControlName="packageName" autocomplete="off">
+							<mat-error *ngIf="scenarioForm.controls.packageName.invalid">
+								<span *ngIf="scenarioForm.controls.packageName['value'] == ''">Inventory Set Name can't blank</span>
+								<span *ngIf="scenarioForm.controls.packageName['value'] != '' && scenarioForm.controls.packageName['errors'] && scenarioForm.controls.packageName['errors']['uniqueName'] && scenarioForm.controls.packageName['errors']['uniqueName']">Inventory Set names must be unique</span>
+							</mat-error>
+							<!-- <show-errors [control]="scenarioForm.controls.packageName"></show-errors> -->
+			      </mat-form-field>
+			      <mat-form-field >
+						  <mat-select placeholder="* Parent {{this.workFlowLabels.project[0]}}" formControlName="projectId" class="test-scenario-project">
+								<mat-option>Select...</mat-option>
+								<mat-option value="newsubproject" class="special-button"
+								(click)="onCreateNewProject(this.workFlowLabels.project[0], 0);">
+									<mat-icon>add</mat-icon>New {{this.workFlowLabels.project[0]}}
+								</mat-option>
+						    <mat-option *ngFor="let project of projects;" value="{{project._id}}" (click)="onProjectChange(project._id)" >
+						      {{project.name}}
+						    </mat-option>
+						  </mat-select>
+						  <mat-error *ngIf="scenarioForm.controls.projectId">Parent {{this.workFlowLabels.project[0]}} can't blank</mat-error>
+            </mat-form-field>
+			      <mat-form-field *ngIf="subProjectAccess['status'] === 'active' && projectDepth >= 1">
+						  <mat-select placeholder="Parent {{this.workFlowLabels.subProject[0]}} (Optional)" formControlName="subProjectId">
+								<mat-option *ngIf="noBrandId !== ''; else noBrand;" value="{{noBrandId}}"  (click)="onSubProjectChange(noBrandId);">Select...</mat-option>
+								<ng-template #noBrand><mat-option >Select...</mat-option></ng-template>
+								<!-- <mat-option>Select...</mat-option> -->
+								<mat-option value="newsubproject" class="special-button"
+								(click)="onCreateNewProject(this.workFlowLabels.subProject[0], 1);">
+									<mat-icon>add</mat-icon>New {{this.workFlowLabels.subProject[0]}}
+								</mat-option>
+						    <mat-option *ngFor="let project of subProjects;" value="{{project._id}}" (click)="onSubProjectChange(project._id)" >
+						      {{project.name}}
+						    </mat-option>
+						  </mat-select>
+						  <mat-error *ngIf="scenarioForm.controls.subProjectId">Parent {{this.workFlowLabels.subProject[0]}} can't blank</mat-error>
+              <mat-error *ngIf="subProjects && subProjects.length === 0"> Parent {{this.workFlowLabels.project[0]}}  don't have any {{this.workFlowLabels.subProject[1]}}. Please create one in workspace </mat-error>
+            </mat-form-field>
+			      <mat-form-field *ngIf="subProjectAccess['status'] === 'active' && projectDepth >= 2">
+						  <mat-select placeholder="Parent {{this.workFlowLabels.folder[0]}} {{!isSimpleLayout ?'(Optional)' : ''}}" formControlName="folderId">
+								<mat-option>Select...</mat-option>
+								<mat-option value="newsubproject" class="special-button"
+								(click)="onCreateNewProject(this.workFlowLabels.folder[0], 2);">
+									<mat-icon>add</mat-icon>New {{this.workFlowLabels.folder[0]}}
+								</mat-option>
+						    <mat-option *ngFor="let folder of folders;" value="{{folder._id}}" (click)="onFolderChange(folder._id)" >
+						      {{folder.name}}
+						    </mat-option>
+						  </mat-select>
+              <mat-error *ngIf="scenarioForm.controls.folder_id">Parent {{this.workFlowLabels.folder[0]}} can't blank</mat-error>
+              <mat-error *ngIf="folders && folders.length === 0"> Parent {{this.workFlowLabels.subProject[0]}}  don't have any {{this.workFlowLabels.folder[1]}}. Please create one in workspace </mat-error>
+						</mat-form-field>
+						<mat-form-field class="full-width test-saved-audience" floatPlaceholder="always" *ngIf="(!currentTargetId && !isDefaultAudience) || (audienceTabType && audienceTabType !== 'saved')">
+							<input matInput placeholder="Save Audience" formControlName="audienceName" autocomplete="off">
+						  <mat-error>Save audience name can't blank</mat-error>
+						</mat-form-field>
+	      </div>
+	      <div class="modal-footer">
+					<button mat-button type="button" class="button popup-left-btn button-primary-link no-radius" (click)="closeModal()">CANCEL</button>
+	      	<button type="submit" mat-raised-button class="button button-primary uppercase no-radius">SAVE & KEEP EXPLORING</button>
+	      	
+	      </div>
+      </form>
+    </div>
+    <div *ngIf="projects.length <= 0 && !dataLoading">
+    	<div class="modal-body">
+			  	<h4 class="modal-title login-title">New {{this.workFlowLabels.scenario[0]}}</h4>
+		    	You don't have any {{this.workFlowLabels.project[1]}}.
+		    	<a class="geo-button-link add-scenario-link" (click)="openAddProject()">Add {{this.workFlowLabels.project[0]}}</a>
+		  </div>
+		  <div class="modal-footer">
+	      	<a class="cancel-btn pull-left" style="margin-left: 0px;" (click)="closeModal()" ><mat-icon class="cancel-button valign-middle" >close</mat-icon></a>
+	    </div>
+		</div>
+		<div *ngIf="dataLoading">
+			<div class='loader'></div>
+		</div>
+	</div>
+</div>

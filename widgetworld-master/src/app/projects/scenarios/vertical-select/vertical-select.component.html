@@ -1,0 +1,8 @@
+<div class="vertical-container" fxLayout="row">
+  <div
+    *ngFor="let option of options"
+    (click)="select(option.value)"
+    class="selection-item"
+    [ngClass]="{'selected': option.value === selected}"
+  >{{option.label}}</div>
+</div>

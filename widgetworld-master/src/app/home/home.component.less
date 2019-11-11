@@ -1,0 +1,175 @@
+@import "../../assets/css/variables.less";
+
+::ng-deep {
+  app-home {
+
+    // Home Page Modules
+    h5, h4 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .home-div {
+      overflow-y: auto;
+      height: calc(~"100vh - 120px");
+      padding-left: 40px;
+    }
+
+    .home-tiles {
+      box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.21);
+      z-index: 2;
+    }
+    .left-panel-element {
+      min-height: 135px !important;
+      border-bottom: 1px solid var(--lower-emphasis);
+      .spotlight-icon {
+        margin-top: 10px;
+        background-image: url(../../assets/images/icons/icon_spotlight.svg);
+      }
+      &:hover {
+        cursor: pointer;
+        .left-panel-title:not(.title-active) {
+          background-color: rgba(33, 33, 33, 0.1);
+
+        }
+        .left-panel-desc:not(.desc-active) {
+          background-color: rgba(33, 33, 33, 0.05);
+
+        }
+      }
+      .left-panel-title {
+        padding-left: 10px;
+        // padding-top: 10px;
+        .mat-icon {
+          padding-top: 13px;
+        }
+        h5 {
+          padding-left: 10px;
+          padding-top: 4px;
+          width: 100%;
+          .beta {
+            color: var(--medium-emphasis);
+            font-size: 10px;
+            font-weight: 300;
+            letter-spacing: 0.43px;
+            line-height: 16px;
+            text-align: center;
+            margin-left: 14px;
+            background-color: var(--grays-bg-300);
+            border-radius: 8px;
+            padding: 0px 3px;
+          }
+        }
+      }
+      & .title-active {
+        &::after {
+          content: '';
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 25px 0 25px 16px;
+          border-color: transparent transparent transparent var(--primary-bg-900);
+          left: 16px;
+          position: relative;
+        }
+        .arrow-right-active {
+          position: relative;
+          left: 61%;
+          font-size: 105px;
+          top: 12px;
+          line-height: 0px;
+          color: var(--primary-bg-900) !important;
+        }
+        background-color: var(--primary-bg-900);
+        h5, .mat-icon {
+          color: var(--text-whites);
+        }
+        .spotlight-icon {
+          background-image: url(../../assets/images/icons/icon_spotlight_white.svg);
+        }
+      }
+      .left-panel-desc {
+        height: 100%;
+        padding-left: 45px;
+        padding-top: 14px;
+        padding-right: 10px;
+        letter-spacing: 0.17px;
+        line-height: 19px;
+        font-size: 13px;
+        font-weight: 300;
+        .boldText {
+          font-weight: bold;
+          font-style: italic;
+          padding-right: 2px;
+        }
+      }
+      & .desc-active {
+        background-color: var(--button-bg-color);
+        color: var(--text-whites);
+      }
+    }
+    .right-panel {
+      background-color: var(--grays-bg-300);
+      .right-panel-element {
+
+        padding-left: 35px;
+        background-size: contain;
+        background-color: #F3E5F2;
+        background-repeat: no-repeat;
+        &#home-highlights {
+          background-color: #fff;
+          background-image: url('../../assets/images/home_spotlight.png');
+        }
+        &#home-explore {
+          background-image: url('../../assets/images/home_explore.png');
+        }
+        &#home-workspace {
+          background-image: url('../../assets/images/home_workspace.png');
+        }
+        &#home-places {
+          background-image: url('../../assets/images/home_places.png');
+        }
+        &#home-reports {
+          background-image: url('../../assets/images/home_reports.png');
+        }
+        .right-panel-title {
+          padding-top: 20px;
+        }
+        .right-panel-desc {
+          h4 {
+            padding-bottom: 2px;
+            margin: 0px;  
+          }
+        }
+      }
+      .text-point {
+        line-height: 26px;
+        color: var(--high-emphasis);
+      }
+      .button-container {
+        margin-top: 25px;
+        .button-primary {
+          background-color: var(--button-bg-color);
+          color: var(--high-emphasis-white) !important;
+          height: 36px !important;
+          border-radius: 4px !important;
+          padding: 0 30px !important;
+        }
+        .home-audience{
+          position: relative;
+          top: 126px;
+          left: -19px;
+        }
+      }
+    }
+  }
+}
+
+@media @all-devices-under-768 {
+  .home-div {
+    padding-left: 0px;
+  }
+}

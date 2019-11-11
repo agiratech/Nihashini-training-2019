@@ -1,0 +1,77 @@
+<div class="inventory-panel" *ngIf="filterType === 'Inventory'">
+  <mat-accordion [displayMode]="'flat'">
+    <mat-expansion-panel  class="mat-elevation-z0" hideToggle="true">
+      <mat-expansion-panel-header class="header-color" (click)="scrollTo($event)" >
+        <mat-panel-title>
+          Geopath Spot ID
+          <span *ngIf="appliedFilters['selected'] === 'geopathPanel' && appliedFilters['data'].length>0" [matBadge]="appliedFilters['data'].length" matBadgeOverlap="false"></span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <app-tags-input
+          placeholder="Paste or type IDs here"
+          [chips]="geoPanelIds" ></app-tags-input>
+        <div class="action-container">
+          <button mat-raised-button class="btn-clear" type="button" (click)="clearGeoFilter();">CLEAR </button>
+          <button mat-raised-button class="btn-primary-color" type="button" (click)="onApply('geopathPanel')">Apply</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel  class="mat-elevation-z0" hideToggle="true">
+      <mat-expansion-panel-header class="header-color" (click)="scrollTo($event)" >
+        <mat-panel-title>
+          Operator Spot ID
+          <span *ngIf="appliedFilters['selected'] === 'operatorPanel' && appliedFilters['data'].length>0" [matBadge]="appliedFilters['data'].length" matBadgeOverlap="false"></span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <app-tags-input
+          placeholder="Paste or type IDs here"
+          [chips]="plantUnitIds"></app-tags-input>
+        <div class="action-container">
+          <button mat-raised-button class="btn-clear" type="button" (click)="clearPlantFilter();">CLEAR</button>
+          <button mat-raised-button class="btn-primary-color" type="button" (click)="onApply('operatorPanel')">Apply</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel  class="mat-elevation-z0" hideToggle="true">
+      <mat-expansion-panel-header class="header-color" (click)="scrollTo($event)" >
+        <mat-panel-title>
+          Saved Inventory Sets <span *ngIf="appliedFilters['selected'] === 'packagePanel' && appliedFilters['data'].length>0" [matBadge]="selectedInventoryOptions.length" matBadgeOverlap="false"></span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="list-panel"> 
+        <mat-form-field floatLabel="never" fxFlexFill class="search-field"  >
+          <input type="text" [(ngModel)]="inventorySearch" appSearch key="name" [sourceData]="packages" (filter)="filterPackages($event)" matInput placeholder="Search Saved Inventory Sets">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-selection-list class="inventory-sets" #selectInventoryList > <!--  [compareWith]="compare" [(ngModel)]="selectedInventoryOptions" -->
+          <mat-list-option *ngFor="let package of searchedPackages"  [value]="package" checkboxPosition="before" title="{{package.name}}" (click)="onSelectInventorySet(selectInventoryList)" [selected]="checkIsSelected(package)">
+            <span [innerHTML]="package.name | truncate:'middle':15 | highlight: inventorySearch"></span>
+          </mat-list-option>
+          <p *ngIf="searchedPackages.length <= 0" class="text-center">No Inventory set data found</p>
+        </mat-selection-list>
+        <div class="action-container">
+          <button mat-raised-button class="btn-clear" type="button" (click)='onClearInventorySet()'>CLEAR </button>
+          <button mat-raised-button class="btn-primary-color inventory-set-btn" type="button" (click)='onApply("packagePanel")'>Add Selected Sets</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="places-panel" *ngIf="filterType === 'Place'"> 
+  <mat-form-field floatLabel="never" fxFlexFill class="search-field"  >
+    <input type="text" [(ngModel)]="placeSearch" appSearch key="name" [sourceData]="placePacks" (filter)="filterPlacePacks($event)" matInput placeholder="Saved Place Sets">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-selection-list class="inventory-sets test-places-set" (SelectionModel)="selectedPlacePacks" [(ngModel)]="selectedPlacePacks" [compareWith]="compare">
+    <mat-list-option *ngFor="let place of searchedPlaces"  [value]="place" checkboxPosition="before" title="{{place.name}}">
+      <span [innerHTML]="place.name | truncate:'middle':15 | highlight: placeSearch"></span>
+    </mat-list-option>
+    <p *ngIf="searchedPlaces.length <= 0" class="text-center">No Place set data found</p>
+  </mat-selection-list>
+  <div class="action-container">
+    <button mat-raised-button class="btn-clear" type="button" (click)='onClearPlaceSet()'>CLEAR</button>
+    <button mat-raised-button class="btn-primary-color test-places-submit" type="button" (click)='submitFilters()'>Apply</button>
+  </div>
+</div>

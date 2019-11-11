@@ -1,0 +1,20 @@
+<div class="media-type-alignment">
+    <h5>Media Type Builder</h5>
+    <div class="add-media-type-card" fxLayout="row wrap" fxLayoutAlign="start center">
+      <div fxFlex="20%">
+        <mat-card class="new-project-card mat-elevation-z3" fxLayout="row" fxLayoutAlign="center center"
+            (click)="createMediaType()">
+            <mat-icon>add</mat-icon> Media Type
+        </mat-card>
+      </div>
+        <div class="media-type-cards" fxFlex="20%" *ngFor="let mediaType of mediaTypeSelectedData; let i = index"
+        >
+            <div class="cancel-icon">
+              <mat-icon (click)="deleteMediaTypeCard(i);">cancel</mat-icon>
+            </div>
+            <mat-card fxLayout="row" class="new-project-card mat-elevation-z3" fxLayoutAlign="center center" (click)="createMediaType(mediaType, i)">
+                {{mediaType.data}} <ng-template [ngIf]="mediaType['ids'] && mediaType['ids']['medias'] && mediaType['ids']['medias'].length > 1">({{mediaType['ids']['medias'].length}})</ng-template>
+            </mat-card>
+        </div>
+    </div>
+</div>

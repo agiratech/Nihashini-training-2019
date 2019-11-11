@@ -1,0 +1,17 @@
+<mat-form-field>
+  <label class="placeholder-text">Associated Place Sets</label>
+  <mat-select [formControl]="selectedPlaceCtrl" [multiple]="true" #multiSelect>
+    <ngx-mat-select-search [formControl]="placesFiltersCtrl" placeholderLabel="Search by Name" noEntriesFoundLabel="No data found"> 
+        <mat-icon ngxMatSelectSearchClear></mat-icon>       
+    </ngx-mat-select-search>
+    <mat-icon class="search-icon">search</mat-icon>
+    <mat-option *ngFor="let place of filteredPlaces | async" [value]="place['_id']">
+      {{place.name}}
+    </mat-option>
+    <div fxLayout="row" class="action-area" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button mat-raised-button (click)="clearSelection()" class="btn-clear">CLEAR ALL</button>
+        <button mat-raised-button (click)="setValues()"  class="btn-primary-color">APPLY</button>
+    </div>
+  </mat-select>
+  
+</mat-form-field>

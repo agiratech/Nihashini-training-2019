@@ -1,0 +1,516 @@
+<mat-sidenav-container class="example-container" (backdropClick)="close('backdrop')">
+	<mat-sidenav align="end" #sidenav (keydown.escape)="close('escape')" disableClose>
+		<span class="n-toggle" (click)="close('togglebutton')"><i class="material-icons">dehaze</i></span>
+		<div fxFlexFill class="m-t-30">
+			<p class="mobile-title">Sample {{labels['scenario'][0]}} Name...</p>
+			<p class="mobile-sub-title">Notes or description line...</p>
+			<mat-list role="list">
+				<mat-list-item role="listitem" class="cursor-link">
+					<div class="font20">
+						<mat-icon mat-list-icon class="icon-color-1">add_to_photos</mat-icon>
+					</div>
+					<p class="btn-list-text m-b-0" data-toggle="modal" data-target="#duplicate-scenario">Duplicate
+						{{labels['scenario'][0]}}</p>
+				</mat-list-item>
+				<mat-list-item role="listitem" class="cursor-link">
+					<div class="font20">
+						<mat-icon mat-list-icon class="icon-color-1">delete</mat-icon>
+					</div>
+					<p class="btn-list-text m-b-0">Delete {{labels['scenario'][0]}}</p>
+				</mat-list-item>
+			</mat-list>
+		</div>
+		<div fxFlexFill class="m-t-30">
+			<a mat-raised-button class="geo-button-box p-l-r50 m-w-300 m-t-30 m-b-30">Cancel</a><br>
+			<a mat-raised-button class="geo-button-primary p-l-r50 m-w-300">Save {{labels['scenario'][0]}}</a>
+		</div>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<span class="mobile-visible w-toggle" (click)="sidenav.open()"><i class="material-icons">dehaze</i></span>
+		<form method="post" class="noAnimation latest-form" [formGroup]="scenarioEditForm" novalidate autocomplete="off"
+			(ngSubmit)='onSubmit()' [ngClass]="{'isNotEditable':!isEditScenarioName}">
+			<mat-toolbar class="outer-space-40">
+				<a class="body-1 color-medium" [routerLink]="['/v2/projects', projectId]">
+					<mat-icon class="valign-middle back-arrow">arrow_back</mat-icon> Back to {{projectName}}
+				</a>
+				<span class="tool-bar-spacer"></span>
+				<div class="customer-asign-icon cursor-link">
+					<a style="display:block" (click)="dropdownStageChange(true)"
+						#overlayOriginScenario="cdkOverlayOrigin" cdkOverlayOrigin>
+						<mat-icon class="assign-icon">assignment</mat-icon>
+					</a>
+					<div class="filter-submenu-div p-t-0">
+						<app-dropdown [overlayOrigin]="overlayOriginScenario" (close)="isOpenedScenario = false"
+							(open)="isOpenedScenario = true" [dialogClass]="'scenario-notes-autocomplete'">
+							<a type='button' (click)="closeScenarioNotes()" mat-icon-button
+								class="mat-icon-close m-l-10 mat-icon-btn">
+								<i class="material-icons">close</i>
+							</a>
+							<div class="scenario-note-content"
+								[ngClass]="{'isEditNotScenarioNote':!editScenarioNote,'isEditableScenarioNote':editScenarioNote}">
+								<h5 (click)="editScenarioNotes()">{{labels['scenario'][0]}} Notes
+									<mat-icon class="assign-icon">edit</mat-icon>
+								</h5>
+								<div fxLayout="row">
+									<mat-form-field fxFlex="100" class="mat-text-area" floatPlaceholder="always">
+										<mat-label></mat-label>
+										<textarea matInput matTextareaAutosize formControlName="notes" class="body-1"
+											placeholder="{{labels['scenario'][0]}} Notes"></textarea>
+									</mat-form-field>
+								</div>
+								<br />
+								<button type="submit" mat-raised-button
+									class="geo-button-primary note-save-button btn-small" *ngIf="editScenarioNote"
+									(click)="onSubmit()">save</button>
+								<a mat-icon-button class="cancel-btn cursor-link" (click)="cancelEditScenarioNotes()"
+									*ngIf="editScenarioNote">
+									<mat-icon aria-label="close icon">close</mat-icon>
+								</a>
+							</div>
+						</app-dropdown>
+					</div>
+				</div>
+				<!-- <a *ngIf="selectedTabLabel === 'Places'" mat-raised-button class="button map-inventory uppercase" disabled>Map Places</a> -->
+				<a mat-raised-button class="button map-inventory uppercase" [routerLink]="['/explore']"
+					[queryParams]="inventoryParam"
+					*ngIf="allowInventory === 'active' && selectedTabLabel === 'Inventory'">Map Inventory</a>
+				<button type="button" mat-icon-button class="uppercase export-scenario"
+					[matMenuTriggerFor]="exportMenu">
+					<div *ngIf="isLoader" class="export-market-plan-loader">
+						<mat-spinner [strokeWidth]="2" [diameter]="30"></mat-spinner>
+					</div>
+					Export {{labels['scenario'][0]}}
+					<mat-icon>keyboard_arrow_down</mat-icon>
+				</button>
+				<mat-menu #exportMenu="matMenu" [overlapTrigger]="false" xPosition="after" class="exportCSV-menu">
+					<button mat-menu-item (click)="exportCSV('csv',selectedTabLabel)">Export as CSV</button>
+				</mat-menu>
+				<a mat-raised-button class="save-scenario button map-inventory uppercase" [disabled]="isSavedScenario"
+					(click)="onSubmit()">
+					<mat-spinner *ngIf="isSpinner" [strokeWidth]="1" [diameter]="25"></mat-spinner>{{saveButtonText}}
+				</a>
+				<mat-icon class="btn-more-vert cursor-link" [matMenuTriggerFor]="action" class="scenario-action-menu">
+					more_vert</mat-icon>
+				<mat-menu #action="matMenu" [overlapTrigger]="false" xPosition="after">
+					<button mat-menu-item data-toggle="modal" (click)="onDuplicateScenario()">Duplicate
+						{{labels['scenario'][0]}}</button>
+					<button mat-menu-item (click)="onDelete(projectId,scenarioId)">Delete
+						{{labels['scenario'][0]}}</button>
+					<!-- <button mat-menu-item (click)="attchmentFile()">Attachments</button> -->
+				</mat-menu>
+			</mat-toolbar>
+
+			<div class="outer-space-40 workspace-body-content">
+				<div class="scenario-common-form-area">
+					<div>
+						<h2 *ngIf="!isEditScenarioName" class="cursor-link h1-letterspacing"
+							(click)="onEditScenarioName()" #fName>{{
+						workSpaceDataService.scenarioName }} <mat-icon matSuffix
+								class="edit-icon-color hide-when-edit mat-icon-position">mode_edit</mat-icon>
+						</h2>
+						<mat-form-field class="full-width width90 name-edit-input edit-input"
+							*ngIf="isEditScenarioName">
+							<input matInput formControlName="name" #fName>
+							<mat-icon matSuffix class="icon-color hide-when-edit">mode_edit</mat-icon>
+						</mat-form-field>
+						<mat-error *ngIf="scenarioEditForm['controls'].name.hasError('required')">
+							{{labels['scenario'][0]}}
+							Name can't blank</mat-error>
+						<mat-error *ngIf="isScenarioNameError">{{errorMessage}}</mat-error>
+						<!-- <div class="edit-action" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+						*ngIf="isEditScenarioName">
+						<button type="submit" mat-raised-button
+							class="button-primary-color btn-small font-normal capitalize edit-save-btn"
+							(click)="onSaveScenarioName()">save</button>
+						<button type="button" mat-icon-button class="edit-close-btn" (click)="onCancelScenarioName()">
+							<mat-icon>close</mat-icon>
+						</button>
+					</div> -->
+					</div>
+
+					<div>
+						<p *ngIf="!isEditScenarioName" class="description-margin cursor-link"
+							[ngClass]="{'placeholder':!workSpaceDataService.scenarioDescription}"
+							(click)="onEditScenarioName()">{{workSpaceDataService.scenarioDescription ?
+						workSpaceDataService.scenarioDescription : ' '}}
+							<!-- <mat-icon matSuffix
+							class="edit-icon cursor-link">edit</mat-icon> -->
+						</p>
+						<mat-form-field class="full-width input-no-padding edit-input mat-text-area"
+							floatPlaceholder="always" *ngIf="isEditScenarioName">
+							<mat-label></mat-label>
+							<textarea matInput matTextareaAutosize matAutosizeMinRows="1" formControlName="description"
+								class="body-1" placeholder="{{labels['scenario'][0]}} description"
+								#fDescription></textarea>
+						</mat-form-field>
+						<!-- <div class="edit-action" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px"
+						*ngIf="isEditScenarioName" class="margin-bottom-20">
+						<button type="submit" mat-raised-button
+							class="button-primary-color btn-small font-normal capitalize edit-save-btn"
+							(click)="onSaveDescription()">save</button>
+						<button type="button" mat-icon-button class="edit-close-btn" (click)="onCancelDescription()">
+							<mat-icon>close</mat-icon>
+						</button>
+					</div> -->
+					</div>
+
+					<div class="full-width  scenario-tags custom-mat-chips" fxLayout="row" fxLayoutGap="10x"
+						[ngClass]="{'tag-bottom-space':!isEditScenarioName}">
+						<app-tags-input
+							placeholder="{{labels['scenario'][0]}} Tags. To enter multiple tags, press Enter after each tag."
+							[chips]="tags" [form]="true" [editable]="isEditScenarioName" [keysCodes]="scenarioKeysCodes"
+							[ngClass]="{'full-width':isEditScenarioName}" (enableEdit)="onEditScenarioName()">
+						</app-tags-input>
+						<p *ngIf="!isEditScenarioName && tags.length===0"
+							class="placeholder placeholder-link cursor-link" (click)="onEditScenarioName()">Add Tags</p>
+						<!-- <mat-icon matSuffix class="edit-icon cursor-link" *ngIf="!isEditScenarioName" (click)="onEnableTag()"
+						[ngClass]="{'top-0':tags.length===0}">edit</mat-icon> -->
+					</div>
+					<div class="edit-action margin-bottom-20" fxLayout="row" fxLayoutAlign="start center"
+						fxLayoutGap="10px" *ngIf="isEditScenarioName">
+						<button type="submit" mat-raised-button
+							class="button-primary-color btn-small font-normal capitalize edit-save-btn"
+							(click)="onSaveScenarioName()">save</button>
+						<button type="button" mat-icon-button class="edit-close-btn" (click)="onCancelScenarioName()">
+							<mat-icon>close</mat-icon>
+						</button>
+					</div>
+				</div>
+				<!-- Scenario plan main -->
+				<div class="scenario-plan-tabs">
+					<mat-tab-group [selectedIndex]="selectedTab" #tabGroup
+						[ngClass]="{'inventory-tab-active':selectedTabLabel=== 'Inventory'}">
+						<mat-tab label="Market Plan" class="market-plan-tab" *ngIf="isVisibleMarketPlanTab">
+							<div fxLayout="row" fxLayoutAlign="end" class="market-toggle-main">
+								<span class="market-toggle">My Market Plan</span>
+								<mat-slide-toggle [formControl]="activate" (toggleChange)="onToggleChange()">Overview
+								</mat-slide-toggle>
+							</div>
+							<div class="filter-goals-section" [ngClass]="{'hide': setOverView}">
+								<div fxLayout="row" fxLayoutAlign="start center">
+									{{ isExpandTarget && 'These selections apply to all plans' || '' }}
+									<span fxFlex="1 1 auto"></span>
+									<button type="button" mat-raised-button (click)="isExpandTarget = !isExpandTarget"
+										color="secondary" class="expand-btn" *ngIf="isEnableMyPlan"> EDIT <mat-icon>
+											{{ !isExpandTarget && 'keyboard_arrow_down' || 'keyboard_arrow_up' }}
+										</mat-icon></button>
+								</div>
+								<div class="filter-area " fxLayout="row" fxLayoutAlign="start space-around"
+									fxLayout.xs="column" fxLayoutGap="40px" [ngClass]="{'hide':!isExpandTarget}">
+									<div class="margin-bottom-20" fxFlex="32%">
+										<h5>DMA Market</h5>
+										<app-filters [selectedOptionsArray]="selectedMarketOptions"
+											[filterName]="'DMA Market'" (removeFilterOption)="closeFilterOption($event)"
+											(applySelected)="onApply($event)"></app-filters>
+									</div>
+									<div class="margin-bottom-20" fxFlex="32%">
+										<h5>Audience</h5>
+										<app-filters [selectedOptionsArray]="selectedAudienceOptions"
+											[filterName]="'Audience'" (removeFilterOption)="closeFilterOption($event)"
+											(applySelected)="onApply($event)"></app-filters>
+									</div>
+									<div class="margin-bottom-20" fxFlex="32%" *ngIf="operatorModulePermission">
+										<h5>Operator</h5>
+										<app-filters [selectedOptionsArray]="selectedOperatorOptions"
+											[filterName]="'Operator'" (removeFilterOption)="closeFilterOption($event)"
+											(applySelected)="onApply($event)"></app-filters>
+									</div>
+								</div>
+								<mat-divider [ngClass]="{'hide':!isExpandTarget}"></mat-divider>
+								<app-scenario-media-types class="media-alignment"
+									[mediaTypeSelectedData]="selectedMediaTypes"
+									(selectedMediaTypes)="updateSelectedMediaType($event)"
+									[ngClass]="{'hide':!isExpandTarget}"></app-scenario-media-types>
+								<mat-divider [ngClass]="{'hide':!isExpandTarget}"></mat-divider>
+								<div class="margin-bottom-20" [ngClass]="{'hide':!isExpandTarget}">
+									<app-goals-details (goalDetails)="onGoalDetails($event)"
+										[mainPlanGoal]="mainPlanGoalData"></app-goals-details>
+								</div>
+								<mat-divider [ngClass]="{'hide':!isExpandTarget}"></mat-divider>
+							</div>
+							<div fxLayout="column wrap" class="main-delivery-goal-area"
+								[ngClass]="{'hide': !setOverView}">
+								<div class="delivery-goal-area" fxLayout="row" fxLayout.xs="column" fxLayoutGap="150px">
+									<div class="goal-heading-area" fxLayout="column" fxLayout.xs="row" fxFlex.xs="100%"
+										fxFlex="180px">
+										<div fxFlex.xs="33%">
+											<h5>Goals:</h5>
+											<label class="label-duration">Plan Length:
+												{{targetGoalFormData && targetGoalFormData['duration'] + ' Week(s)'}}</label><br>
+											<label class="label-heading capitalize">Effective Reach:
+												{{ targetGoalFormData && targetGoalFormData['effectiveReach'] }}</label>
+										</div>
+									</div>
+									<div class="planned-area" fxLayout="row wrap" fxFlex.xs="33%" fxLayoutGap="50px"
+										fxFlex.sm="100%">
+										<div>
+											<h5>Weekly TRPs</h5>
+											<p>{{ targetGoalFormData && (targetGoalFormData['trp'] | convert:'DECIMAL':3) || '-' }}
+											</p>
+										</div>
+										<!-- <div>
+													<h5>Reach</h5>
+													<p>{{(generatedPlanData && generatedPlanData['goalForm']['reach']) ? (generatedPlanData['goalForm']['reach'] | convert:'DECIMAL' + '%') : '-' }}</p>
+												</div>
+												<div>
+													<h5>Frequency</h5>
+													<p>{{generatedPlanData && (generatedPlanData['goalForm']['frequency'] | convert:'DECIMAL':1) || '-' }}</p>
+												</div> -->
+									</div>
+								</div>
+							</div>
+							<!-- <mat-divider [ngClass]="{'hide': !setOverView}"></mat-divider>
+									<app-scenario-media-types [mediaTypeSelectedData]="selectedMediaTypes" (selectedMediaTypes)="updateSelectedMediaType($event)" [ngClass]="{'hide': !setOverView}"></app-scenario-media-types> -->
+
+							<mat-divider [ngClass]="{'hide': !setOverView}"></mat-divider>
+							<div fxLayout="column wrap" class="audience-overview-area"
+								[ngClass]="{'hide': !setOverView}">
+								<div class="audience-content-area" fxLayout="row" fxLayout.xs="column"
+									fxLayoutGap="155px">
+									<div class="field-width">
+										<h5>Audience</h5>
+									</div>
+									<div class="content-area" fxLayout="row" fxFlex.xs="33%" fxLayoutGap="50px">
+										<div class="field-width">
+											<h5>TRP</h5>
+										</div>
+										<div class="field-width">
+											<h5>Spots</h5>
+										</div>
+										<!-- <div class="field-width">
+														<h5>Frequency</h5>
+													</div> -->
+									</div>
+								</div>
+								<div *ngFor="let pData of planData" class="audience-content-area" fxLayout="row"
+									fxLayout.xs="column" fxLayoutGap="155px">
+									<div class="field-width">
+										<span>{{pData.audience}}</span>
+									</div>
+
+									<div class="content-area" fxLayout="row" fxFlex.xs="33%" fxLayoutGap="50px">
+										<div class="field-width">
+											<span>{{pData['trp'] && (pData['trp'] | convert:'DECIMAL':3) || '-' }}</span>
+										</div>
+										<div class="field-width">
+											<span>{{pData['spots'] && (pData['spots'])  || '-' }}</span>
+										</div>
+										<!-- <div class="field-width">
+													<span>{{pData['frequency'] && (pData['frequency'] | convert:'DECIMAL':1) || '-' }}</span>
+												</div> -->
+									</div>
+								</div>
+							</div>
+							<div fxLayout="row" class="m-t-30 generate-btn-margin"
+								[ngClass]="{'hide':!isExpandTarget || setOverView}">
+								<button type="button" [disabled]="setOverView" mat-raised-button
+									class="geo-button-primary p-l-r50 m-w-300 generate-btn"
+									(click)="onGeneratePlanData()">{{ !isEnableMyPlan && 'Generate Plans' || 'Regenerate Plans'}}</button>
+							</div>
+							<mat-divider class="m-t-15"></mat-divider>
+							<app-my-plan [ngClass]="{'hide': !isEnableMyPlan}"></app-my-plan>
+						</mat-tab>
+						<mat-tab label="Inventory" *ngIf="isVisibleInventoryTab">
+							<div class="inventory-content-block">
+								<h5 *ngIf="allowInventory === 'active'" class="imx-mt-0">Default
+									{{labels['scenario'][0]}} Values </h5>
+								<div fxLayout="row wrap" class="divider15" fxLayoutGap="60px">
+									<div *ngIf="audienceLicense['status'] !== 'hidden'">
+
+										<app-autocomplete [scenarioValues]="savedAudience"
+											[currentTitle]="currentAudienceTitle" [placeHolder]="Audience"
+											[isMarket]=false [selectedValue]="selectedDefaultAudience"
+											(selectedScenario)="audienceChange($event)"
+											(createAudience)="browserAudience()">
+										</app-autocomplete>
+
+									</div>
+
+									<div *ngIf="mod_permission.features
+														['gpInventory']['status'] !== 'hidden' " class="sceanrioMarketBlock">
+										<div class="margin-bottom-20">
+											<div class='sceanrioMarketBlockTitle'>Market</div>
+											<div class="expansion-panel-body">
+												<mat-list >
+													<mat-list-item > 
+														<span matLine>{{currentMarketTitle}}</span> 
+														<div class="left-select" *ngIf="selectedMarket !== 'us'">
+															<button class="select test-forward-button" mat-icon-button (click) = "removeMarketFromList()">
+																<mat-icon matListIcon>clear</mat-icon>
+															</button>
+														</div>
+													</mat-list-item>
+												</mat-list> 
+												<!-- <p class="placeholder-color text-center" *ngIf="measureData.length <= 0">No {{filterName}} found.</p> -->
+											</div>
+											<div class="add-link" (click)="openMarketPopup()">Select Market</div>
+										</div>
+										<!-- <app-autocomplete [scenarioValues]="markets" [currentTitle]="currentMarketTitle"
+											[placeHolder]="Market" [isMarket]=true
+											[selectedValue]="selectedDefaultMarket"
+											(selectedScenario)="marketChange($event)">
+										</app-autocomplete>
+ -->
+									</div>
+									<!-- <app-filters [selectedOptionsArray]="selectedOptions" (removeFilterOption)="closeFilterOption($event)" (applySelected)="onApply($event)"></app-filters> -->
+									<div formGroupName="when" fxLayoutGap="20px" fxHide>
+
+										<mat-form-field floatPlaceholder="always" class="">
+											<label class="placeholder-text">Planned Start Date
+												<mat-icon class="date-picker-icon">date_range</mat-icon>
+											</label>
+											<input matInput [matDatepicker]="start_date_picker"
+												(focus)="start_date_picker.open()" (click)="start_date_picker.open()"
+												formControlName="start">
+											<mat-datepicker #start_date_picker="matDatepicker"></mat-datepicker>
+										</mat-form-field>
+										<mat-form-field floatPlaceholder="always" class="">
+											<label class="placeholder-text">Planned End Date
+												<mat-icon class="date-picker-icon">date_range</mat-icon>
+											</label>
+											<input matInput [matDatepicker]="end_date_picker"
+												(focus)="end_date_picker.open()" (click)="end_date_picker.open()"
+												formControlName="end">
+											<mat-datepicker #end_date_picker="matDatepicker"></mat-datepicker>
+										</mat-form-field>
+										<mat-error *ngIf="scenarioEditForm.controls.when.errors">
+											{{ scenarioEditForm.controls.when.errors.dates }}
+										</mat-error>
+
+									</div>
+								</div>
+								<!-- Delivery Goals start-->
+								<div fxLayout="column wrap" class="main-delivery-goal-area"
+									*ngIf="allowInventory === 'active'">
+									<h5 fxFlexFill class="margin-b-20">Delivery Goals</h5>
+									<!-- Planned area-->
+									<div class="delivery-goal-area" fxLayout="row" fxLayout.xs="column"
+										fxLayoutGap="20px">
+										<div class="goal-heading-area" fxLayout="column" fxLayout.xs="row"
+											fxFlex.xs="100%" fxFlex="180px">
+											<div fxFlex.xs="33%">
+												<p>Planned</p>
+											</div>
+											<div fxFlex.xs="33%" class="margin-t-20">
+												<label [ngClass]="{'label-show':!isAddGoal}"></label>
+												<p>Actual</p>
+											</div>
+											<div fxFlex.xs="33%" class="margin-t-20" *ngIf="isAddGoal">
+												<label fxHide.xs></label>
+												<p>My Goals</p>
+											</div>
+										</div>
+
+										<div class="goal-detail-area" fxLayout="column" fxFlex.xs="100%"
+											fxLayout.xs="row">
+
+											<div class="planned-area" fxLayout="row wrap" fxFlex.xs="33%"
+												fxLayoutGap="20px" fxFlex.sm="100%"
+												title="{{summaryPackage['error'] && summaryPackage['message'] || ''}}">
+												<div>
+													<label class="label-heading">Impressions</label>
+													<!-- <p>{{!summaryPackage['error'] && summaryPackage['target_impressions'] && (summaryPackage['target_impressions'] | convert:'THOUSAND') || '-' }}</p> -->
+													<p>{{summaryPackage['imp_target'] && (summaryPackage['imp_target'] | convert:'THOUSAND') || '-' }}
+													</p>
+												</div>
+												<div>
+													<label class="label-heading">Trp</label>
+													<p>{{summaryPackage['trp'] && (summaryPackage['trp'] | convert:'DECIMAL':3) || '-' }}
+													</p>
+												</div>
+												<div>
+													<label class="label-heading">Reach</label>
+													<p>{{summaryPackage['reach_pct'] && (summaryPackage['reach_pct'] | convert:'DECIMAL') + '%' || '-' }}
+													</p>
+												</div>
+												<div>
+													<label class="label-heading">Frequency</label>
+													<p>{{summaryPackage['freq_avg'] && (summaryPackage['freq_avg'] | convert:'DECIMAL':1) || '-' }}
+													</p>
+												</div>
+											</div>
+
+											<div class="actual-area" fxLayout="row wrap" fxFlex.xs="33%"
+												fxLayoutGap="20px" fxFlex.sm="100%">
+												<div>
+													<p class="subtitle-1">Not Yet Available</p>
+												</div>
+												<div>
+													<p class="subtitle-1">Not Yet Available</p>
+												</div>
+												<div>
+													<p class="subtitle-1">Not Yet Available</p>
+												</div>
+												<div>
+													<p class="subtitle-1">Not Yet Available</p>
+												</div>
+											</div>
+
+											<div class="mygoal-area" fxLayout="row wrap" fxFlex.xs="33%"
+												fxLayoutGap="20px" *ngIf="isAddGoal" fxFlex.sm="100%"
+												formGroupName="goals">
+												<div>
+													<mat-form-field floatPlaceholder="always">
+														<label class="placeholder-text">IMPRESSIONS</label>
+														<input matInput appNumberFormatter
+															formControlName="impressions">
+														<mat-error>It should be a numeric value</mat-error>
+													</mat-form-field>
+												</div>
+												<div>
+													<mat-form-field floatPlaceholder="always">
+														<label class="placeholder-text">TRP</label>
+														<input matInput appNumberFormatter formControlName="trp">
+														<mat-error>It should be a numeric value</mat-error>
+													</mat-form-field>
+												</div>
+												<div>
+													<mat-form-field floatPlaceholder="always">
+														<label class="placeholder-text">REACH</label>
+														<input matInput appNumberFormatter formControlName="reach">
+														<mat-error>It should be a numeric value</mat-error>
+													</mat-form-field>
+												</div>
+												<div>
+													<mat-form-field floatPlaceholder="always">
+														<label class="placeholder-text">FREQUENCY</label>
+														<input matInput appNumberFormatter formControlName="frequency">
+														<mat-error>It should be a numeric value</mat-error>
+													</mat-form-field>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="add-goal-area" fxLayout="row" *ngIf="!isAddGoal">
+										<button type="button" mat-raised-button class="surface subtitle-2"
+											(click)="onAddGoals()">
+											<mat-icon class="mat-18">add</mat-icon> Add Custom Goal
+										</button>
+									</div>
+								</div>
+								<!-- Delivery Goals end-->
+								<app-scenarios-inventories [scenario]="scenario" [audienceId]="currentAudience"
+									[marketId]="selectedMarket" (updateInventerySet)='updateInventerySet($event)'
+									[mapQueryParams]="inventoryParam"
+									[ngClass]="{ 'module-disable':allowInventory === 'disabled'}"
+									(updateSummary)='deliveryGoalSummary($event)'
+									[updateScenatio]="updateScenarioStatus"
+									(getInventoryDetails)="updateInventory($event)" *ngIf="allowInventory === 'active'">
+								</app-scenarios-inventories>
+								<!-- <app-scenario-places [existingPlaceSetsInScenario]="selectedPlaceSets" (updatePlaceSets)="updatePlaces($event)" [mapQueryParams]="inventoryParam" (getPlacesDetails)="updatePlacesData($event)"></app-scenario-places> -->
+
+							</div> <!-- inventory-content-block  close div -->
+						</mat-tab>
+						<mat-tab label="Places" class="scenario-place-tab">
+							<div class="scenario-place-block">
+								<app-scenario-places [existingPlaceSetsInScenario]="selectedPlaceSets"
+									(updatePlaceSets)="updatePlaces($event)" [mapQueryParams]="inventoryParam"
+									(getPlacesDetails)="updatePlacesData($event)"></app-scenario-places>
+							</div>
+						</mat-tab>
+					</mat-tab-group>
+				</div> <!-- scenario-plan-tabs close div-->
+			</div>
+		</form>
+	</mat-sidenav-content>
+</mat-sidenav-container>

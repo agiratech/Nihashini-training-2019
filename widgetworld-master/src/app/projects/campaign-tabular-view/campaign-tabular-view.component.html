@@ -1,0 +1,58 @@
+<div>
+  <div class="customize-column-container">
+    <button mat-raised-button (click)="customizeColumn()" type="button" id="customize-column">
+      Customize Columns
+    </button>
+  </div>
+  <mat-table [dataSource]="subProjects" class="campaign-table" matSort>
+
+    <ng-container matColumnDef="Campaign Name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{labels['folder'][0]}} Name </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="geo-button-link font-weight-normal" title="{{element.name}}"
+          (click)="onOpenCampaign(element._id)">{{element.name | truncate:'middle':18:6}}</a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Brand">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{labels['subProject'][0]}}  </mat-header-cell>
+        <mat-cell *matCellDef="let element" title="{{element.brand && element.brand || brandName}}">
+          {{((element.brand && element.brand || brandName) === '--noBrand--' ? '-' : (element.brand && element.brand || brandName)) | truncate:'middle':18:6}} </mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="# of Plans">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> # of {{labels['scenario'][1]}} </mat-header-cell>
+      <mat-cell *matCellDef="let element" title="{{element.scenarios && element.scenarios.length || 0}}">
+        {{element.scenarios && element.scenarios.length || 0}}</mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="Created By">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Created By </mat-header-cell>
+      <mat-cell *matCellDef="let element" title="{{element.updatedAt | date:'shortDate'}}">
+        {{element.updatedAt | date:'shortDate'}} </mat-cell>
+    </ng-container>
+
+    <!-- actions -->
+    <ng-container matColumnDef="Action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element" (click)='highlight(element)'>
+        <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+          <div mat-menu-item class="mat-menu-title" disabled>{{labels['folder'][0]}} Actions</div>
+          <button mat-menu-item type="button" (click)="onOpenCampaign(element._id)">Edit {{labels['folder'][0]}}</button>
+          <button mat-menu-item (click)="onSubProjectAction(element._id, element.name)">Duplicate {{labels['folder'][0]}}</button>
+          <!-- <button mat-menu-item>Duplicate Scenario</button> -->
+          <button mat-menu-item type="button" (click)="onDeleteSubProject(element._id, element.name)">Delete
+              {{labels['folder'][0]}}</button>
+
+        </mat-menu>
+        <button mat-icon-button id="action-btn-parent" [matMenuTriggerFor]="appMenu" type="button">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="campaignColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: campaignColumns;"></mat-row>
+  </mat-table>
+  <div class="noDataFound" *ngIf="subProjects.length <= 0">No Campaign</div>
+</div>

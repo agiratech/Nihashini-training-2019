@@ -1,0 +1,36 @@
+<mat-card class="mat-elevation-z3" (click)="onOpenSubProject(subProject._id)">
+  <div class="mat-hover-card">
+    <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="10px" class="action-icon">
+      <a title="Duplicate {{ subProjectLevel < 1 ? labels['subProject'][0] : labels['folder'][0]}}" (click)="onSubProjectAction(subProject._id, subProject.name);" *ngIf="subProject.name !== '--noBrand--'">
+          <mat-icon>file_copy</mat-icon>
+      </a>
+      <!-- archive feature commented will update -->
+      <!-- <a title="Archive">
+        <mat-icon>archive</mat-icon>
+      </a> -->
+      <a title="Delete" (click)="onDeleteSubProject(subProject._id, subProject.name);" >
+        <mat-icon>delete</mat-icon>
+      </a>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center" class="scenario-hover-btn">
+      <div fxLayout="column">
+          <!-- <button type="button" mat-raised-button class="secondary-btn" (click)="onOpenSubProject(subProject._id)" >View {{ subProjectLevel < 1 ? labels['subProject'][0] : labels['folder'][0]}}</button> -->
+          <app-plan-options [projectId]="subProject._id" (buttonAction)="isOpenPlan($event)" ></app-plan-options>
+      </div>
+
+    </div>
+  </div>
+  <mat-card-title-group>
+    <mat-card-title>{{subProject.name | truncate:'end':30}}</mat-card-title>
+    <mat-card-subtitle>{{ subProject.description ? (subProject.description | truncate: 'end' : 50) : '&nbsp;'}}</mat-card-subtitle>
+    <div mat-card-avatar class="avatar-image">
+      {{subProject.name | slice:0:1}}
+    </div>
+    <!-- <img mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+  </mat-card-title-group>
+  <mat-card-footer>
+    <p>{{labels['scenario'][1]}}: {{subProject.scenarioCount}} | Packages: {{subProject.packageCount}}</p>
+    <span fxFlex="1 1 auto"></span>
+    <p>Created: {{ subProject.createdAt | date:'shortDate'}}</p>
+  </mat-card-footer>
+</mat-card>

@@ -1,0 +1,27 @@
+<div class="tab-content">
+  <mat-tab-group #tabGroup [selectedIndex]="selectedTab">
+    <mat-tab label="Attachment List">
+      <ng-template matTabContent>
+        <div class="close-icons">
+          <mat-icon (click)="onClose()">close</mat-icon>
+        </div>
+        <h3>{{ 'Files Attached to ' + title | truncate: 0:37 }}</h3>
+        <div>
+          <app-attachment-list [attachmentFile]="attachmentFile" [projectId]="projectId">
+          </app-attachment-list>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Upload New Attachments">
+      <ng-template matTabContent>
+        <div class="upload-close">
+          <mat-icon class="close" (click)="onUploadClose()">close</mat-icon>
+        </div>
+        <h3> {{ 'Upload Attachments in ' + title | truncate: 0:35 }}</h3>
+        <div>
+          <app-upload-list [clearField]="clearField" (uploadSubmit)="onSubmitFile($event)" (cancelSubmit)="onUploadClose()"></app-upload-list>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>

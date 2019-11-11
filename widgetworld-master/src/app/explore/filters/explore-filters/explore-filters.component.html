@@ -1,0 +1,392 @@
+<div class="explore-filter-tabs" [ngClass]="{'hide': !showFilter }"
+     *ngIf="(allowInventory == 'active' || allowInventory == 'disabled')" >
+  <!-- <mat-sidenav-container (mouseenter)="mouseHover($event)" (mouseleave)="mouseLeave($event)"> -->
+    <!-- <mat-sidenav #sidenav mode='push' (closedStart)="showFilter = false"
+                 (openedStart)="showFilter = true;openThresholdFilter()" fullscreen> -->
+      <div class="mat-sidenav-div" fxFlexFill>
+        <mat-tab-group [(selectedIndex)]="selectedTab" (selectedTabChange)='openThresholdFilter()' fxFill class="explore-filter-tab-group">
+          <mat-tab fxFlexFill opened>
+            <ng-template mat-tab-label>
+              DEFINE TARGET
+            </ng-template>
+            <div class="target-filters" [hidden]="selectedTab !== 0">
+              <mat-accordion displayMode="flat">
+                <mat-expansion-panel *appLicense="'gpAudience'" (opened)="onOpenAudience(true)" (closed)="onOpenAudience(false)">
+                  <mat-expansion-panel-header [collapsedHeight]="tabHeaderHeight"
+                                              [expandedHeight]="tabHeaderHeight"
+                                              class="target-expansion-panel-header e2e-select-audience select-audience-panel">
+                    <mat-panel-title>
+                      Select Audience
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="mat-expansion-content">
+                    <app-audience-browser [selectedAudienceList]="selectedAudienceList"
+                                          (onCompletedBrowsing)='onCompletedBrowsing($event)'
+                                          [isScenario]="isScenario" 
+                                          [openAudience]="openAudience"
+                                          ></app-audience-browser>
+                  </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header [collapsedHeight]="tabHeaderHeight"
+                                              [expandedHeight]="tabHeaderHeight"
+                                              class="target-expansion-panel-header e2e-assign-market">
+                    <mat-panel-title>
+                      Assign Market
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="mat-expansion-content">
+                    <!-- <app-market-filter></app-market-filter> -->
+                    <app-market-type-filter module="explore" selectionType="single"></app-market-type-filter>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              SPOT INVENTORY
+            </ng-template>
+            <div class="inventory-filters" fxFlexFill [hidden]="selectedTab !== 1">
+              <div class="inventory-filters-header">
+                Inventory Filters
+              </div>
+              <div class="inventory-filters-body">
+                <!-- <h4 class="">Available Filters</h4> -->
+                <div>
+                  <mat-accordion displayMode="flat">
+                    <!-- <mat-expansion-panel expanded hideToggle>  --> <!-- removed expand as per the disscusion in call  -->
+                      <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Media Types
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection && filtersSelection['mediaTypeList']"
+                            class="rounded-checkbox"
+                            (change)="toggleFilter($event, 'mediaTypeList')"
+                            [disabled]="filtersSelection['mediaTypeList'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-media-types-filter></app-media-types-filter>
+                      </div>
+                    </mat-expansion-panel>
+                    <!-- Media attribute start-->
+                    <mat-expansion-panel hideToggle *ngIf="isMediaAttributesSearchEnabled && isMediaAttributesSearchEnabled.status==='active'">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Media Attributes
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple
+                                        [checked]="filtersSelection['mediaAttributes']"
+                                        class="rounded-checkbox"
+                                        (change)="toggleFilter($event, 'mediaAttributes')"
+                                        [disabled]="filtersSelection['mediaAttributes'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-media-attributes></app-media-attributes>
+                      </div>
+                    </mat-expansion-panel>
+                    <!-- Media attribute end-->
+
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Operators
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection['operatorList']"
+                                        class="rounded-checkbox"
+                                        (change)="toggleFilter($event, 'operatorList')"
+                                        [disabled]="filtersSelection['operatorList'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-operator-filter
+                        ></app-operator-filter>
+                      </div>
+                    </mat-expansion-panel>
+                    
+                    <mat-expansion-panel hideToggle class="location-panel">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Location
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection.location"
+                                        class="rounded-checkbox"
+                                        (change)="toggleLocationFilter($event)"
+                                        [disabled]="filtersSelection['location'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <mat-accordion [displayMode]="'flat'">
+                          <!-- <mat-expansion-panel class="mat-elevation-z0" hideToggle>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Limit to Map View
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="location-panel-body">
+                              <p>Filters inventory to what is currently shown in the map</p>
+                              <div class="action-container" appLicenseDisable>
+                                <button mat-raised-button class="btn-clear" type="button"
+                                        (click)='removePolygon()'>CLEAR
+                                </button>
+                                <button mat-raised-button class="btn-primary-color" type="button"
+                                        (click)="loadMapView()">
+                                  <mat-icon>map</mat-icon>
+                                  <span>MAP VIEW</span></button>
+                              </div>
+                            </div>
+                          </mat-expansion-panel>
+                          <mat-expansion-panel class="mat-elevation-z0" hideToggle>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Custom Shape
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="location-panel-body">
+                              <p>Click to draw a boundary; double click to filter </p>
+                              <div class="action-container" appLicenseDisable>
+                                <button mat-raised-button class="btn-clear" type="button"
+                                        (click)='removePolygon()'>CLEAR
+                                </button>
+                                <button mat-raised-button class="btn-primary-color" type="button"
+                                        (click)="drawPolygon()">
+                                  <mat-icon>mode_edit</mat-icon>
+                                  <span class="no-wrap">DRAW POLYGON</span></button>
+
+                                <button mat-raised-button class="btn-primary-color" type="button"
+                                        (click)="drawCircle()"><img
+                                  src="../assets/images/icon-place-radius.svg"
+                                  class="radius_img"><span>RADIUS</span></button>
+                              </div>
+                            </div>
+
+                          </mat-expansion-panel>
+                          <mat-expansion-panel class="mat-elevation-z0" hideToggle
+                                               *ngIf="(scenario_mod_permission['status'] != 'hidden')">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Filter by Place Set and Radius
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="location-panel-body">
+                              <div class="miles-container">Constrain results to
+                                <mat-form-field class="radius-miles">
+                                  <mat-label></mat-label>
+                                  <input matInput id="radius" [formControl]="radiusCtrl"
+                                         type="number">
+                                </mat-form-field>
+                                miles of each place
+                              </div>
+                              <mat-error *ngIf="radiusCtrl.invalid">Please enter a distance greater
+                                than zero.
+                              </mat-error>
+                              <mat-form-field floatLabel="never" fxFlexFill class="search-field">
+                                <input type="text" [(ngModel)]="placeSetSearch" matInput appSearch
+                                       key="name" [sourceData]="placePacks"
+                                       (filter)="filterPlacePacks($event)" id="place-search"
+                                       placeholder="Search Saved Place Sets">
+                                <mat-icon matSuffix>search</mat-icon>
+                              </mat-form-field>
+                              <div class="explore-location-places-list">
+                                <mat-selection-list #placeSelectionList
+                                                    [formControl]="selectedPlacesCtrl"
+                                                    [compareWith]="compare">
+                                  <mat-list-option *ngFor="let place of filteredPlacePacks"
+                                                   [value]="place" checkboxPosition="before">
+                                  <span [innerHTML]="place.name | highlight: placeSetSearch"></span>
+                                  </mat-list-option>
+                                  <p *ngIf="filteredPlacePacks.length <= 0" class="text-center">No
+                                    Place set data found</p>
+                                </mat-selection-list>
+                              </div>
+                              <div class="action-container" appLicenseDisable
+                                   [ngClass]="{'module-disable':(scenario_mod_permission['status'] == 'disabled')}">
+                                <button mat-raised-button class="btn-clear" type="button"
+                                        (click)='removePolygon()'>CLEAR
+                                </button>
+                                <button mat-raised-button class="btn-primary-color" type="button"
+                                        (click)="applyForm();">APPLY SETS
+                                </button>
+                              </div>
+                            </div>
+
+                          </mat-expansion-panel> -->
+                          <mat-expansion-panel class="mat-elevation-z0" expanded hideToggle>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Filter by Specific Geography
+                              </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="list-item-location">
+                              <div>
+                                <mat-label>SEARCH</mat-label>
+                                <mat-form-field floatLabel="never" fxFlexFill class="search-field">
+                                  <input matInput [formControl]="geographySearchCtrl" type="text"
+                                         placeholder="Please type to begin search"
+                                         name="locationsearch"
+                                         id="search-locations"
+                                         class="ta-search-text target-search market-geography-search"
+                                         autocomplete="off">
+                                  <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                              </div>
+                              <div *ngIf="loadertrue" id="loader"></div>
+
+                              <mat-list class="list-group borderless location-geography-group"
+                                        *ngIf="selectedMarketLocation.length != 0">
+
+                                <div class="group-keys"
+                                     *ngFor="let marketdata of selectedMarketLocation | geokeys:true;">
+                                  {{l}}
+                                  <p class="nav-header">{{marketdata.key | uppercase}}</p>
+                                  <mat-list>
+                                    <mat-list-item class="pointer"
+                                                   *ngFor="let geolocation of marketdata.value"
+                                                   (click)="onGeoLocalion(geolocation,marketdata.key)"
+                                                   [ngClass]="{'highlight-active':geolocation.id==selectedGeoLocation.id}">
+                                      {{
+                                      geolocation.name }}
+                                    </mat-list-item>
+                                  </mat-list>
+                                </div>
+                                <p class="placeholder-color text-center"
+                                   *ngIf="!isMarketlocationAvailable && selectedMarketLocation.length!=0">
+                                  No data found.</p>
+
+                              </mat-list>
+                              <div class="action-container" appLicenseDisable>
+                                <button mat-raised-button class="btn-clear" type="button"
+                                        (click)='removePolygon()'>CLEAR
+                                </button>
+                                <button mat-raised-button class="btn-primary-color" type="button"
+                                        (click)="applyForm();">APPLY
+                                </button>
+                              </div>
+                            </div>
+                          </mat-expansion-panel>
+
+                        </mat-accordion>
+                      </div>
+                    </mat-expansion-panel>
+                 
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Specific Spots
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple
+                                        [checked]="filtersSelection.geoPanelId || filtersSelection.plantUnitId"
+                                        class="rounded-checkbox"
+                                        (change)="toggleUnitsFilter($event)"
+                                        [disabled]="filtersSelection['geoPanelId'] === undefined && filtersSelection['plantUnitId'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-filter-by-ids
+                        ></app-filter-by-ids>
+                      </div>
+                    </mat-expansion-panel>
+                     <mat-expansion-panel hideToggle
+                    *ngIf="(allowScenarios === 'active' && allowInventory === 'active')">
+                      <mat-expansion-panel-header (click)="openThresholdFilter()">
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Thresholds
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection.thresholds"
+                                        class="rounded-checkbox"
+                                        (change)="toggleFilter($event, 'thresholds')"
+                                        [disabled]="filtersSelection['thresholds'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <!-- <app-thresholds-filter></app-thresholds-filter> -->
+                        <app-thresholds-filter-gp></app-thresholds-filter-gp>
+                      </div>
+                    </mat-expansion-panel> 
+                    <mat-expansion-panel hideToggle
+                                         *ngIf="(allowScenarios === 'active' && allowInventory === 'active')">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>
+                          Load Saved {{this.workflowLabels?.scenario[1]}}
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection.scenario"
+                                        class="rounded-checkbox"
+                                        (change)="toggleFilter($event, 'scenario')"
+                                        [disabled]="filtersSelection['scenario'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-explore-scenarios></app-explore-scenarios>
+                      </div>
+                    </mat-expansion-panel >
+                    <mat-expansion-panel hideToggle *ngIf="inventorySetModulePermission['status']!=='hidden'" [disabled]="inventorySetModulePermission['status']==='disabled'">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <mat-icon>chevron_right</mat-icon>Load Saved Inventory Sets
+                        </mat-panel-title>
+                        <mat-panel-description (click)="$event.stopPropagation();">
+                          <mat-checkbox disableRipple [checked]="filtersSelection.inventorySet"
+                                        class="rounded-checkbox"
+                                        (change)="toggleFilter($event, 'inventorySet')"
+                                        [disabled]="filtersSelection['inventorySet'] === undefined"></mat-checkbox>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="mat-expansion-content">
+                        <app-explore-inventory-sets></app-explore-inventory-sets>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+              </div>
+              <div class="inventory-filters-footer" fxLayout="row" fxLayoutAlign="end center"
+                   appLicenseDisable>
+                <button mat-raised-button class="button button-secondary uppercase clear-btn"
+                        (click)="resetAllFilter();">Clear All
+                </button>
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Layers and Display Options
+            </ng-template>
+            <div class="layers-filters" fxFlexFill [hidden]="selectedTab !== 2">
+              <app-explore-layers></app-explore-layers>
+            </div>
+          </mat-tab>
+          <mat-tab>
+            <ng-template mat-tab-label>
+              Actions
+            </ng-template>
+            <div class="actions-filters" fxFlexFill [hidden]="selectedTab !== 3">
+              <app-actions-filter></app-actions-filter>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    <!-- </mat-sidenav> -->
+    <!-- <mat-sidenav-content>
+      <div class="find-inventory-btn-icon close-filter" fxLayout="column"
+           fxLayoutAlign="center center" fxFlex="15px" (click)="onCloseFilterTab()">
+        <mat-icon *ngIf="showFilter">arrow_left</mat-icon>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container> -->
+</div>

@@ -1,0 +1,26 @@
+<div class="content-wrapper landing-page" >
+  <section class="content-header">
+    <div fxFlexFill class="header-block">
+      <div class="header">
+        <div>
+          <i class="material-icons mobile-hide">collections_bookmark</i>
+          <img class="mobile-logo-img" src="/assets/images/geo_path_mini_logo.png">
+          <span>Workspace</span>
+        </div>
+      </div>
+    </div>
+    <div class="explore-filter content-breadcrumb">
+      <div fxHide.xs>
+        <breadcrumbs></breadcrumbs>
+      </div>
+      <user-navigation></user-navigation>
+    </div>
+  </section>
+  <div>
+    <section class="content">
+      <div class="no-p-t-b no-mobile-padding no-padding">
+        <router-outlet></router-outlet>
+      </div>
+    </section>
+  </div>
+</div>

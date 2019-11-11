@@ -1,0 +1,73 @@
+<div fxFlexFill>
+	<div>
+		<mat-table [dataSource]="dataSource" matSort class="project-mat-table margin-top-20">
+		  <ng-container matColumnDef="name">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('Scenario')" fxFlex="20%"> Scenario Name </mat-header-cell>
+		    <mat-cell  *matCellDef="let element" class=" " [ngClass]="{'sort':sortingElement==='Scenario'}" fxFlex="20%"> <a  class="geo-button-link font-weight-normal" matTooltip="{{element.name}}" matTooltipPosition="above" matTooltipClass="breadcrum-tooltip" >{{element.name | truncate:'middle':15 }}</a> </mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="description">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('Description')" fxFlex="220px"> Description </mat-header-cell>
+		    <mat-cell  *matCellDef="let element"  [ngClass]="{'sort':sortingElement==='Description'}" title="{{element.description}}" fxFlex="220px"> {{element.description  | truncate:'middle':30}} </mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="units">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('Units')" fxFlex="70px"> Units </mat-header-cell>
+		    <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='Units'}" fxFlex="70px"> {{element.units}} </mat-cell>
+		  </ng-container>
+
+		  <!-- Name Column -->
+		  <ng-container matColumnDef="audiences" >
+		    <mat-header-cell *matHeaderCellDef mat-sort-header  (click)="onSortting('Audiences')" fxFlex="100px"> Audiences </mat-header-cell>
+		    <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='Audiences'}" title="{{element.audience}}" fxFlex="100px"> {{element.audiences}} </mat-cell>
+		  </ng-container>
+
+		  <!-- Weight Column -->
+		  <ng-container matColumnDef="markets">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('Markets')" fxFlex="100px"> Markets </mat-header-cell>
+		    <mat-cell  *matCellDef="let element" class="" [ngClass]="{'sort':sortingElement==='Markets'}" title="{{element.markets}}" fxFlex="100px"> {{element.markets}} </mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="created">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('SDate')" class="" > Created </mat-header-cell>
+		    <mat-cell  *matCellDef="let element"   [ngClass]="{'sort':sortingElement==='SDate'}"> {{element.created | date:'MM/dd/yyyy'}} </mat-cell>
+		  </ng-container>
+
+		  <ng-container matColumnDef="modified">
+		    <mat-header-cell *matHeaderCellDef mat-sort-header (click)="onSortting('modified')" class="" > Modified </mat-header-cell>
+		    <mat-cell  *matCellDef="let element"   [ngClass]="{'sort':sortingElement==='modified'}">{{element.modified | date:'MM/dd/yyyy'}} </mat-cell>
+		  </ng-container>
+
+
+		  <ng-container matColumnDef="action">
+	      <mat-header-cell *matHeaderCellDef class="width80px"></mat-header-cell>
+	      <mat-cell  *matCellDef="let element" class="width80px" (click)='highlight(element)'>
+	      	<mat-menu #appMenu="matMenu"  [overlapTrigger]="false" xPosition="before">
+					  <div mat-menu-item class="mat-menu-title" disabled>Scenario Actions</div>
+					  <!-- <button mat-menu-item>Map Audience</button>
+					  <button mat-menu-item>Map POIs</button>
+					  <button mat-menu-item>Map Inventory Set</button> -->
+					  <button mat-menu-item  type="button">Edit Scenario</button>
+					  <button mat-menu-item data-toggle="modal" data-target="#duplicate-scenario" >Duplicate Scenario</button>
+					  <!-- <button mat-menu-item>Duplicate Scenario</button> -->
+					  <button mat-menu-item   type="button">Delete Scenario</button>
+					</mat-menu>
+					<button mat-icon-button [matMenuTriggerFor]="appMenu" type="button">
+					  <mat-icon>more_vert</mat-icon>
+					</button>
+	      </mat-cell>
+	    </ng-container>
+
+		  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		  <mat-row  *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight-bg':selectedRow == row._id}"></mat-row >
+		</mat-table>
+		<!-- <div class="noDataFound" *ngIf="dataLoading">Fetching data...</div>
+		<div class="noDataFound" *ngIf="formattedScenarios.length > 0 && dataSource.data.length <=0 "> Your search didn't produce any results.
+		</div> -->
+		<div class="noDataFound" *ngIf="fDatas.length <= 0">
+			No scenarios in this project. <a class="geo-button-link add-scenario-link" href="javascript:void(0)" (click)="createScenario()" *ngIf="projectId != ''">Add Scenario</a> <a class="geo-button-link add-scenario-link" href="javascript:void(0)" *ngIf="projectId == ''" (click)="redirectScenario()">Add Scenario</a>
+		</div>
+	</div>
+</div>
+
+

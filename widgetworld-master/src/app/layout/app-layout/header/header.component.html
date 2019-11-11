@@ -1,0 +1,17 @@
+<div class="new-header" #headerLayout fxLayout="column">
+  <mat-toolbar class="header-toolbar" fxLayoutAlign="start center" fxLayoutGap="20px">
+    <div class="logo-div">
+      <img src="{{themeSettings['logo']['mini_logo']}}" class="logo-img" onError="this.src='./assets/images/logo-placeholder-mini.png'">
+    </div>
+    <h4 class="example-app-name" fxLayoutAlign="start center" fxLayoutGap="10px">
+      <ng-content select=".projected-title"></ng-content>
+    </h4>
+    <span class="header-space"></span>
+    <user-navigation *ngIf="!isPublicSite"></user-navigation>
+    <user-navigation *ngIf="isPublicSite && userData.email!=''"></user-navigation>
+    <div *ngIf="isPublicSite">
+     <span class="public-site-links" *ngIf="isPublicSite && userData.email==''"><a (click)="openSigninUp('signup')"></a> <a (click)="openSigninUp('signin')">Sign in</a></span> 
+    </div>
+  </mat-toolbar>
+  <ng-content select=".projected-secondary"></ng-content>
+</div>

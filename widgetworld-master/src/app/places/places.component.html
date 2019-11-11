@@ -1,0 +1,109 @@
+<div fxLayout="column">
+  <!-- Header section -->
+  <section class="header-section">
+    <app-places-header></app-places-header>
+  </section>
+  <!-- Header section -->
+
+  <div
+    fxLayout="row"
+    [ngClass]="{
+      'place-filter-open': openFilter,
+      'filterlevel2': filterLevel['filterLevel'] === 2,
+      'filter-expand': filterLevel['placeResultExpand'],
+      'filter-search-hide': filterLevel['searchHide'] || navigationCollapseState,
+      'layers-filter-open': filterOpenDetails['tab'] === 'layers',
+      'navigation-collapse' : navigationCollapseState
+    }"
+  >
+
+    <div class="map-zoom-out mobile-hide" *ngIf="showMapControls">
+      <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+        <button (click)="zoomOutMap()" title="ZOOM OUT MAP">
+          <span><i class="material-icons">zoom_out_map</i></span>
+        </button>
+      </div>
+    </div>
+    <section class="body-content" [ngClass]="{'place-filter-close': !this.openFilter}">
+      <mat-sidenav
+        [(opened)]="openFilter"
+        mode="side"
+        position="start"
+        class="places-filter-main"
+        [ngStyle]="{ 'top.px': headerHeight }"
+        [disableClose]="true"
+      >
+
+        <div class="drawer-inner-container " >
+          <div class="places-left">
+            <app-places-filters
+              (pushNationalData)="onPushNationalData($event)"
+              (onHoverOnCard)="hoverOnCard($event)"
+              (onLeaveOnCard)="hoverOutOnCard()"
+              (onClickOnCard)="openPanelPopup($event)"
+              (onChangeTab)="onChangeTab($event)"
+              (drawPolygon)="drawPolygon()"
+              (drawCircularPolygon)="drawCircularPolygon()"
+              (geoPolygon)="geoPolygon($event)"
+              (removePolygon)="removePolygon($event)"
+              (loadPolygonFromSession)="updateFiltersFromPolygon($event)"
+              (filterLocationsByRadius)="filterLocationsByRadius($event)"
+              (selectedFilterFids) = "selectedFilterFids($event)"
+              (navigationStatus) = "onNavigationStatus($event)"
+            >
+            </app-places-filters>
+          </div>
+          <div
+            class="find-inventory-btn-icon close-filter e2e-filter-close"
+            *ngIf="openFilter"
+            (click)="onCloseFilter()"
+          title="Collapse the filters">
+            <mat-icon>arrow_left</mat-icon>
+          </div>
+        </div>
+      </mat-sidenav>
+      <div
+            class="find-inventory-btn-icon open-filter-btn e2e-filter-close"
+            *ngIf="!openFilter && initialFilterOpen"
+            (click)="openFilterNav()"
+          title="Expand the filters">
+            <mat-icon>arrow_right</mat-icon>
+      </div>
+      <div class="map-div-block">
+        <div
+          class="map-div"
+          [ngClass]="{'notShowMapControls':!showMapControls}"
+          [ngStyle]="{ 'height.px': mapHeight, 'width.px': mapWidth }"
+          id="map-div-block" #mapDivBlock> 
+          <div class="custom-logo-layer">
+            <app-custom-logo-layer
+              [zoomLevel]="zoomLevel"
+              [logoStyle]="logoStyle"
+              [activeDraggablePosition]="activeDraggablePosition"
+              [mapWidthHeight]="mapWidthHeight"
+              [layerDisplayOptions]="layerDisplayOptions"
+              [venuesClicked]="venuesClicked"
+              [selectedPlaceData]="selectedPlaceData"
+              [mapDivBlock]="mapDivBlock"
+              >
+            </app-custom-logo-layer>
+          </div>
+          <div class="custom-text-layer">
+            <app-custom-text-layer
+              [activeDraggableTextPosition]="activeDraggableTextPosition"
+              [mapWidthHeight]="mapWidthHeight"
+              [layerDisplayOptions]="layerDisplayOptions"
+              [customTextStyle]="customTextStyle"
+              [mapDivBlock]="mapDivBlock"
+            >
+            </app-custom-text-layer>
+          </div>
+          <div [ngClass]="mapStyle" id="mapbox"></div>
+          <div class="key-legend-map-control" [ngClass]="{'notShowMapLegends':!showMapLegends}">
+            <app-map-legends [module]='"place"' *ngIf="showMapLegends"></app-map-legends>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

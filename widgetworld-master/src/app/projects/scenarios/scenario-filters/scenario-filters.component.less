@@ -1,0 +1,205 @@
+@import "../../../../assets/css/variables.less";
+
+::ng-deep {
+  app-scenario-filters {
+    .mat-expansion-panel-header{
+      color: rgba(0,0,0,0.87);	
+      font-size: 14px;	
+      font-weight: 300;	
+      letter-spacing: 0.12px;	
+      padding: 0px;
+      max-height: 48px;
+      mat-panel-title{
+        padding: 12px 0px;
+        .mat-badge-content {
+          background: var(--button-bg-color);
+      }
+      }
+      &:hover{
+        .mat-content{
+          border-bottom: none;
+          height: 47px;
+        }
+      }
+      .mat-content{
+        height: 48px;
+        margin: 0 15px;
+        border-bottom: 1px solid #E0E0E0;
+      }
+    }
+    .no-margin-heading{
+      margin:0px !important;
+    }
+    .mat-expansion-panel-body {
+      font-size: 13px !important;
+      padding: 0 15px 16px;
+      .mat-list-item-content{
+        padding: 0px !important;
+
+      }
+    }
+    mat-expansion-panel{
+      background:  #FFF !important;
+      margin: 0px 0px !important;
+    }
+    .mat-list-text{
+      color: rgba(0,0,0,0.6);	
+      font-size: 13px;	
+      font-weight: 300;	
+      letter-spacing: 0.17px;	
+      line-height: 19px;
+    }
+    .mat-pseudo-checkbox {
+      width: 18px;
+      height: 18px;
+    }
+    .mat-pseudo-checkbox::after {
+      top: 3px !important;
+      left: 1px !important;
+      width: 12px !important;
+    }
+    .mat-list .mat-list-item, .mat-list .mat-list-option, .mat-nav-list .mat-list-item, .mat-nav-list .mat-list-option, .mat-selection-list .mat-list-item, .mat-selection-list .mat-list-option {
+      display: block;
+      height: 30px;
+      -webkit-tap-highlight-color: transparent;
+      .mat-accent .mat-pseudo-checkbox-checked, .mat-accent .mat-pseudo-checkbox-indeterminate, .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
+        background: var(--button-bg-color);
+    }
+    }
+    .mat-selection-list{
+      max-height: 67px;
+      overflow-y: auto;
+    }
+    .mat-checkbox-label {
+      color: var(--caption-body-2);
+    }
+    & .places-panel {
+      .mat-form-field{
+        padding: 0px 15px;
+        .mat-form-field-flex{
+          padding-left: 5px;
+        }
+      }
+      .action-container{
+        margin-left: 0px;
+      }
+      .mat-selection-list{
+        max-height: 222px !important;
+        padding: 0px 15px 16px 15px !important;
+      }
+      .mat-list-item-content{
+        padding: 0px !important;
+      }
+    }
+    app-tags-input {
+      .mat-chip-list-wrapper {
+        max-height: 150px;
+        overflow: auto;
+        margin-top: 5px;
+        & .mat-chip {
+          height: 20px;
+          color: var(--medium-emphasis) !important;
+          background: var(--grays-bg-200) !important;
+          font-size: 12px;
+          font-weight: 300;
+          margin-top: 9px;
+        }
+      }
+      .mat-standard-chip.mat-chip-with-trailing-icon {
+        padding: 2px 7px 2px 12px;
+      }
+      & input.mat-input-element {
+        border-bottom: solid 1px var(--grays-bg-300);
+        &.empty {
+          background: var(--grays-bg-200);
+          height: 26px;
+        }
+      }
+    }
+    & .action-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      .inventory-set-btn{
+        width: 142px !important;
+        padding: 0px;
+      }
+      .btn-primary-color{
+        text-transform: uppercase !important;
+      }
+      & > button {
+        height: 28px;
+        // width: 55px;
+        // min-width: 55px;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.83px;
+        line-height: normal;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &.btn-clear {
+          width: 85px;
+        }
+        &.btn-primary-color {
+          background: var(--button-bg-color);
+          color:#ffffff;
+          margin-left: 8px;
+        }
+        &.btn-clear {
+          // background-color: var(--grays-bg-200);
+        }
+      }
+    }
+    .search-field {
+      .mat-form-field-wrapper {
+        margin-bottom: -1.25em
+      }
+      input {
+        height: inherit;
+        border-bottom: none;
+        &:focus {
+          border-bottom: none !important;
+          box-shadow: unset !important;
+        }
+      }
+      mat-icon {
+        color: var(--medium-emphasis);
+      }
+      .mat-form-field-label{
+        color: rgba(0, 0, 0, 0.38);
+        font-size: 14px;
+        font-weight: 300;
+        letter-spacing: 0.12px;
+        line-height: 15px;
+        text-transform: capitalize;
+      }
+    }
+    .inventory-panel {
+      max-height:  300px;
+      overflow-y: auto;
+      padding-bottom: 30px;
+      .header-color:hover{
+        border-bottom: 1px solid #E0E0E0;
+      }
+    }
+    .mat-expanded{
+      .header-color{
+        border-bottom: none;
+      }
+    }
+    .action-container{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      margin-left: -15px;
+      border: 1px solid #D2D2D2;	
+      background-color: #F5F5F5;	
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+      padding: 10px;
+      margin-bottom: 0px;
+    }
+  }
+}

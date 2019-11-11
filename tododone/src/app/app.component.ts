@@ -11,28 +11,29 @@ export class AppComponent {
   done = [];
   index: number;
   
-  addTodo(forms:NgForm){ 
-    this.todo.push(forms) ; 
-    console.log(this.todo)
+  addTodo(items:NgForm){ 
+    this.todo.push(items) ; 
+    // console.log(this.todo)
     }
       todoDrop(event:CdkDragDrop<string[]>){
         
-//        console.log('coming toDo event', event)
+      //  console.log('coming toDo event', event)
 
         this.todo.splice(event.currentIndex, 0 ,event.container.data);
         
-        this.done.splice(event.currentIndex, 1);
+        this.done.splice(event.previousIndex, 1);
 
         // console.log('event.container.datatodo',event.container.data)
 
       }
 
       doneDrop(event:CdkDragDrop<string[]>){
-        console.log('coming done event', event) 
+        
+        // console.log('coming done event', event) 
         
         this.done.splice(event.currentIndex, 0, event.container.data);
         
-        this.todo.splice(event.currentIndex, 1);
+        this.todo.splice(event.previousIndex, 1);
         
         // console.log('event.container.datadone',event.container.data)
 

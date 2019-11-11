@@ -1,0 +1,50 @@
+<!--<mat-card class="mat-elevation-z3 ghost">
+  <mat-card-title-group>
+    <mat-card-title>&nbsp;</mat-card-title>
+    <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+
+    <div mat-card-avatar class="avatar-image">
+      <span class="round">&nbsp;</span>
+    </div>
+  </mat-card-title-group>
+  <mat-card-footer>
+    <p>&nbsp;</p>
+    <span fxFlex="1 1 auto"></span>
+    <p>&nbsp;</p>
+  </mat-card-footer>
+</mat-card>-->
+<mat-card class="mat-elevation-z3" (click)="onOpenProject(project._id)">
+    <div class="mat-hover-card">
+      <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="10px" class="action-icon">
+        <a title="Duplicate {{labels['project'][0]}}" (click)="onProjectAction(project._id, project.name);"><mat-icon>file_copy</mat-icon></a> 
+        <!-- Archive is not for this sprint, enable later
+        <a><mat-icon>archive</mat-icon></a>
+        -->
+        <a title="Delete" (click)="onDeleteProject(project._id, project.name);"><mat-icon>delete</mat-icon></a>
+      </div>
+      <div fxLayout="column" fxFlexAlign="center">
+        <!-- <button type="button" mat-raised-button class="secondary-btn"  [routerLink]="['/v2/projects', project._id]"
+        >View {{labels['project'][0]}}</button> -->
+        <!-- <app-plan-options [projectId]="project._id" (buttonAction)="isOpenPlan($event)" ></app-plan-options> -->
+      </div>
+      <div class="project-action" >
+        <button type="button" mat-icon-button class="primary-bg" (click)="onOpenProject(project._id)">VIEW {{labels['project'][0]}}</button>
+      </div>
+    </div>
+    <mat-card-title-group>
+        <mat-card-title>{{project.name | truncate:'end':30}}</mat-card-title>
+        <mat-card-subtitle>{{ project.description ? (project.description | truncate: 'end' : 50) : '&nbsp;'}}</mat-card-subtitle>
+
+
+        <div mat-card-avatar class="avatar-image">
+          <!--<img ng mat-card-sm-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+          <span class="round">{{project.name | slice:0:1}}</span>
+        </div>
+    </mat-card-title-group>
+    <mat-card-footer>
+      <p *ngIf="subProjectAccess.depth === 0"> Scenarios: {{project['depth0'].scenarioCount}}</p>
+      <p *ngIf="subProjectAccess.depth > 0">{{labels['subProject'][1]}}: {{project['depth'+subProjectAccess.depth].subProjectCount}}<span *ngIf="subProjectAccess.depth > 1"> | {{labels['folder'][1]}}: {{project['depth'+subProjectAccess.depth].folderCount}}</span></p>
+      <span fxFlex="1 1 auto"></span>
+      <p>Created: {{project.createdAt | date:'shortDate'}}</p>
+    </mat-card-footer>
+</mat-card>

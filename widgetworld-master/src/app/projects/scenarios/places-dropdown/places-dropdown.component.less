@@ -1,0 +1,60 @@
+@import "../../../../assets/css/variables.less";
+::ng-deep{
+  app-places-dropdown{
+  .mat-select-content{
+    .mat-select-search-inner{
+      .mat-select-search-input{
+      padding: 0;
+      margin: 10px;
+      width: 90%;
+      padding: 4px;
+      border: 1px solid var(--g-color);
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+      padding-right: 24px;
+      }
+    }
+  }
+  .search-icon{
+    position: relative;
+    right: 0;
+    z-index: 999;
+    left: 85%;
+    top: -35px;
+  }
+  .mat-select-content{
+    mat-option{
+      top:-26px;
+    }
+  }
+  .mat-select-search-no-entries-found{
+    position: absolute;
+    top: 38px;
+  }
+  .mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+    background: var(--theme-secondary-color);    
+  }
+  .mat-pseudo-checkbox {
+    color: rgba(0,0,0,.35);
+  }
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: var(--dropdown-option-color);
+    background: var(--dropdown-hover-bg);
+  }
+  .btn-primary-color{
+    background: var(--button-bg-color) !important;
+    border-radius: 4px !important;
+    color:#ffffff;
+    height: 27px;
+    line-height: 27px;
+  }
+  .btn-clear{
+    background-color: #FAFAFA !important;
+    height: 27px;
+    line-height: 27px;
+  }
+  .action-area{
+    padding: 10px 15px 15px;
+    border-top: 1px solid var(--dropdown-hover-bg);
+  }
+  }
+}

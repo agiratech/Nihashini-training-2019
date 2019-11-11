@@ -1,7 +1,7 @@
 <div class="main">
   <div class="todoin">
     <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
-      <input class="in" type="text" placeholder="add todo list" [(ngModel)]="title" name="title">
+      <input placeholder="add todo list" [(ngModel)]="title" name="title">
       <input type="submit" value="Add" [disabled]="!title">
     </form>
     <div listarea>
@@ -19,7 +19,7 @@
 
         <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]"
           class="list" (cdkDropListDropped)="doneDrop($event)">
-          <div class="box" *ngFor="let item of done" cdkDrag>{{item.title}}</div>
+          <div class="box" *ngFor="let item of done" cdkDrag>{{title}}</div>
         </div>
       </div>
     </div>

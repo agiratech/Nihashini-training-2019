@@ -1,0 +1,28 @@
+<div role="dialog" class="save-workspace-dialog-begin">
+	<div class="modal-dialog save-workspace-dialog" role="document">
+		<div>
+      <form  class="noAnimation" [formGroup]="placeSetForm" novalidate autocomplete="off" (ngSubmit)='onSubmit(placeSetForm)'>
+			<div class="modal-body">
+        <h4>{{dialogData.title}}</h4>
+        <p *ngIf="dialogData.isExistingPlaceSet">Please select from your saved places sets below.</p>
+				<mat-form-field fxFlexFill floatPlaceholder="always" *ngIf="!dialogData.isExistingPlaceSet">
+          <mat-label></mat-label>
+					<input matInput autocomplete="off" placeholder="Type place set name" formControlName="name" id="e2e-place-set-name">
+          <mat-error>{{errorMessage}}</mat-error>
+        </mat-form-field>
+        <mat-selection-list *ngIf="dialogData.isExistingPlaceSet && existingPlacesSet.length > 0 "  #selectionList formControlName="existingPlaces">
+            <mat-spinner [strokeWidth]="1" [diameter]="25" *ngIf="isSpinner && existingPlacesSet.length < 1 "></mat-spinner>
+            <mat-list-option *ngFor="let placeSet of existingPlacesSet" class="e2e-saveExitingPlaceSet"  [value]="placeSet" >
+              {{placeSet.name}}
+            </mat-list-option>
+            <p *ngIf="noPlaceDataFound" class="text-center">No place set data found</p>
+          </mat-selection-list>
+      </div>
+			<div class="modal-footer">
+        <button mat-dialog-close mat-button type="button" class="button  popup-left-btn button-primary-link no-radius">CANCEL</button>
+				<button type="submit" mat-raised-button class="button button-primary uppercase no-radius" id="e2e-savePlaceSetBtn" [disabled]="!placeSetForm.valid">{{dialogData.buttonText}}</button>
+      </div>
+      </form>
+		</div>
+	</div>
+</div>

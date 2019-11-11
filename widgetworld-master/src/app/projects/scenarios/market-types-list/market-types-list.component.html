@@ -1,0 +1,184 @@
+<div class="market-types-list">
+  <!-- Tab section start-->
+  <div class="action-button-group" [ngClass]="{'isExpand':isExpandTabs}">
+    <span fxFlex="1 1 auto"></span>
+    <div class="loader-pos" *ngIf="isLoader">
+      <mat-spinner [strokeWidth]="2" [diameter]="30"></mat-spinner>
+    </div>
+    <button type="button" mat-raised-button (click)="isExpandTabs = !isExpandTabs" color="secondary" class="expand-btn">
+      EDIT <mat-icon>{{ !isExpandTabs && 'keyboard_arrow_down' || 'keyboard_arrow_up' }}</mat-icon></button>
+    <button [disabled]="isLoader" type="button" mat-raised-button color="primary" (click)="onUpdateMediaType()">
+      UPDATE
+    </button>
+  </div>
+  <mat-tab-group [ngClass]="{'hide':!isExpandTabs}">
+    <!-- Goal tab section start-->
+    <mat-tab label="Goal">
+      <div class="goal-tab-body-main">
+        <!-- goals-details start-->
+        <app-goals-details [innerMediaGoalForm]="goalFormFieldValue" (goalDetails)="updateGoal($event)">
+        </app-goals-details>
+        <!-- goals-details end-->
+        <!-- Media type table end-->
+      </div>
+    </mat-tab>
+    <!-- Goal tab section end-->
+
+    <!-- Media types tab section start-->
+    <mat-tab label="Media types">
+      <app-scenario-media-types [mediaTypeSelectedData]="selectedMediaTypes" [source]="source"
+        (selectedMediaTypes)="updateSelectedMediaType($event)"></app-scenario-media-types>
+    </mat-tab>
+    <!-- Media types tab section end-->
+  </mat-tab-group>
+
+  <!-- Tab section end-->
+  <div class="goal-tab-body-main m-t-2">
+    <!-- goals-details start-->
+    <!-- goals-details end-->
+    <!-- inventory-toggle section start-->
+    <div class="inventory-toggle" *ngIf="operatorModulePermission">
+      <!-- <mat-slide-toggle>Competitive Mode: OFF <br>
+        Goal is met by each Media Type</mat-slide-toggle> -->
+      <span fxFlex="1 1 auto"></span>
+      <label class="horizontal-center">View by:</label>
+      <mat-button-toggle-group #group="matButtonToggleGroup" (click)=onViewBY(group) value="0">
+        <mat-button-toggle value="0">Media Types</mat-button-toggle>
+        <mat-button-toggle value="1">Operators</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <!-- inventory-toggle section end-->
+    <!-- Media type table start-->
+    <div class="customize-column-container">
+      <button mat-raised-button (click)="customizeColumn()" type="button" id="customize-column">
+        Customize Columns
+      </button>
+    </div>
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+
+      <ng-container matColumnDef="MediaType">
+        <th mat-header-cell *matHeaderCellDef> Media Type </th>
+        <td mat-cell *matCellDef="let element" [title]="element['mediaTypeLable']">
+          {{element['mediaTypeLable'] | truncate:'middle':20}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Required/Total In Market">
+          <th mat-header-cell *matHeaderCellDef> Required Spots/<br> Total Spots In Market</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.editable;else nonEditableSpot">
+              <input *ngIf="(element.isSpotsEdit)" class="edit-total" type="text" [value]="((element.spots === '' || element.spots === null) && '' || (element.spots <= 0 && '0' || element.spots))" (blur)="onEditFieldValue($event.target.value, element,'spots')" appNumberOnly autofocus tabindex="-1">
+              <span *ngIf="(!element.isSpotsEdit)" class="cell-data editable-value" (click)="rowEditId = element.mediaType;element.isSpotsEdit=true;element.isTrpEdit=false">
+                  {{ ( (element.spots === 0 ||  element.spots === '' || element.spots === null) &&  '-' || element.spots ) }} </span>
+            </ng-container>
+            <ng-template #nonEditableSpot>
+                <span >
+                    {{ ( (element.spots === 0 || element.spots === '' || element.spots === null) &&  '-' || element.spots ) }}  </span>
+            </ng-template>
+
+            <span matTooltip="Total Quantities based on Audited Inventory only" [matTooltipDisabled]="!customInventoryAllowed" matTooltipClass="audited-tooltip"> / {{ element.totalInMarket }}</span>
+            <br>
+            <span class="saving" *ngIf="element===isSaveingPlan && savingPlanInput === 'spots'">Saving<span>.</span><span>.</span><span>.</span></span>
+              </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Trp">
+          <th mat-header-cell *matHeaderCellDef> TRP </th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="element.editable;else nonEditableSpot">
+                <input *ngIf="(element.isTrpEdit)" type="text" class="edit-trp" [value]="((element.trp === 0 || element.trp === '' || element.trp === null) &&  '0' || element.trp.toFixed(3) )" appNumberOnly
+                (blur)="onEditFieldValue($event.target.value, element,'trp')" autofocus tabindex="-1">
+              <span *ngIf="(!element.isTrpEdit)" class="cell-data editable-value"
+                (click)="trbEditId=element.mediaType;element.isTrpEdit=true;element.isSpotsEdit=false">
+                {{ (element.trp !== null && element.trp && element.trp.toFixed(3)  || '-') }} </span>
+              <br>
+              <span class="saving"
+                *ngIf="element===isSaveingPlan && savingPlanInput === 'trp'">Saving<span>.</span><span>.</span><span>.</span></span>
+            </ng-container>
+            <ng-template #nonEditableSpot>
+              <span>{{ (element.trp !== null && element.trp && element.trp.toFixed(3)  || '-') }}</span>
+            </ng-template>
+           </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Reach">
+        <th mat-header-cell *matHeaderCellDef> Reach </th>
+        <td mat-cell *matCellDef="let element">
+          <!-- <input *ngIf="(element.mediaType == reachEditId)" type="text"
+            [value]="(element.reach && (element.reach | convert:'DECIMAL'))" appNumberOnly
+            (input)="onEditFieldValue($event.target.value, element,'reach')">
+          <span *ngIf="(element.mediaType !== reachEditId)" class="cell-data">
+            {{ (element.reach && (element.reach | convert:'DECIMAL') || '-') }} </span> -->
+            <!-- *ngIf="element.editable;else nonEditableReach"  -->
+          <span class="cell-data"> {{ (element.reach && (element.reach | convert:'DECIMAL') || '-') }} </span>
+          <!-- <ng-template #nonEditableReach>
+            <span class="cell-data">-</span>
+          </ng-template> -->
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Frequency">
+        <th mat-header-cell *matHeaderCellDef> Frequency </th>
+        <td mat-cell *matCellDef="let element">
+          <!-- <input *ngIf="(element.mediaType == frequencyEditId)" type="text"
+            [value]="(element.frequency && (element.frequency | convert:'DECIMAL':1 ))" appNumberOnly
+            (input)="onEditFieldValue($event.target.value, element,'frequency')">
+            <span *ngIf="(element.mediaType !== frequencyEditId)" class="cell-data"> {{ (element.frequency && (element.frequency | convert:'DECIMAL':1 ) || '-') }} </span>
+           -->
+           <!-- *ngIf="element.editable;else nonEditableFrq"  -->
+           <span class="cell-data"> {{ (element.frequency && (element.frequency | convert:'DECIMAL':1 ) || '-') }} </span>
+          <!-- <ng-template #nonEditableFrq>
+            <span class="cell-data">-</span>
+          </ng-template> -->
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+        </th>
+        <td mat-cell *matCellDef="let element; let i" (click)="expandMarketPlanData(element)">
+          <mat-menu #appMenu="matMenu" [overlapTrigger]="false" xPosition="after">
+            <button type="button" (click)="removeMedia(element)" mat-menu-item>Remove </button>
+          </mat-menu>
+          <div class="action-alignment">
+            <div class="imx-pt-10">
+              <span class="count-value"> {{element['count']}}
+                {{selectedMediaType==1? 'Media Types' :'Operators'}}</span>
+                <br>
+              <mat-icon class="expanted-icon">
+                {{ element.collapsed ? 'keyboard_arrow_down':'keyboard_arrow_up' }}
+              </mat-icon>
+            </div>
+            <button *ngIf="selectedMediaType != 1" type="button" (click)="$event.stopPropagation();" mat-icon-button
+              [matMenuTriggerFor]="appMenu" class="menu-btn">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" colspan="6" class="media-details-inner">
+          <div class="media-element-detail" [@detailExpand]="!element.collapsed ? 'expanded' : 'collapsed'">
+            <app-mediatype-inner-list [plans]="element.data" [planData]="planData" [scenarioId]="scenarioId"
+              (updatePlanTotal)="updatePlanTotal($event)" [displayedColumns]="displayedColumns" [selectedMediaType]="selectedMediaType"></app-mediatype-inner-list>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="media-element-row"
+        [class.media-expanded-row]="!element.collapsed">
+      </tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="media-detail-row"></tr>
+    </table>
+    <div *ngIf="isNoDataFound" fxLayout="row" fxLayoutAlign="center">
+      <p>No data found</p>
+    </div>
+    <!-- Media type table end-->
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center">
+    <!--<button mat-raised-button color="primary">Update</button>-->
+  </div>
+</div>

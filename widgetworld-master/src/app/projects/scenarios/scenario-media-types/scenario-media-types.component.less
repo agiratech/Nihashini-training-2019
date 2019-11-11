@@ -1,0 +1,37 @@
+@import "../../../../assets/css/variables.less";
+
+::ng-deep {
+  app-scenario-media-types {
+    .add-media-type-card {
+      cursor: pointer;
+    }
+
+    .new-project-card {
+      margin    : 15px;
+      min-height: 140px;
+    }
+
+    .media-type-cards {
+      position: relative;
+
+      &:hover {
+        .cancel-icon {
+          display: block;
+        }
+      }
+    }
+
+    .cancel-icon {
+      display : none;
+      position: absolute;
+      right   : 5px;
+      top     : 5px;
+      z-index : 1;
+    }
+  }
+  app-media-types-builder-dialog{
+    .mat-selection-list {
+      padding-bottom: 0px !important;
+    }
+  }
+}

@@ -1,0 +1,109 @@
+<div class="divider45 inventory-block" fxFlexFill fxLayout="column" >
+  <div fxLayout="row" fxFill class="places-header">
+    <div fxLayoutAlign="space-between center" fxFlex="40%">
+      <h5>Places in This {{labels['scenario'][0]}}</h5>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="end end" fxFlex="60%" fxLayoutGap="10px" *ngIf="enablePlaces">
+      <!-- <a mat-raised-button class="mat-button-small button  button-normal test-inventory-btn" [routerLink]="['/explore']" [queryParams]="mapQueryParams"
+      *ngIf="allowInventory === 'active'">
+      <mat-icon>map</mat-icon>
+      Map Inventory</a>
+      <span class="seprator"></span>       -->
+      <button type="button" *ngIf="!editPlaceSets" mat-raised-button class="mat-button-small button  button-normal test-edit-place-button" (click)="editPlaceSet()" >
+      <mat-icon>edit</mat-icon>
+      Edit Place Sets </button>
+      <button *ngIf="dataSource.data.length >0 && editPlaceSets" mat-raised-button class="mat-button-small button  button-normal test-cancel-btn" (click)="resetAll()">
+      <mat-icon>close</mat-icon>
+      Cancel</button>
+      <a (click)="onOpenPlaseSetModel()" *ngIf="dataSource.data.length >0 && editPlaceSets" mat-raised-button class="mat-button-small button-primary test-save-place-set" >
+      <mat-icon>save</mat-icon>
+      Save as New Place Set</a>
+    </div>
+  </div>
+  <div *ngIf="existingPlaceSetsInScenario.length <= 0  && !enablePlaces">
+    <button mat-raised-button class="mat-button-small button" (click)="addPlaceSet();" >
+      <mat-icon>add</mat-icon>
+      Add Place Sets
+    </button>
+  </div>
+  <div class="customize-column-container">
+      <button mat-raised-button (click)="customizeColumn()" type="button"	id="customize-column">
+          Customize Columns
+        </button>
+  </div>
+  <div fxLayout="row" fxFill class="inventory-table-block" *ngIf="enablePlaces" >
+    <mat-drawer-container fxFill [ngClass]="{'scenario-inventroy-closed' : !showFilter}">
+      <mat-drawer #drawer class="inventory-sidenav" mode="side"  (closedStart)="onClose(false)"  (openedStart)="onClose(true)" opened="true">
+      <div fxLayout="row" class="find-inventory-btn">
+        <div class="find-inventory-btn-text" fxLayout="column" fxLayoutAlign="center start"  fxFlex="276px">Find Places to Add
+        </div>
+        <div class="find-inventory-btn-icon" fxLayout="column" fxLayoutAlign="center center" fxFlex="24px"  (click)="drawer.toggle()">
+          <mat-icon *ngIf="!showFilter">arrow_left</mat-icon>
+          <mat-icon *ngIf="showFilter">arrow_right</mat-icon>
+        </div>
+      </div>
+      <app-scenario-filters filterType="Place"  (selectedFilters)="selectedFilters($event) " [selectedPlacePacks]="placeSets"  [ngClass]="{'hide' : !showFilter}"></app-scenario-filters>
+      </mat-drawer>
+      <div class="inventory-sidenav-content">
+        <div class="" flexFill>
+          <mat-table #table [dataSource]="dataSource" matSort matSortActive="name" matSortDirection="asc" matSortDisableClear class="scroll-list margin-top-10" >
+          <ng-container matColumnDef="selected">
+            <mat-header-cell *matHeaderCellDef fxFlex="7%" > 
+              <mat-checkbox [disableRipple] ="true" [value]="selectAllPlacesCheckbox" (change)="selectAllCheckbox()"  [checked]="selectAllPlacesCheckbox" [indeterminate]="!selectAllPlacesCheckbox && selectedCount != 0"></mat-checkbox>
+            </mat-header-cell >
+            <mat-cell  *matCellDef="let element" fxFlex="7%">
+              <mat-checkbox [checked]="element.selected" [disableRipple] ="true" (change)="selectCheckboxToggle(element)"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Place Name">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('PlaceName')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='PlaceName' && formattedPlaces.length > 0}"> Place Name </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='PlaceName'}" fxFlex="20%" title="{{element.name}}">
+            {{element.name  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Industry Type">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('IndustryType')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='IndustryType' && formattedPlaces.length > 0}"> Industry Type </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='IndustryType'}" fxFlex="20%" title="{{element.industryType}}">
+            {{element.industryType  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Address">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('Address')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='Address' && formattedPlaces.length > 0}"> Address </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='Address'}" fxFlex="20%" title="{{element.address}}">
+            {{element.address  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="City">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('City')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='City' && formattedPlaces.length > 0}"> City </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='City'}" fxFlex="20%" title="{{element.city}}">
+            {{element.city  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="State">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('State')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='State' && formattedPlaces.length > 0}"> State </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='State'}" fxFlex="20%" title="{{element.state}}">
+            {{element.state  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Zip">
+            <mat-header-cell *matHeaderCellDef="let element" mat-sort-header (click)="onSortting('Zip')" fxFlex="20%" [ngClass]="{'sort':sortingElement==='Zip' && formattedPlaces.length > 0}"> Zip </mat-header-cell >
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='Zip'}" fxFlex="20%" title="{{element.zipCode}}">
+            {{element.zipCode  | truncate:'middle':70}}
+            </mat-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="details">
+            <mat-header-cell *matHeaderCellDef mat-sort-header  (click)="onSortting('PlaceSetDetails')" fxFlex="65%" [ngClass]="{'sort':sortingElement==='PlaceSetDetails' && formattedPlaces.length > 0 }" > Place Set Details </mat-header-cell>
+            <mat-cell  *matCellDef="let element" [ngClass]="{'sort':sortingElement==='PlaceSetDetails'}" fxFlex="65%" title="{{element.details}}"> {{element.details | truncate:'middle':190}} </mat-cell>
+          </ng-container> -->
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row  *matRowDef="let row; columns: displayedColumns;"  >
+          </mat-row >
+          </mat-table>
+          <div fxFill class="no-places-list" *ngIf=" formattedPlaces.length <= 0 ">
+            No Places in this {{labels['scenario'][0]}}              
+          </div>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

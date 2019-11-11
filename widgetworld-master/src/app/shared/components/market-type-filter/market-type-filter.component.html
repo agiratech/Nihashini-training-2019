@@ -1,0 +1,9 @@
+
+<app-market-filter *ngIf="module ==='explore'"
+  [dmaList]="dmaList"
+  [cbsaList]="cbsaList"
+  [totalPages]="totalPages"
+  (searchMarkets)="searchMarkets($event)"
+  (loadMoreMarkets)="loadMoreMarkets($event)"
+  (resetMarkets)="resetMarkets($event)">
+</app-market-filter>

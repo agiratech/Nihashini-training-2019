@@ -1,0 +1,54 @@
+<div fxLayout="column" >  
+
+<div fxLayout="row "  fxFill class="explore-top-zip-market-block" mwlResizable [enableGhostResize]="true" (resizeEnd)="onResizeEnd($event)"
+[ngStyle]="style" (resizing)="onResizing($event)" (window:resize)="onResize($event)" #topMapReference fxLayoutAlign="start start">
+  <div mwlResizeHandle [resizeEdges]="{bottom: false, right: false, top: false, left: true}" class="explore-resize-border"  >
+      <div [ngStyle]="dragHandleStyle"><i class="material-icons">drag_handle</i></div>
+  </div>
+	<div class="explore-top-zip-market-content" [ngStyle]="mapStyle" >
+	  <div id="mapTopZipMarket"></div>
+	  <!-- <div class="map-download-btn map-action-button" fxHide.sm fxHide.xs>
+        <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+          <button type="button" title="DOWNLOAD MAP">
+            <mat-icon>vertical_align_bottom</mat-icon>
+          </button>
+        </div>
+    </div>
+	  <div class="map-print-btn map-action-button" fxHide.sm fxHide.xs>
+        <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+          <button type="button" title="PRINT MAP">
+            <mat-icon>print</mat-icon>
+          </button>
+        </div>
+    </div> -->
+	  <div class="map-top-zip-market map-action-button" fxHide.sm fxHide.xs>
+        <div class="mapboxgl-ctrl mapboxgl-ctrl-group">
+          <button type="button" title="CLOSE MAP" (click)="closeTopMap()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+    </div>
+    <div class="topMapLegends  mapboxgl-ctrl-group" *ngIf="inventoryData && getpanelDetail">
+    	<p *ngIf="inventoryData['type']=='dma' && topMarkets">Spot ID {{getpanelDetail['geopath_panel_id']}} - Top Markets by Index</p>
+    	<p *ngIf="inventoryData['type']=='zip' && topZipCodes">Spot ID {{getpanelDetail['geopath_panel_id']}} - Top ZIP Codes by Index</p>
+    	<ul>
+        <li *ngFor="let color of colors; let i=index">
+	        <span class="colorPill legendbg" [ngStyle]="{ 'background-color': color}" [attr.data-color]="color"></span>
+	        <span *ngIf="i == '0'" title="Highest">Highest</span>
+	        <span *ngIf="i == '5'" title="Lowest">Lowest</span>
+	        <!-- <span *ngIf="i == '5'" title="No Impressions">No Impressions</span> -->
+	      </li>
+    	</ul>
+    </div>
+    <!-- <div class="topMapLegends  mapboxgl-ctrl-group" *ngIf="inventoryData && inventoryData['type']=='zip' && getpanelDetail && topZipCodes">
+    	<p>GP ID {{getpanelDetail['geopath_panel_id']}} - Top 5 ZIP Codes by Index</p>
+    	<ul>
+    		<li *ngFor="let zip of topZipCodes;">
+	        <span class="colorPill"  [ngStyle]="{ 'background-color': zip['color']}"></span>
+	        <span>{{zip['zip'] }}: {{zip['pct']}}%</span>
+	      </li>
+    	</ul>
+    </div> -->
+	</div>
+</div>
+</div>

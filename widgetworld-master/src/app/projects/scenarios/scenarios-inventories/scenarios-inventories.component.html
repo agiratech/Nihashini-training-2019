@@ -1,0 +1,59 @@
+<div class="divider45 inventory-block" fxFlexFill fxLayout="column" >
+  <h5>Inventory in this {{labels['scenario'][0]}}</h5>
+  <div class="inventory-first-div" *ngIf="!addInventoryToogle && selectedInventorySets.length <=0 ">
+    <button mat-raised-button type="button" class="mat-button-small button test-add-inventory-btn" (click)="addInventoryToogle = true"><mat-icon>add</mat-icon > Add Inventory</button>
+  </div>
+  <div *ngIf="addInventoryToogle || selectedInventorySets.length > 0 " class="inventory-first-div">
+    <div fxLayout="row" fxFill>
+      <div fxLayoutAlign="space-between center" fxFlex="40%" class="test-inventory-metric">
+        <div fxLayout="column" fxFlex="100px">
+          <span class="metric-item-value" title="">{{(summary['spots'] || 0) | convert:'THOUSAND' }}</span>
+          <span class="overline">Total # of Spots</span>
+        </div>
+        <div fxLayout="column" fxFlex="100px">
+          <span class="metric-item-value" title="">{{summary['imp_target'] > 0?(summary['imp_target'] | convert:'ABBREVIATE':0) :0}}</span>
+          <span class="overline">TARGET IMPRESSIONS</span>
+        </div>
+        <div fxLayout="column"  fxFlex="100px">
+          <span class="metric-item-value" title="">{{summary['imp'] > 0?(summary['imp'] | convert:'ABBREVIATE':0) :0}}</span>
+          <span class="overline">PERSONS 0+ IMPRESSIONS</span>
+        </div>
+        <div fxLayout="column"  fxFlex="100px">
+          <span class="metric-item-value" title="{{getTargetComposition()}}">{{getTargetComposition()}}</span>
+          <span class="overline">TARGET COMPOSITION</span>
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="end end" fxFlex="60%" fxLayoutGap="10px">
+        <!-- <button mat-raised-button class="mat-button-small button"><mat-icon>crop_3_2</mat-icon> Make Primary</button> -->
+        <!-- <button type="button" mat-raised-button class="mat-button-small button button-normal test-map-inventory" [routerLink]="['/explore']" [queryParams]="mapQueryParams"><mat-icon>map</mat-icon> Map Inventory</button> -->
+        <button type="button" mat-raised-button class="mat-button-small button button-normal test-customize" (click)="customizeColumn()"><mat-icon>view_array</mat-icon> Customize Columns</button>
+        <ng-template [ngIf]="features && features.length > 0">
+          <span class="seprator"></span>
+          <button  mat-raised-button type="button"  class="mat-button-small button-primary test-save-inventory"  [matMenuTriggerFor]="saveInventoryMenu" ><mat-icon>save</mat-icon> Save Inventory <mat-icon class="menu-seprator">expand_more</mat-icon></button >
+          <mat-menu #saveInventoryMenu="matMenu" [overlapTrigger]="false" >
+            <button mat-menu-item type="button" *ngIf="searchInventorySets.length == 1" (click)="saveNewInventorySets('edit')">Save</button>
+            <button mat-menu-item type="button"  (click)="saveNewInventorySets()" class="test-saveASNewSet">Save As New Set</button>
+          </mat-menu>
+        </ng-template>
+      </div>
+    </div>
+    <div fxLayout="row" fxFill class="inventory-table-block">
+      <mat-drawer-container fxFill [ngClass]="{'scenario-inventroy-closed' : !showFiller}">
+        <mat-drawer #drawer class="inventory-sidenav" mode="side"  (closedStart)="onClose(false)"  (openedStart)="onClose(true)"  opened="true">
+            <div fxLayout="row" class="find-inventory-btn">
+              <div class="find-inventory-btn-text" fxLayout="column" fxLayoutAlign="center start"  fxFlex="276px"> Find Spot(s) to Add</div>
+              <div class="find-inventory-btn-icon" fxLayout="column" fxLayoutAlign="center center" fxFlex="24px"  (click)="drawer.toggle()"><mat-icon *ngIf="!showFiller">arrow_right</mat-icon><mat-icon *ngIf="showFiller">arrow_left</mat-icon></div>
+            </div>
+            <app-scenario-filters filterType="Inventory" [selectedInventorySets]="selectedInventorySets" (selectedFilters)="selectedFilters($event)" [ngClass]="{'hide' : !showFiller}"></app-scenario-filters>
+        </mat-drawer>
+        <div class="inventory-sidenav-content">
+          <div class="">
+            <app-scenarios-inventory-list [summary]="summary" [scenarioId] ="scenarioId" [features]="features" [inventoryTotalSummary]="inventoryTotalSummary" [nextFeatures]="nextFeatures" [selectedFids]="selectedFids" (loadMorePanels)="loadMorePanels()" (calculateMetrics)="calculateMetrics($event)" (panelSelectionChange)="onPanelSelectionChange($event)" (sortInventory)="sortInventory($event)"
+            (calculateReachFrequence)="getReachFrequence()"
+            [calReachFrq]="calculateReachFrqsummary" [loadingInventories] = "loadingInventories"> </app-scenarios-inventory-list>
+          </div>
+        </div>
+      </mat-drawer-container>
+    </div>
+  </div>
+</div>

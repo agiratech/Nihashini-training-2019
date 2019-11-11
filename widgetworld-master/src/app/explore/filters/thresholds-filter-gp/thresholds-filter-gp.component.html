@@ -1,0 +1,56 @@
+<div fxLayout="column" class="outer-gap thresholds-filter">
+  <div fxLayout="row" fxLayoutGap="20px" class="slider-grp-1">
+    <div fxLayout="column" class="sliders">
+      <p class="caption black-text">Target Audience Impressions</p>
+      <div class="grid-column" fxLayoutGap="3px" fxLayoutAlign="space-between end" fxLayout="row" >
+        <graph-basic-bar [data]="targetImpChartData" [options]='barChartConfig' [manualRefresh]="graphRefresh"></graph-basic-bar>
+      </div>
+      <ng5-slider [(value)]="thresholds.targetImp[0]" [(highValue)]="thresholds.targetImp[1]" [options]="targetAudienceImpressions"
+        [manualRefresh]="manualRefresh"></ng5-slider>
+      <p class="threshold-legend">{{thresholds.targetImp[0] |convert:'ABBREVIATE':1 }}-{{thresholds.targetImp[1] |
+        convert:'ABBREVIATE':1 }}{{thresholds.targetImp[1] >= 150000?'+':''}}</p>
+    </div>
+    <div fxLayout="column" class="sliders">
+      <p class="caption black-text">Target Audience Imp. Comp. %</p>
+      <div class="grid-column" fxLayoutGap="3px" fxLayoutAlign="space-between end" fxLayout="row">
+        <graph-basic-bar [data]="targetCompPerChartData" [options]='barChartConfig' [manualRefresh]="graphRefresh"></graph-basic-bar>
+      </div>
+      <ng5-slider [(value)]="thresholds.targetCompPer[0]" [(highValue)]="thresholds.targetCompPer[1]" [options]="targetAudienceImpressionCom"
+        [manualRefresh]="manualRefresh"></ng5-slider>
+      <p class="threshold-legend">{{thresholds.targetCompPer[0]}}-{{thresholds.targetCompPer[1]}}%</p>
+    </div>
+  </div>
+  <div *ngIf="!market" class="market-selection">
+    Please select a Market in the Define Target menu to enable the filters below.
+  </div>
+  <div fxLayout="row" fxLayoutGap="20px" class="slider-grp-2">
+    <div fxLayout="column" class="sliders" ngClass="{disabled: !market}">
+      <p class="caption black-text">In-Market Target Audience Imp. Comp. Index</p>
+      <div class="grid-column" fxLayoutGap="3px" fxLayoutAlign="space-between end" fxLayout="row">
+        <div  [ngClass]="{'hide': !market}">
+          <graph-basic-bar [data]="inMarketCompIndexChartData" [options]='barChartConfig' [manualRefresh]="graphRefresh" ></graph-basic-bar>
+        </div>
+      </div>
+      <ng5-slider [(value)]="thresholds.inMarketCompIndex[0]" [(highValue)]="thresholds.inMarketCompIndex[1]" [options]="inMarketTargetAudience"
+        [manualRefresh]="manualRefresh"></ng5-slider>
+      <!-- <p class="threshold-legend">{{threshold.inMarketCompIndex[0]}}-{{threshold.inMarketCompIndex[1]}}</p> -->
+      <p class="threshold-legend">{{inMarketCompIndexMin}}-{{inMarketCompIndexMax}}</p>
+    </div>
+    <div fxLayout="column" class="sliders" ngClass="{disabled: !market}">
+      <!--  <p class="caption black-text">In-Market Target Audience Imp. Comp. Index</p>-->
+      <p class="caption black-text">In-Market Target Audience Imp. Comp. %</p>
+      <div class="grid-column" fxLayoutGap="3px" fxLayoutAlign="space-between end" fxLayout="row" >
+          <div  [ngClass]="{'hide': !market}">
+            <graph-basic-bar [data]="inMarketCompPerChartData" [options]='barChartConfig' [manualRefresh]="graphRefresh"></graph-basic-bar>
+          </div>
+      </div>
+      <ng5-slider [(value)]="thresholds.inMarketCompPer[0]" [(highValue)]="thresholds.inMarketCompPer[1]" [options]="inMarketTargetAudImprComp"
+        [manualRefresh]="manualRefresh"></ng5-slider>
+      <p class="threshold-legend">{{thresholds.inMarketCompPer[0]}}-{{thresholds.inMarketCompPer[1]}}%</p>
+    </div>
+  </div>
+  <div fxLayout="row" class="action-area action-container" [ngClass]="{ 'module-disable':(allowInventory === 'disabled')}">
+    <button mat-raised-button class="btn-clear" (click)="reset()">CLEAR </button>
+    <button mat-raised-button class="btn-primary-color" (click)="apply()">APPLY</button>
+  </div>
+</div>
