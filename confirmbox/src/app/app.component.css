@@ -1,0 +1,20 @@
+
+.todoin{
+    align-content: center;
+}
+
+.container {
+    width: 400px;
+    margin: 0 25px 25px 0;
+    
+  }
+  
+  .list {
+    border: solid 1px #ccc;
+    background: white;
+    border-radius: 4px;
+    
+  }
+  
+  
+ 

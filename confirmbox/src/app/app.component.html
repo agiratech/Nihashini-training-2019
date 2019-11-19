@@ -1,4 +1,21 @@
-<mat-card>
-  <button click()="openDialog()"> <a routerLink="/confirmation">click here for action</a> </button>
-</mat-card>
+<div class="todoin">
+    <form #f="ngForm" (submit)="addTodo(f.value); f.reset()">
+      <input placeholder="add todo list" [(ngModel)]="title" name="title">
+      <input type="submit" value="Add" [disabled]="!title">
+    </form>
+    <div listarea>
+      <div class="container">
+        <h2>To do</h2>
+
+        <div class="list">
+          <div class="box" *ngFor="let item of todo" >{{item.title}}
+              <button (click)="openDialog()"> <a routerLink="/confirm"> delete </a> </button>
+
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
 

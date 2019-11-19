@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
-import { MatMenuModule } from '@angular/material/menu';
-
+import { MatMenuModule } from '@angular/material';
+import {MatDialogModule} from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent
@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatCardModule,
     FormsModule,
     MatMenuModule,
+    MatDialogModule
   
   ],
   providers: [],

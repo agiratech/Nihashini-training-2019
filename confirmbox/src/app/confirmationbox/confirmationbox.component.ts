@@ -7,7 +7,10 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./confirmationbox.component.css']
 })
 export class ConfirmationboxComponent implements OnInit {
-confirmMessage: string;
+  todo=[];
+  deletedata:any;
+  public confirmMessage:string;
+
   constructor(public dialog: MatDialog ,public dialogRef: MatDialogRef<ConfirmationboxComponent>) { }
 
   ngOnInit() {
@@ -16,12 +19,16 @@ confirmMessage: string;
     this.dialogRef = this.dialog.open(ConfirmationboxComponent, {
       disableClose: false
     });
-    this.dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?"
+    const index: number = this.todo.indexOf(data);
+          if (index !== -1) {
+            this.deletedata = this.todo.splice(index, 1);
+
+          }
 }
 
 
 onClose(): void {
-  console.log(this.dialogRef.disableClose); 
+  console.log('No changes were made'); 
   this.dialogRef.close(); 
   }
 }
