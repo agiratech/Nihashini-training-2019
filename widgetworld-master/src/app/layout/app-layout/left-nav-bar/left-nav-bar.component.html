@@ -1,23 +1,56 @@
 <div class="initial-side-view" fxLayout="column">
   <mat-nav-list [ngClass]="{'collapse-menu':showFiller}">
-    <a  (click)="onshowFiller()" class="mobile-hide navoutclick"><mat-icon class="collapse-arrow">{{!showFiller?'arrow_forward_ios':'arrow_back_ios'}} </mat-icon> <span *ngIf="showFiller">Collapse Menu</span></a>
-    <a [routerLinkActive]="['active']" routerLink="/home" matTooltip="Home" matTooltipPosition="right" class="mobile-hide" navModule="home" appAccessModule module="home" authenticate><mat-icon  >home</mat-icon> <span *ngIf="showFiller">Home</span></a>
-    <a [routerLinkActive]="['active']" [routerLink]="homeUrl" authenticate module="projects" matTooltip="Workspace" matTooltipPosition="right" class="workspace-link"><mat-icon>apps</mat-icon> <span *ngIf="showFiller">Workspace</span></a>
-    <a [routerLinkActive]="['active']" routerLink="/explore" authenticate module="explore"  matTooltip="Explore" matTooltipPosition="right" class="explore-link"><mat-icon>explore</mat-icon> <span *ngIf="showFiller">Explore</span></a> 
-    <a [routerLinkActive]="['active']" routerLink="/places" authenticate module="places" matTooltip="Places" matTooltipPosition="right" class="places-link"><mat-icon>place</mat-icon> <span *ngIf="showFiller">Places</span></a> 
-    <a [routerLinkActive]="['active']" authenticate module="markets" matTooltip="Markets" matTooltipPosition="right"><mat-icon>map</mat-icon> <span *ngIf="showFiller">Markets</span></a> 
-    <a [routerLinkActive]="['active']" routerLink="/reports" authenticate module="reports" matTooltip="Reports" matTooltipPosition="right" navModule="reports" appAccessModule><mat-icon>assessment</mat-icon> <span *ngIf="showFiller">Reports</span></a>
-    <a href="{{helpUrl}}" target="_blank" authenticate module="help" matTooltip="Support" matTooltipPosition="right"><mat-icon>help</mat-icon> <span *ngIf="showFiller">Support</span></a> 
+    <a (click)="onshowFiller()" class="mobile-hide navoutclick">
+      <mat-icon class="collapse-arrow">{{!showFiller?'arrow_forward_ios':'arrow_back_ios'}} </mat-icon> <span
+        *ngIf="showFiller">Collapse Menu</span>
+    </a>
+    <a [routerLinkActive]="['active']" routerLink="/home" matTooltip="Home" matTooltipPosition="right"
+      class="mobile-hide" navModule="home" appAccessModule module="home" authenticate>
+      <mat-icon>home</mat-icon> <span *ngIf="showFiller">Home</span>
+    </a>
+    <a [routerLinkActive]="['active']" [routerLink]="homeUrl" authenticate module="projects" matTooltip="Workspace"
+      matTooltipPosition="right" class="workspace-link">
+      <mat-icon>apps</mat-icon> <span *ngIf="showFiller">Workspace</span>
+    </a>
+    <a [routerLinkActive]="['active']" routerLink="/explore" authenticate module="explore" matTooltip="Explore"
+      matTooltipPosition="right" class="explore-link">
+      <mat-icon>explore</mat-icon> <span *ngIf="showFiller">Explore</span>
+    </a>
+    <a [routerLinkActive]="['active']" routerLink="/places" authenticate module="places" matTooltip="Places"
+      matTooltipPosition="right" class="places-link">
+      <mat-icon>place</mat-icon> <span *ngIf="showFiller">Places</span>
+    </a>
+    <a [routerLinkActive]="['active']" authenticate module="markets" matTooltip="Markets" matTooltipPosition="right">
+      <mat-icon>map</mat-icon> <span *ngIf="showFiller">Markets</span>
+    </a>
+    <a [routerLinkActive]="['active']" routerLink="/reports" authenticate module="reports" matTooltip="Reports"
+      matTooltipPosition="right" navModule="reports" appAccessModule>
+      <mat-icon>assessment</mat-icon> <span *ngIf="showFiller">Reports</span>
+    </a>
+    <a href="{{helpUrl}}" target="_blank" authenticate module="help" matTooltip="Support" matTooltipPosition="right">
+      <mat-icon>help</mat-icon> <span *ngIf="showFiller">Support</span>
+    </a>
     <!-- helpModule.url -->
-    <a [routerLinkActive]="['active']" matTooltip="Share (Coming soon)" matTooltipPosition="right" class="share-color" fxHide><mat-icon>share</mat-icon> <span *ngIf="showFiller">Share</span></a> 
-    <a [routerLinkActive]="['active']" [matMenuTriggerFor]="moreMenu" (click)="onOpenMore()" class="more-link-nav" fxHide><mat-icon>more_horiz</mat-icon> <span *ngIf="showFiller">More</span> <span class="seprate-space"></span><mat-icon *ngIf="showFiller">{{showMore?'expand_less':'expand_more'}}</mat-icon></a>
+    <a [routerLinkActive]="['active']" matTooltip="Share (Coming soon)" matTooltipPosition="right" class="share-color"
+      fxHide>
+      <mat-icon>share</mat-icon> <span *ngIf="showFiller">Share</span>
+    </a>
+    <a [routerLinkActive]="['active']" [matMenuTriggerFor]="moreMenu" (click)="onOpenMore()" class="more-link-nav"
+      fxHide>
+      <mat-icon>more_horiz</mat-icon> <span *ngIf="showFiller">More</span> <span class="seprate-space"></span>
+      <mat-icon *ngIf="showFiller">{{showMore?'expand_less':'expand_more'}}</mat-icon>
+    </a>
     <div class="more-menu" *ngIf="showMore">
-        <a [routerLinkActive]="['active']" *ngIf="showFiller"><mat-icon></mat-icon>support</a>
-        <a [routerLinkActive]="['active']"  *ngIf="showFiller"><mat-icon></mat-icon>feedback</a>
+      <a [routerLinkActive]="['active']" *ngIf="showFiller">
+        <mat-icon></mat-icon>support
+      </a>
+      <a [routerLinkActive]="['active']" *ngIf="showFiller">
+        <mat-icon></mat-icon>feedback
+      </a>
     </div>
-    <mat-menu class="hover-more" #moreMenu="matMenu"  [overlapTrigger]="false" >
-        <a href="https://support.geopath.io" mat-menu-item target="_blank" >support</a>
-        <a mat-menu-item (click)="openFeedback()">feedback</a>
+    <mat-menu class="hover-more" #moreMenu="matMenu" [overlapTrigger]="false">
+      <a href="https://support.geopath.io" mat-menu-item target="_blank">support</a>
+      <a mat-menu-item (click)="openFeedback()">feedback</a>
     </mat-menu>
   </mat-nav-list>
 </div>
