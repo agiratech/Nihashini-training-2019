@@ -13,19 +13,20 @@ export class AppComponent {
   todo = [];
   index: number;
 
-  constructor(
-    public dialog: MatDialog) {}
-    addTodo(items:NgForm){ 
+  constructor(public dialog: MatDialog) {}
+    
+  addTodo(items:NgForm){ 
       this.todo.push(items) ; 
       // console.log(this.todo)
       }
 
-  openDialog(){
-        const dialogRef = this.dialog.open(ConfirmationboxComponent, {
-      disableClose: false
-    });
-    dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?" ;
-    dialogRef.afterClosed().subscribe(
-      response => {})
-    }
+    openDialog(){
+      const dialogRef = this.dialog.open(ConfirmationboxComponent,{
+        width: '300px'
+      });
+      dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?" ;
+
+      dialogRef.afterClosed().subscribe(result => {      });
+
+  }
   }

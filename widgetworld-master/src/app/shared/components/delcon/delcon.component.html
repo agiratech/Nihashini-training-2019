@@ -1,0 +1,19 @@
+  
+  <div *ngIf="dialogTitle; else nothing">
+    <h1 mat-dialog-title>{{dialogTitle}}</h1>
+  </div>
+  <ng-template #nothing> </ng-template>
+
+  <div mat-dialog-content>{{confirmMessage}}</div>
+  
+  <div class="align" md-dialog-actions >
+   
+    <div *ngIf="confirmButtonText; else nothing">
+        <button class="posaction" mat-raised-button (click)="delete(data)">{{confirmButtonText}}</button>
+    </div>
+
+    <div *ngIf="cancelButtonText; else nothing">
+        <button class="noaction" mat-raised-button matDialogClose (click)="onClose()">{{cancelButtonText}}</button>
+    </div>
+</div>
+

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService, CommonService } from '@shared/services';
 import { FiltersService } from '../explore/filters/filters.service';
+import { DelconComponent } from '../shared/components/delcon/delcon.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +18,8 @@ export class HomeComponent implements OnInit {
   public isPlacesDisplay = false;
   public isReportsDisplay = false;
   public homeUrl = '/v2/projects';
+  public message = false;
+
   public moduleDetails = [
     {
       name: 'Spotlight',
@@ -57,7 +61,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private theme: ThemeService,
     private filterService: FiltersService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    public dialog : MatDialog
   ) {}
 
   ngOnInit() {
@@ -67,7 +72,28 @@ export class HomeComponent implements OnInit {
     });
     this.selectPanel('audiences');
   }
+  openDialog(){
+    const dialogRef = this.dialog.open(DelconComponent,{
+      width: '500px',
+      data: {
+        realTitle : 'Confirmation',
+        realMessage : 'Are you sure you want to delete?',
+        truebuttonText : 'ok',
+        falsebuttonText : 'cancel'
+      }
+      });
+    
+      // dialogRef.componentInstance.dialogTitle = "Confirmation";
+      // dialogRef.componentInstance.confirmMessage = "Are you sure you want to delete?" ;
+      // dialogRef.componentInstance.confirmButtonText = "ok";
+      // dialogRef.componentInstance.cancelButtonText= "cancel";
+    
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(result);
+            });
 
+  }
+ 
   selectPanel(module) {
     this.isAudienceDisplay = false;
     this.isWorkspaceDisplay = false;

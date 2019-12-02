@@ -26,6 +26,7 @@ import { LoaderHeaderInterceptor } from './interceptors/loader-header.intercepto
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HomePopupComponent } from './home/home-popup/home-popup.component';
 import { CustomPreloadingStrategy } from './custom-preload-strategy';
+import { DelconComponent } from './shared/components/delcon/delcon.component';
 // import { PlacesFileuploadComponent } from './places-fileupload/places-fileupload.component';
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CustomPreloadingStrategy } from './custom-preload-strategy';
     LeftNavBarComponent,
     HomePopupComponent,
     DefaultComponent,
+    DelconComponent,
     // PlacesFileuploadComponent,
   ],
   imports: [
@@ -72,7 +74,7 @@ import { CustomPreloadingStrategy } from './custom-preload-strategy';
     },
     CustomPreloadingStrategy
   ],
-  entryComponents: [AppLoaderComponent, HomePopupComponent],
+  entryComponents: [AppLoaderComponent, HomePopupComponent, DelconComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { HttpResponse } from '@angular/common/http';
-
 @Component({
   selector: 'app-inventory-detail-view-layout',
   templateUrl: './inventory-detail-view-layout.component.html',
@@ -69,10 +68,11 @@ export class InventoryDetailViewLayoutComponent implements OnInit, OnDestroy {
     private format: FormatService,
     private exploreService: ExploreService,
     public dialogRef: MatDialogRef<InventoryDetailViewLayoutComponent>,
-    @Inject(MAT_DIALOG_DATA) public inventoryDetails
+    @Inject(MAT_DIALOG_DATA) public inventoryDetails,
   ) { }
 
   ngOnInit() {
+    console.log(this.inventoryDetails,'inventoryDetails')
     this.contentHeight = window.innerHeight - 320;
     this.feature = this.inventoryDetails.feature;
     this.response = this.inventoryDetails.inventoryDetail;
@@ -102,8 +102,10 @@ export class InventoryDetailViewLayoutComponent implements OnInit, OnDestroy {
 
     const orientation = new Orientation();
     this.orientation = orientation.getOrientation(this.feature.location.orientation);
+    console.log('location',this.orientation);
     this.formatOrientation(this.orientation);
 
+    // this.map = this.viewDetails.staticMapURL;
     this.viewDetails.staticImage = this.getImage(this.feature.id);
     this.viewDetails.staticMapURL = this.inventoryDetails.staticMapURL;
 

@@ -35,7 +35,9 @@
       <div class="inventory-details inv-card-55">
         <!-- start static-map-url lanscape view-->
         <div class="static-map-url" *ngIf="!isPortrait">
-          <div>
+                    <!--change made-->
+                    <app-inventory-map-detail [mapDetail]= "map" ></app-inventory-map-detail>
+                    <!-- <div>
             <div class="map-image">
                 <div class="latlong" *ngIf="feature.location && feature.location.geometry">LAT/LONG:
                     {{feature.location.geometry.coordinates[1] | number : '1.4-4'}}/{{feature.location.geometry.coordinates[0] | number : '1.4-4'}}
@@ -43,10 +45,10 @@
               <img src="{{viewDetails.staticMapURL}}">
             </div>
             <div class="streetcard-card cards">
-              <div>{{feature.location.primary_artery | truncate:'middle':15:15}}</div>
+              <div>{{feature.location.primary_artery | truncate:'middle':15:15}}</div> -->
               <!-- <div>Location: <b>{{properties.dma_name | truncate:'middle':10:10}}</b></div> -->
-            </div>
-          </div>
+            <!-- </div>
+          </div> -->
         </div> <!-- close static-map-url-->
         <div class="inventory-det">
           <h5>Inventory at a glance</h5>
@@ -103,8 +105,10 @@
             <img src='{{viewDetails.staticImage}}' onerror="this.src='../assets/images/no_photo.png'" crossorigin='anonymous'>
         </div>
         <!-- start static-map-url Portrait-->
-        <div class="static-map-url" *ngIf="isPortrait">
-          <div>
+        <div class="static-map-url" *ngIf="isPortrait"> 
+          <!--change made-->
+          <app-inventory-map-detail [mapDetail]= "map" ></app-inventory-map-detail>
+          <!-- <div>
             <div class="map-image">
               <div class="latlong" *ngIf="feature.location && feature.location.geometry">LAT/LONG:
                 {{feature.location.geometry.coordinates[1] | number : '1.4-4'}}/{{feature.location.geometry.coordinates[0] | number : '1.4-4'}}
@@ -112,10 +116,10 @@
               <img src="{{viewDetails.staticMapURL}}">
             </div>
             <div class="streetcard-card cards">
-              <div>{{feature.location.primary_artery | truncate:'middle':15:15}}</div>
+              <div>{{feature.location.primary_artery | truncate:'middle':15:15}}</div> -->
               <!-- <div>Location: <b>{{properties.dma_name | truncate:'middle':10:10}}</b></div> -->
-            </div>
-          </div>
+            <!-- </div>
+          </div> -->
         </div> <!-- close static-map-url-->
         <div class="topzip-card top-zip-card">
           <h5>Top Zip Codes</h5>

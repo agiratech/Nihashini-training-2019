@@ -47,7 +47,7 @@ import {ThresholdsFilterGPComponent} from './filters/thresholds-filter-gp/thresh
 import { OperatorNamePipe } from './pipes/operator-name.pipe';
 import { InventoryDetailViewLayoutComponent } from './explore-inventory-popup/inventory-detail-view-layout/inventory-detail-view-layout.component';
 import { MapLegendsService } from '@shared/services/map-legends.service';
-
+import { InventoryMapDetailComponent } from './explore-inventory-popup/inventory-map-detail/inventory-map-detail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -96,7 +96,8 @@ import { MapLegendsService } from '@shared/services/map-legends.service';
     InventoryBulkExportComponent,
     ThresholdsFilterGPComponent,
     OperatorNamePipe,
-    InventoryDetailViewLayoutComponent
+    InventoryDetailViewLayoutComponent,
+    InventoryMapDetailComponent
   ],
   exports: [
     ExploreComponent,
@@ -118,8 +119,10 @@ import { MapLegendsService } from '@shared/services/map-legends.service';
     ExploreInventoryIntersetComponent,
     InventoryDetailViewComponent,
     InventoryDetailViewLayoutComponent,
+    InventoryMapDetailComponent,
     ExploreInventoryInformationComponent,
     InventoryBulkExportComponent,
+    
   ]
 })
 export class ExploreModule { }

@@ -15,6 +15,15 @@ export class ConfirmationboxComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  // delete(item){   
+  //   const index: number = this.todo.indexOf(item);
+  //   if (index !== -1) {
+  //     this.todo.splice(this.todo.indexOf(item),1);
+  //   } 
+  //   console.log('selected iem is deleted'); 
+
+  // } 
   delete(data: any) {
     this.dialogRef = this.dialog.open(ConfirmationboxComponent, {
       disableClose: false
@@ -24,11 +33,14 @@ export class ConfirmationboxComponent implements OnInit {
             this.deletedata = this.todo.splice(index, 1);
 
           }
+          console.log('selected iem is deleted'); 
+
 }
 
 
 onClose(): void {
-  console.log('No changes were made'); 
   this.dialogRef.close(); 
+  console.log('No changes were made'); 
+
   }
 }

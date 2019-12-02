@@ -1,12 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormatService, ExploreService } from '@shared/services';
-
+import {Map} from '../inventory-map-detail/map';
 @Component({
   selector: 'app-inventory-detail-view',
   templateUrl: './inventory-detail-view.component.html',
   styleUrls: ['./inventory-detail-view.component.less']
 })
 export class InventoryDetailViewComponent implements OnInit {
+  public map: any={
+    location:'',
+    staticMapURL:'',
+    primary_artery:''
+  };
+  // public mapDetail: any;
   public inventoryDetails: any;
   public feature: any;
   public summary: any = {};
@@ -50,6 +56,7 @@ export class InventoryDetailViewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.contentHeight = window.innerHeight - 320;
     this.feature = this.inventoryDetails.feature;
     this.response = this.inventoryDetails.inventoryDetail;
@@ -78,6 +85,10 @@ export class InventoryDetailViewComponent implements OnInit {
     this.viewDetails.staticImage = this.getImage(this.feature.id);
     this.viewDetails.staticMapURL = this.inventoryDetails.staticMapURL;
 
+    this.map.staticMapURL =this.viewDetails.staticMapURL;
+    this.map.location= this.feature.location;
+    this.map.primary_artery= this.feature;
+     
     this.viewDetails.topZipDetails =
       (this.response['zipcodes'] &&
         this.response['zipcodes']['topFour']) ||
@@ -176,6 +187,11 @@ export class InventoryDetailViewComponent implements OnInit {
     // feet engine height and width
     this.viewDetails.height = this.format.getFeetInches(this.feature.max_height);
     this.viewDetails.width = this.format.getFeetInches(this.feature.max_width);
+    console.log(this.map.location,'Location')
+    console.log(this.map.staticMapURL,'URL')
+    // console.log(this.inventoryDetails,'inventoryDetails')
+    // console.log('location',this.feature.location);
+
   }
 
   getImage(id): string {

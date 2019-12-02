@@ -1,0 +1,14 @@
+
+    <div>
+      <div class="map-image">
+        <div class="latlong" *ngIf="mapDetail.location && mapDetail.location.geometry">LAT/LONG:
+          {{mapDetail.location.geometry.coordinates[1] | number : '1.4-4'}}/{{mapDetail.location.geometry.coordinates[0] | number : '1.4-4'}}
+        </div>
+        <img src="{{mapDetail.staticMapURL}}">
+      </div>
+      <div class="streetcard-card cards">
+        <div>{{mapDetail.location.primary_artery | truncate:'middle':15:15}}</div>
+      </div>
+    </div>
+
+    

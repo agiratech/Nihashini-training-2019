@@ -30,6 +30,7 @@ import { StatesResolver } from '@shared/resolvers/states.resolver';
           states: StatesResolver
         }
       }
+      
     ])
   ],
   declarations: [],

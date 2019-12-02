@@ -1,9 +1,20 @@
 
-<div class="confirm">
-  <h1 mat-dialog-title>Confirm</h1>
+  <!-- <h1 mat-dialog-title>Confirm</h1>
   <div mat-dialog-content>{{confirmMessage}}</div><br><br><br><br>
   <div md-dialog-actions fxLayoutAlign="center" fxLayoutGap="20px">
     <button mat-raised-button color="primary" (click)="dialogRef.close(true)">Confirm</button>
     <button mat-raised-button color="danger" matDialogClose (click)="onClose()">Cancel</button>
-  </div>
+  </div> -->
+
+
+<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<div mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
 </div>

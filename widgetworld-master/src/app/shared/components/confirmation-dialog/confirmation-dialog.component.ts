@@ -29,7 +29,8 @@ export class ConfirmationDialogComponent implements OnInit {
       this.notifyMessage = this.data.notifyMessage;
       if (this.data.headerCloseIcon !== undefined) {
         this.headerCloseIcon = this.data.headerCloseIcon;
-      }
+      }    console.log(event,'event');
+
     }
   }
 

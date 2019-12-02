@@ -127,6 +127,13 @@ export interface ConfirmationDialog {
   headerCloseIcon?: boolean;
 
 }
+export interface DialogConfirm{
+  realTitle?: string;
+  realMessage?: string;
+  truebuttonText?: string;
+  falsebuttonText?: string;
+
+}
 export interface DeleteProject {
   _id: string;
 }
