@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material';
+// import { MatDialog, MatDialogRef } from '@angular/material';
 
 
 @Component({
@@ -8,10 +8,12 @@ import { MatDialog, MatDialogRef } from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  todayDate : Date = new Date();
 
-  constructor(public dialog: MatDialog ,public dialogRef: MatDialogRef<AppComponent>) { }
-  onClose(): void {
-    console.log(this.dialogRef.disableClose); 
-    this.dialogRef.close(); 
-    }
+// constructor() {}
+  // constructor(public dialog: MatDialog ,public dialogRef: MatDialogRef<AppComponent>) { }
+  // onClose(): void {
+  //   console.log(this.dialogRef.disableClose); 
+  //   this.dialogRef.close(); 
+  //   }
 }

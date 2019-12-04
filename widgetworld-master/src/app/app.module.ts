@@ -27,6 +27,23 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HomePopupComponent } from './home/home-popup/home-popup.component';
 import { CustomPreloadingStrategy } from './custom-preload-strategy';
 import { DelconComponent } from './shared/components/delcon/delcon.component';
+import localeEl from '@angular/common/locales/el';
+import localePy from '@angular/common/locales/es';
+import localePt from '@angular/common/locales/pt';
+import localeEn from '@angular/common/locales/en';
+import localeTa from '@angular/common/locales/ta';
+import localeHi from '@angular/common/locales/hi';
+
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEl, 'el');
+registerLocaleData(localePy, 'es');
+registerLocaleData(localePt, 'pt');
+registerLocaleData(localeEn, 'en')
+registerLocaleData(localeTa, 'ta');
+registerLocaleData(localeHi, 'hi');
+
 // import { PlacesFileuploadComponent } from './places-fileupload/places-fileupload.component';
 
 @NgModule({
@@ -72,7 +89,7 @@ import { DelconComponent } from './shared/components/delcon/delcon.component';
       deps: [AppConfig],
       multi: true
     },
-    CustomPreloadingStrategy
+    CustomPreloadingStrategy,
   ],
   entryComponents: [AppLoaderComponent, HomePopupComponent, DelconComponent],
   bootstrap: [AppComponent]

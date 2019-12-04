@@ -45,9 +45,14 @@
                         </div>
                         <div class="button-container" fxLayout="row" fxLayoutAlign="start center">
                             
+                            <button (click)="openDialog()">  delete </button>
+                            <p>Date time in Greek {{todayDate | date:'full':'+0200':'el'}}</p>
+                            <p>Date time in Spanish {{todayDate | date:'full':'+0200':'es'}}</p>
+                            <p>Date time in Portuguese  {{todayDate | date:'full':'+0200':'pt'}}</p>
+                            <p> Date time in English {{todayDate | date:'full':'+0200':'en'}}</p>
+                            <p>Date time in Tamil {{todayDate | date:'full':'+0200':'ta'}}</p>
+                            <p>Date time in Hindi {{todayDate | date:'full':'+0200':'hi'}}</p>
 
-        <button (click)="openDialog()">  delete </button>
-                            
                         
                         <button type="button" mat-raised-button
                                 class="home-audience button button-primary uppercase pull-right no-radius"

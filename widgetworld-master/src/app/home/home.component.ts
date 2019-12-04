@@ -4,13 +4,14 @@ import { ThemeService, CommonService } from '@shared/services';
 import { FiltersService } from '../explore/filters/filters.service';
 import { DelconComponent } from '../shared/components/delcon/delcon.component';
 import {MatDialog} from '@angular/material';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
+  todayDate : Date = new Date();
+
   public themeSettings: any;
   public isAudienceDisplay = false;
   public isWorkspaceDisplay = false;
