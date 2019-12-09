@@ -1,0 +1,103 @@
+<header  class="main-header">
+  <!-- Logo -->
+  <a [routerLink]="['/']" class="logo">
+    <!-- mini logo for sidebar mini 50x50 pixels -->
+    <span class="logo-mini"><b><img src="../assets/img/favicon.png" class="user-image"></b></span>
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg"><b>A-</b>Net</span>
+  </a>
+  <!-- Header Navbar: style can be found in header.less -->
+  <nav class="navbar navbar-static-top">
+    <!-- Sidebar toggle button-->
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </a>
+
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <!-- User Account: style can be found in dropdown.less -->
+        <li class="dropdown user user-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img  [src]='profile_pic' class="user-image" alt="User Image">
+            <i class="fa fa-gears"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <!-- User image -->
+            <li class="user-header">
+              <!-- <img data-toggle="modal" data-target="#image" [src]='profile_pic' class="img-circle" alt="User Image"> -->
+              <img (click)="fileInput.click()" [src]='profile_pic' class="img-circle" alt="User Image">
+              <p>
+                {{account_name}}
+              </p>
+            </li>
+            <!-- Menu Footer-->
+            <li class="user-footer">
+              <div class="pull-left">
+                <a  data-toggle="modal" data-target="#password" class="btn btn-default btn-flat">Change Password</a>
+              </div>
+              <div class="pull-right">
+                <a (click)="signOut()" class="btn btn-default btn-flat">Sign out</a>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<div class="modal fade" id="password">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Change Password</h4>
+        </div>
+        <form [formGroup]="passwordForm" (ngSubmit)="onSubmit(passwordForm.value)">
+          <div class="modal-body">
+              <div class="form-group col-md-12">
+                  <label >Password</label>
+                  <input type="password" class="form-control" formControlName = "password" placeholder="Password">
+                  <show-errors [control]="passwordForm.controls.password"></show-errors>  
+              </div>
+              <div class="form-group col-md-12">
+                <label >Confirm Password</label>      
+                <input type="password" class="form-control" formControlName = "confirm_password" placeholder="Confirm Password">
+                <show-errors [control]="passwordForm.controls.confirm_password"></show-errors>  
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="image">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #closeModal1 class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Change Profile Image</h4>
+      </div>
+      <div class="modal-body">      
+      <!-- <form [formGroup]="imageForm" (ngSubmit)="onSubmitImage(imageForm.value)"> -->
+            <div class="form-group" style="width: 50%">
+                <input class="form-control" type="file" (change)="onFileChange($event)"   placeholder="Upload file" #fileInput>
+            </div>
+            <div class="form-group ">
+              <button type="submit" class="btn btn-primary">Save Image</button>
+            </div>
+      <!-- </form> -->
+      </div>
+      <div class="modal-footer">
+      </div>      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="content-wrapper">
+  <section style="position: relative; padding: 1px 1px 0px 10px;">
+    <h1>
+      <a [routerLink]="['/templates/'+template_id+'/metrics/new/']" class="pull-right"><i class="fa fa-fw fa-plus-circle"></i></a>
+    </h1>
+    <div class="form-group pull-right back" >
+      <a (click)="onBack()" >BACK</a>
+    </div>
+    <ol class="breadcrumb pull-left content-header ">
+      <li><a [routerLink]="['/templates']">Templates</a></li>
+      <li><a [routerLink]="['/templates/']">{{ templateName }}</a></li>
+      <li><a style="cursor:text; color:#333 !important">Metrics</a></li>
+    </ol>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table *ngIf="!noData"  id="table" class="table bgborder">
+              <thead>
+              <tr class="even">
+                <th>Goal Name</th>
+                <th>Goal Description</th>
+                <th>Metric Name</th>
+                <th>Metric Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let templateMetric of templateMetrics" [ngClass]="(templateMetric.row | tablecolor)? 'odd':'even'"  >
+                <td class="col-md-1 verticalAlign escape-html" *ngIf="templateMetric.row" [attr.rowspan]="templateMetric.row" >{{templateMetric.goal.name}} - <b>{{templateMetric.goal.score}}</b></td>
+                <td class="col-md-2 verticalAlign escape-html" *ngIf="templateMetric.row" [attr.rowspan]="templateMetric.row" >{{templateMetric.goal.description}}</td>
+                <td class="col-md-1 verticalAlign escape-html" >{{templateMetric.metric.name}} <b>-{{templateMetric.metric.score}}</b></td>
+                <td class="col-md-2 verticalAlign escape-html" >{{templateMetric.metric.description}}</td>
+              </tr>
+              </tbody>
+            </table>
+            <p class="text-center" *ngIf="noData">  Metrics Not Yet Assigned  </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

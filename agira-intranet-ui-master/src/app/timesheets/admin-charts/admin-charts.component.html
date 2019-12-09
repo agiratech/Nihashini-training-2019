@@ -1,0 +1,152 @@
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="col-md-12 custom-margin">
+        <h3 class="col-md-2 zero-margin-padding" >Timesheets</h3>
+        <div class="pull-right" >
+          <h2  class="zero-margin-padding">
+            <a [routerLink]="['/timesheet/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+          </h2>
+        </div>
+      </div>
+    </section>
+  
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box-body">
+            <div class="box">
+              <div class="box-body custom-color">
+                <div class="col-md-12 pull-right form-horizontal" >
+                  <div class="col-md-11">
+                    <div class="col-md-2">
+                      <select class=" form-control"  [(ngModel)]="defaultUser">
+                          <option *ngFor="let account of accounts" [value]=account.id>{{account.name}}</option>
+                      </select>
+                    </div>
+                    <div  class="col-md-2">
+                      <select class=" form-control"  [(ngModel)]="defaultActivity">
+                        <option value="all">Select Activity</option>
+                        <option *ngFor="let activity of activities" [value]=activity.id>{{activity.name}}</option>
+                      </select>
+                    </div>
+                    <div  class="col-md-2">
+                      <select class=" form-control"  [(ngModel)]="defaultCategory">
+                        <option value="all">Select Category</option>
+                        <option *ngFor="let category of categories" [value]=category.id>{{category.name}}</option>
+                      </select>
+                    </div>
+                    <div  class="col-md-2">
+                      <select class=" form-control"  [(ngModel)]="defaultProject">
+                        <option value="all">All Projects</option>
+                        <option *ngFor="let project of projects" [value]=project.id>{{project.name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="form-control date-field" placeholder="Click to Select"   style="float:none" ngx-mydatepicker name="end_date"
+                        [(ngModel)]= "start_date" (click)="dp.toggleCalendar()" [options]="myOptions" #dp="ngx-mydatepicker"/>  
+                      <label class="text-red" *ngIf="errors">{{ errors.dates}}</label>  
+                    </div>      
+                    <div class="col-md-2">     
+                      <input class="form-control date-field" placeholder="Click to Select"   style="float:none" ngx-mydatepicker name="start_date"
+                      [(ngModel)]= "end_date" (click)="dp1.toggleCalendar()" [options]="myOptions" #dp1="ngx-mydatepicker"/>
+                    </div>
+
+                  </div>
+                  <div class="col-md-1">
+                    <button (click)="getData()" class="btn btn-primary" type="submit" >Submit</button> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p *ngIf="noData" >
+              No TimeSheet Available
+            </p>
+            <div [hidden]="noData" class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#report" data-toggle="tab">Charts</a></li>
+                  <li><a href="#summary" data-toggle="tab">Summary</a></li>
+                </ul>
+                <div class="tab-content" style="background-color: #f4f4f4;">
+                  <div class="tab-pane active" id="report">
+                    <div class="row">
+                      <app-pie-chart></app-pie-chart>
+                    </div>
+                    <br/>
+                    <div class="row" >
+                      <div class="col-md-12">
+                        <app-bar></app-bar>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                  <div class="tab-pane" id="summary" style="background-color: #fff;">
+                    <table class="table table-striped table-bordered display dataTable text-center" >
+                      <thead>
+                        <tr>
+                        <th class="text-center" >Project</th>                 
+                        <th class="text-center" >Worked Hours</th>
+                        <th class="text-center" >Billed Hours</th>
+                        </tr>
+                      </thead>    
+                      <tbody>
+                        <tr *ngFor="let timesheet of timeSheets.duration;let i = index " >
+                          <td><a (click)="projectSummary(timesheet)" data-toggle="modal" data-target="#modal-default">{{timesheet}}</a></td>
+                          <td>{{timeSheets.bar_data[0].data[i]}}</td>
+                          <td>{{timeSheets.bar_data[1].data[i]}}</td>
+                        </tr>
+                        <tr class="text-bold">
+                          <td class="text-right"></td>
+                          <td>{{timeSheets.total_hours}}</td>
+                          <td>{{timeSheets.billed_hours}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="text-center padding-bottom">
+                      <button class="btn btn-primary" (click)="downloadReport()" >EXPORT</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-center">{{users.project_name}}</h4>
+        </div>
+        <div class="modal-body custom-body" >
+          <table class="table table-striped table-bordered display dataTable text-center" >
+            <thead>
+              <tr>
+              <th class="text-center" >User</th>                 
+              <th class="text-center" >Worked Hours</th>
+              <th class="text-center" >Billed Hours</th>
+              </tr>
+            </thead>    
+            <tbody>
+              <tr *ngFor="let user of users.accounts;let i = index " >
+                <td>{{user.name}}</td>
+                <td>{{user.worked}}</td>
+                <td>{{user.billed}}</td>
+              </tr>
+              <tr class="text-bold">
+                <td class="text-right"></td>
+                <td>{{users.worked}}</td>
+                <td>{{users.billed}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>

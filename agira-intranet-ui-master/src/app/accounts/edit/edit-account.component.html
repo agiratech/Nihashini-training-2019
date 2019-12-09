@@ -1,0 +1,75 @@
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">{{account_name}}</h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <form [formGroup]="accountForm" (ngSubmit)="onSubmit(accountForm.value)">
+              <div class="box-body">
+                <div class="col-md-12">
+                <div class="form-group col-md-offset-3 col-md-6">
+                  <label >Email</label>
+                  <input type="email" class="form-control" formControlName = "email" placeholder="Enter email">
+                  <show-errors [control]="accountForm.controls.email"></show-errors>
+                </div>
+                <div class="form-group col-md-offset-3  col-md-6">
+                  <label >Name</label>
+                  <input type="text" class="form-control" formControlName = "name" placeholder="name">
+                  <show-errors [control]="accountForm.controls.name"></show-errors>
+                </div>
+                <div class="form-group col-md-offset-3  col-md-6">
+                    <label >Employee Id</label>
+                    <input type="text" class="form-control" formControlName = "emp_id" placeholder="Employee Id">
+                    <show-errors [control]="accountForm.controls.emp_id"></show-errors>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="checkbox form-group col-md-offset-3  col-md-6">
+                    <label class="col-md-2">
+                      <input type="checkbox"  formControlName="manager" > manager
+                    </label>
+                    <label class="col-md-3">
+                      <input type="checkbox"  formControlName="is_asset_enabled" > manage asset
+                    </label>
+                    <div class="col-md-7 no-padding">
+                      <label class="col-md-6">
+                        <input type="checkbox"  formControlName="is_timesheet_enabled" > Enable Timesheet
+                      </label>
+                      <label class="col-md-6 ">
+                        <input type="checkbox"  formControlName="is_timesheet_manager" > Manage Timesheet
+                      </label>
+                    </div>
+                    <div class="col-md-12 no-padding">
+                      <label class="col-md-3">
+                        <input type="checkbox"  formControlName="is_invoice_enabled" > Enable Invoice
+                      </label>
+                      <label class="col-md-6">
+                        <input type="checkbox"  formControlName="is_recruitment_enabled" > Manage Recruitment
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+
+              <div class="box-footer text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="button" (click)="locationBack()" class="btn btn-default">Cancel</button>
+              </div>
+            </form>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!--/.col (left) -->
+      <!-- right column -->
+      <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  </div>

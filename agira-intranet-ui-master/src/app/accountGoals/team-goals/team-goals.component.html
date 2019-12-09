@@ -1,0 +1,97 @@
+<div class="content-wrapper">
+  <section  style="position: relative; padding: 1px 1px 0px 10px;" >
+    <h1>
+    </h1>
+    <div class="col-md-12 form-group pull-right filter" style="width:850px">
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"  [(ngModel)]="current_assessment_year" (ngModelChange)="getTeamGoals()" >
+          <option value = 'all' >Select Assessment Year</option>
+          <option *ngFor="let year of years" [value]=year.assessment_year>{{year.assessment_year}}</option>
+        </select>
+      </div>
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"  [(ngModel)]="duration" (ngModelChange)="getTeamGoals()" >
+          <option value = 'all' >Select Duration</option>
+          <option *ngFor="let dur of durations" [value]=dur.key>{{dur.value}}</option>
+        </select>
+      </div>
+      <div class="col-md-3" >
+        <input [(ngModel)]="searchText" (ngModelChange)="getAccountSearchName(searchText)" class="form-control" placeholder="Search Account">
+      </div>
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"  [(ngModel)]="status" (ngModelChange)="getTeamGoals()">
+          <option value = 'all' >Select status</option>
+          <option value = 'new' >New</option>
+          <option value = 'released' >Released</option>
+          <option value = 'submitted' >Submitted</option>
+          <option value = 'reviewed' >Reviewed</option>
+          <option value = 'accepted' >Accepted</option>
+        </select>
+    </div>
+    </div>
+    <ol class="breadcrumb pull-left content-header ">
+        <li><a [routerLink]="['/teamGoals/']">Team Assessments</a></li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Assessments Assigned  </p>
+            <table class="table table-striped table-bordered display dataTable" *ngIf=!noData  [mfData]="accountGoals | searchdata : searchText : status" mfSortBy="assessment_duration" #mf="mfDataTable"  >
+              <thead>
+              <tr class="even">
+                  <th>
+                      <mfDefaultSorter by="account.name">Account</mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="appraiser.name">Appraiser</mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="reviewer.name">Reviewer </mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="assessment_year">Assessment Year</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="assessment_duration">Assessment Duration</mfDefaultSorter>
+                  </th>
+                  <th>
+                      <mfDefaultSorter by="status">Status</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="final_score">Final Score</mfDefaultSorter>
+                  </th>
+                  <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let accountGoal of mf.data" >
+                <td>{{accountGoal.account.name}}</td>
+                <td>{{accountGoal.appraiser.name}}</td>
+                <td>{{accountGoal.reviewer.name}}</td>
+                <td>{{accountGoal.assessment_year}}</td>
+                <td>{{accountGoal.assessment_duration}}</td>
+                <td>{{accountGoal.status[0].toUpperCase() + accountGoal.status.substr(1).toLowerCase()}}</td>
+                <td class="text-center" *ngIf="accountGoal.final_score && (accountGoal.status == 'reviewed' || accountGoal.status == 'accepted')" >{{accountGoal.final_score}}</td>
+                <td class="text-center" *ngIf="!accountGoal.final_score || (accountGoal.final_score && (accountGoal.status == 'new' || accountGoal.status == 'released' || accountGoal.status == 'submitted'))">-</td>
+                <td class="text-center">
+                  <a *ngIf="accountGoal.status == 'new' && accountGoal.is_active"  title="Release" (click)="release(accountGoal.id)"><i class="glyphicon glyphicon-registration-mark"></i></a>
+                  <a title="metrics" [routerLink]="['/accountGoals/'+accountGoal.id+'/metrics']"><i class="glyphicon glyphicon-eye-open"></i></a>
+                </td>
+
+              </tr>
+              </tbody>
+          </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+  </div>

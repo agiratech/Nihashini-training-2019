@@ -1,0 +1,125 @@
+<div class="content-wrapper" id="top-element">
+  <section class="content-header">
+    <div class="col-md-12 custom-margin">
+      <h3 class="col-md-2 zero-margin-padding" >Timesheets</h3>
+      <div class="col-md-3 pull-right nopadding">
+        <div class=" col-md-6 pull-right nopadding" >
+          <button class="btn btn-primary pull-right" [routerLink]="['/timesheet/new']" ><i class="glyphicon glyphicon-plus"></i>Log Time</button>
+        </div>
+        <div  class="col-md-6 pull-right nopadding" >
+          <button class="btn btn-primary pull-right" (click)="downloadReport()" ><i class="glyphicon glyphicon-export"></i>EXPORT</button>
+        </div>
+      </div>
+      <div class="col-md-3 pull-right nopadding">
+        <div class="col-md-6">
+          <h4 _ngcontent-c6="">Overall: {{totalWorkedHours}}</h4>
+        </div>
+        <div class="col-md-6">
+          <h4 _ngcontent-c6="">Billed: {{totalBilledHours}}</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <div class="col-md-12 form-group pull-right" style="margin-top:15px">
+            <div *ngIf="!dateShow" class="col-md-1 pull-right">
+              <button class="btn btn-primary" (click)="getData(currentPgNo)" >Submit</button>
+            </div>
+            <div *ngIf="dateShow" class="col-md-4 pull-right">
+              <form [formGroup]="dateForm" (ngSubmit)="onSubmit(dateForm.value)">
+                <div class="col-md-5">
+                  <input class="form-control" placeholder="Click to Select"    ngx-mydatepicker
+                  formControlName= "start_date" (click)="dp.toggleCalendar()" [options]="myOptions" #dp="ngx-mydatepicker"/>
+                  <label class="text-red" *ngIf="errors">{{ errors.dates}}</label>
+                </div>
+                <div class="col-md-5">
+                  <input class="form-control" placeholder="Click to Select"    ngx-mydatepicker
+                  formControlName= "end_date" (click)="dp1.toggleCalendar()" [options]="myOptions" #dp1="ngx-mydatepicker"/>
+                </div>
+                <div class="col-md-2 nopadding">
+                  <button class="btn btn-primary" type="submit" >Submit</button>
+                </div>
+                <label class="text-red" *ngIf="dateForm.errors">{{ dateForm.errors?.dates | json }}</label>
+              </form>
+            </div>
+            <div  class="col-md-2 pull-right">
+              <select class=" form-control" (change)="changeTime($event.target.value)" [(ngModel)]="defaultTime" (ngModelChange)="enableDate()">
+                <option *ngFor="let time of times" [value]=time.value>{{time.key}}</option>
+              </select>
+            </div>
+            <div  class="col-md-2 pull-right">
+              <select class=" form-control" (change)="changeActivity($event.target.value)" [(ngModel)]="defaultActivity">
+                <option value="all">Select Activity</option>
+                <option *ngFor="let activity of activities" [value]=activity.id>{{activity.name}}</option>
+              </select>
+            </div>
+            <div  *ngIf="admin || manager || timeSheetManager" class="col-md-2 pull-right">
+              <select class=" form-control"(change)="changeUser($event.target.value)" [(ngModel)]="defaultUser">
+                <option *ngFor="let account of accounts" [value]=account.id>{{account.name}}</option>
+              </select>
+            </div>
+            <div  class="col-md-2 pull-right">
+              <select class="form-control" (change)="changeProject($event.target.value)" [(ngModel)]="defaultProject">
+                <option value="all">Select Project</option>
+                <option *ngFor="let project of projects" [value]=project.id>{{project.name}}</option>
+              </select>
+            </div>
+
+          </div>
+          <div>
+            <div class="box-body">
+              <p *ngIf="emptyData" >
+                No TimeSheet Available
+              </p>
+              <table [hidden]=emptyData class="table table-striped table-bordered display dataTable" >
+                <thead>
+                  <tr>
+                  <th>User</th>
+                  <th>Project</th>
+                  <th>Activity</th>
+                  <th>Date</th>
+                  <th>Comment</th>
+                  <th>Mentor</th>
+                  <th class="text-center" >Worked</th>
+                  <th class="text-center" >Billed</th>
+                  <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let timesheet of timesheets | paginate: {
+                    itemsPerPage: 50,
+                    currentPage: currentPgNo,
+                    totalItems: response.count }" >
+                    <td>{{timesheet['user'].name}}</td>
+                    <td>{{timesheet['project'].name}}</td>
+                    <td>{{timesheet['activity'].name}}</td>
+                    <td>{{timesheet.date}}</td>
+                    <td class="col-md-4">{{timesheet.comment}}</td>
+                    <td>{{timesheet['mentor'].name}}</td>
+                    <td class="text-center">{{timesheet.worked_hours}}</td>
+                    <td class="text-center">{{timesheet.billed_hours}}</td>
+                    <td *ngIf="timesheet.edit">
+                    <a  [routerLink]="['/timesheet/'+timesheet.id+'/edit']"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a  href="javascript:void(0);" (click)="delete(timesheet.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <br/>
+              <!-- <ul class="pagination pull-right">
+                <li class="page-item" *ngIf="currentPgNo >1"><a class="page-link" (click)="getValue(currentPgNo-1)" >Previous</a></li>
+                <li *ngFor="let pgno of pagenumber" [class]="currentPgNo==pgno?'page-item active':'page-item'"><a class="page-link" (click)="getValue(pgno)">{{pgno}}</a></li>
+                <li class="page-item" *ngIf="currentPgNo < pagenumber.length"><a class="page-link" (click)="getValue(currentPgNo+1)" >Next</a></li>
+              </ul> -->
+              <pagination-controls *ngIf="response.count>1" class="customPage" (pageChange)="getValue(currentPgNo = $event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

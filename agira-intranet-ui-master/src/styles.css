@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+.glyphicon{
+    padding-right: 5px;
+}
+
+a{
+    cursor: pointer;
+}
+
+.escape-html{
+    white-space: pre-wrap;
+}
+
+.star{
+    color: #ed1d24;
+    margin-left: 2px;
+}
+
+.wrong-clr {
+    color: #d27a78;
+}
+.right-clr {
+    color: #3e863e;
+}

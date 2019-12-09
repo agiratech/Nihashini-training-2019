@@ -1,0 +1,103 @@
+<div class="content-wrapper">
+  <section style="position: relative;padding: 1px 1px 0px 10px;">
+      <ol class="breadcrumb pull-left content-header">
+          <li><a [routerLink]="['/goals']" >Goals</a></li>
+          <li class="active">{{goal.name}}</li>
+      </ol>
+  </section>
+
+    <!-- Main content -->
+    <!-- <div class="content"> -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table">
+                <tr>
+                  <th>Name</th>
+                  <td class="escape-html">{{goal.name}}</td>
+                </tr>
+                <tr>
+                  <th >Description</th>
+                  <td  class="escape-html">{{goal.description}}</td>
+                </tr>
+                <tr>
+                    <th>status</th>
+                    <td>{{goal.status}}</td>
+                  </tr>
+            </table>
+            <div class="box-footer text-left">
+                <button [routerLink]="['/goal/'+goal.id+'/edit']" class="btn btn-primary">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="position: relative;padding: 1px 1px 0px 10px;">
+      <h3 style="margin: 11px;" > Metrics 
+      <a class="btn btn-default pull-right" (click)="newForm()" data-toggle="modal" data-target="#modal-default" ><i class="fa fa-fw fa-plus-circle"></i></a>
+      </h3>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+          <div class="box">
+            <div class="box-body">
+                <p *ngIf="emptyData">
+                  No metrics have been added to the goal.
+                  <a (click)="newForm()" data-toggle="modal" data-target="#modal-default" >Assign the Metrics</a>
+                </p>
+                <table [hidden]=emptyData class="table">
+                  <tr>
+                    <th>Metric Name</th>
+                    <th>Description</th>
+                    <th></th>
+                  </tr>
+                  <tr *ngFor="let metric of goal.metrics">
+                    <td class="col-md-2 escape-html" >{{metric.name}}</td>
+                    <td class="col-md-8 escape-html">{{metric.description}}</td>
+                    <td class="col-md-2" style="text-align:center">
+                      <a  (click)="editForm(metric)" data-toggle="modal" data-target="#modal-default"><i class="glyphicon glyphicon-edit"></i></a>
+                      <a style="cursor:pointer" (click)="delete(metric.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                    </td>
+                  </tr>
+                </table>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+    <!-- </div> -->
+</div>
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Create Metrics</h4>
+      </div>
+      <form [formGroup]="metricForm" (ngSubmit)="onSubmit(metricForm.value)">
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+                <label >Name</label>
+                <textarea class="form-control"  rows="5" formControlName="name"  placeholder="Enter Metrics Name"></textarea>
+                <show-errors [control]="metricForm.controls.name"></show-errors>
+            </div>
+            <div class="form-group col-md-12">
+              <label >Description</label>
+              <textarea class="form-control"  rows="5" formControlName="description"  placeholder="Enter your description"></textarea>
+              <show-errors [control]="metricForm.controls.description"></show-errors>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

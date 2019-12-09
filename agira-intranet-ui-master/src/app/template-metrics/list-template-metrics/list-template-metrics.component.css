@@ -1,0 +1,42 @@
+.fontlabel{
+    font-weight: normal
+}
+
+.odd{
+    background-color:#ffffff ;
+}
+.even{
+    background-color:#e6e6e6;
+}
+
+table.bgborder, table.bgborder > thead > tr > th, table.bgborder > tbody > tr > td {
+    border: 1px solid #848a87;
+}
+
+.goal{
+    text-align: center;
+    padding-left: 182px;
+}
+
+.verticalAlign{
+    vertical-align: middle
+}
+
+.noData{
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.back{
+    padding-right: 20px;
+    padding-top: 16px;
+}
+
+.score_table{
+    width: 520px;
+    margin-left: 330px;
+    margin-top: 10px;
+}
+.billing-data {
+    margin-right: 15px;
+}

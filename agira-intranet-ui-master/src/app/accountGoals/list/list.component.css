@@ -1,0 +1,28 @@
+.odd{
+    background-color:#ffffff ;
+}
+.even{
+    background-color:#e6e6e6;
+}
+
+table.bgborder, table.bgborder > thead > tr > th, table.bgborder > tbody > tr > td {
+    border: 1px solid #848a87;
+}
+
+.filter {
+    margin-top: 5px;
+    width: 150px;
+    margin-right: 31px;
+    margin-bottom: 0px;
+}
+
+.text-center{
+    text-align: center
+}
+
+.average_score{
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}

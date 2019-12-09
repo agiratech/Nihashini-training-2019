@@ -1,0 +1,99 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="col-md-12 custom-margin">
+      <h3 class="col-md-2 zero-margin-padding" >Timesheets</h3>
+      <div class="pull-right" >
+        <h2  class="zero-margin-padding">
+          <a [routerLink]="['/timesheet/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box-body">
+          <div class="box">
+            <div class="box-body custom-color">
+              <div class="col-md-12 pull-right" >
+                <div *ngIf="manager" class="col-md-2 ">
+                  <select class=" form-control"  [(ngModel)]="defaultUser">
+                      <option *ngFor="let account of accounts" [value]=account.id>{{account.name}}</option>
+                  </select>
+                </div>
+                <div  class="col-md-2 ">
+                  <select class=" form-control"  [(ngModel)]="defaultProject">
+                    <option value="all">All Projects</option>
+                    <option *ngFor="let project of projects" [value]=project.id>{{project.name}}</option>
+                  </select>
+                </div>
+                <div  class="col-md-2">
+                  <select class=" form-control"  [(ngModel)]="defaultActivity">
+                    <option value="all">Select Activity</option>
+                    <option *ngFor="let activity of activities" [value]=activity.id>{{activity.name}}</option>
+                  </select>
+                </div>
+                <div *ngIf="!admin" class="col-md-2 ">
+                  <select class=" form-control"  [(ngModel)]="defaultTime" (ngModelChange)="enableDate()">
+                    <option *ngFor="let time of times" [value]=time.value>{{time.key}}</option>
+                  </select>
+                </div>
+                <div *ngIf="!dateShow" class="col-md-1 ">
+                  <button class="btn btn-primary" (click)="getData()" >Submit</button> 
+                </div>
+                <div *ngIf="dateShow || admin" class="col-md-5 ">                
+                  <form [formGroup]="dateForm" (ngSubmit)="onSubmit(dateForm.value)">  
+                    <div class="col-md-5">
+                      <input class="form-control" placeholder="Click to Select"    ngx-mydatepicker 
+                      formControlName= "start_date" (click)="dp.toggleCalendar()" [options]="myOptions" #dp="ngx-mydatepicker"/> 
+                      <label class="text-red" *ngIf="errors">{{ errors.dates}}</label>  
+                      <!-- <input type="date" class="form-control"   formControlName= "start_date"> -->
+                    </div>      
+                    <div class="col-md-5">     
+                      <input class="form-control" placeholder="Click to Select"    ngx-mydatepicker 
+                      formControlName= "end_date" (click)="dp1.toggleCalendar()" [options]="myOptions" #dp1="ngx-mydatepicker"/> 
+                      <!-- <input type="date" class="form-control" formControlName= "end_date" > -->
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-primary" type="submit" >Submit</button> 
+                    </div>
+                    <label class="text-red" *ngIf="dateForm.errors">{{ dateForm.errors?.dates | json }}</label>  
+                  </form>    
+                </div> 
+
+              </div>
+            </div>
+          </div>
+          <p *ngIf="noData" >
+              No TimeSheet Available
+            </p>
+          <div *ngIf="!noData && !admin" class="row" >
+            <div class="col-md-6">
+              <app-pie-chart></app-pie-chart>
+            </div>
+            <div class="col-md-6">
+              <app-donut-chart></app-donut-chart>
+            </div>
+          </div>
+          <div *ngIf="!noData && admin" class="row">
+            <app-pie-chart></app-pie-chart>
+          </div>
+          <br/>
+
+          <div *ngIf="!noData" class="row" >
+            <div class="col-md-12">
+              <app-bar></app-bar>
+            </div>
+          <br/>
+          </div>
+          <div *ngIf="!noData && !admin" class="row" >
+          <div class="col-md-12 custom-margin">
+            <app-stacked-bar-chart></app-stacked-bar-chart>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,164 @@
+<div class="content-wrapper">
+  <section style="position: relative; padding: 1px 1px 0px 10px;">
+    <h1>
+      <a *ngIf="(!is_Admin || appraiser || reviewer) && (accountGoalDetails.status == 'new' || accountGoalDetails.status == 'released') " class="pull-right" [routerLink]="['/account/'+account_id+'/accountGoals/'+accountGoal_id+'/metrics/new/']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+    </h1>
+    <div class="form-group pull-right back" >
+        <b class="billing-data">Billed {{ billingHours }} hours & Percentage {{ billingPercentage }}%</b>
+        <a (click)="onBack()" >BACK</a>
+    </div>
+    <ol *ngIf="is_Admin || account_id == 1" class="breadcrumb pull-left content-header ">
+        <li *ngIf = "self_assessments" ><a [routerLink]="['/account/'+account_id+'/accountGoals/']">Assessments</a></li>
+        <li *ngIf = "team_assessments" ><a [routerLink]="['/teamGoals/']">Team Assessments</a></li>
+        <li><a style="cursor:text; color:#333 !important">{{account_name}}</a></li>
+        <li><a style="cursor:text; color:#333 !important">{{accountGoalDetails.assessment_duration}}</a></li>
+    </ol>
+    <ol *ngIf="!is_Admin && account_id !=1" class="breadcrumb pull-left content-header ">
+      <li><a [routerLink]="['/accounts']" >Accounts</a></li>
+      <li><a style="cursor:text; color:#333 !important">{{account_name}}</a></li>
+      <li><a [routerLink]="['/account/'+account_id+'/accountGoals/']">Assessments</a></li>
+      <li><a style="cursor:text; color:#333 !important">{{accountGoalDetails.assessment_duration}}</a></li>
+    </ol>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table table-bordered ">
+              <thead>
+                <tr>
+                  <th>Appraiser: <label class="fontlabel">{{accountGoalDetails.appraiser.name}}</label></th>
+                  <th>Reviewer: <label class="fontlabel">{{accountGoalDetails.reviewer.name}}</label></th>
+                  <th>Duration: <label class="fontlabel">{{accountGoalDetails.assessment_duration}}</label></th>
+                  <th>Assessment Year: <label class="fontlabel">{{accountGoalDetails.assessment_year}}</label></th>
+                  <th>Status: <label class="fontlabel">{{accountGoalDetails.status[0].toUpperCase() + accountGoalDetails.status.substr(1).toLowerCase()}}</label></th>
+                </tr>
+              </thead>
+            </table>
+            <p class="text-center noData" *ngIf="noData"> No Metrics Not Yet Assigned  </p>
+            <table *ngIf="accountGoalDetails.final_score != null && ((accountGoalDetails.publish && is_Admin) || (!is_Admin && (accountGoalDetails.status == 'reviewed' || accountGoalDetails.status == 'accepted')) || ((appraiser || reviewer) && (accountGoalDetails.status == 'reviewed' || accountGoalDetails.status == 'accepted' || accountGoalDetails.status == 'submitted')))" id="table" class="table bgborder score_table">
+              <thead>
+                <tr>
+                  <!-- <th class="even" >Status </th> -->
+                  <!-- <th class="odd" >{{accountGoalDetails.status[0].toUpperCase() + accountGoalDetails.status.substr(1).toLowerCase()}}</th> -->
+                  <th class="even bg-green text-center col-md-3" >FinalRating</th>
+                  <th class="odd bg-green text-center col-md-3" >{{accountGoalDetails.final_score}} <span *ngIf="accountGoalDetails.bonus > 0">(bonus - {{ accountGoalDetails.bonus }})</span></th>
+                </tr>
+              </thead>
+            </table>
+            <br/>
+            <table *ngIf="!noData"  id="table" class="table bgborder">
+              <thead>
+              <tr class="even">
+                <th>Goal Name</th>
+                <th>Goal Description</th>
+                <th>Metric Name</th>
+                <th>Metric Description</th>
+                <th *ngIf="headEmployeeComments()">Employee Comments</th>
+                <th *ngIf="!is_Admin && (show_appraiserScore)">Employee Comments</th>
+                <th *ngIf="headAppraiserComment() ">Appraiser Comment</th>
+                <th *ngIf="headReviewerComment()">Reviewer Comment</th>
+                <th *ngIf="headRating()">Metric Rating</th>
+                <th *ngIf="headRating()">Goal Rating</th>
+                <!-- <th *ngIf="!is_Admin"></th> -->
+                <th *ngIf="(is_Admin && save_comments && add_comment) || ((!is_Admin || appraiser || reviewer) && (!show_appraiserScore))"></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let accountMetric of accountMetrics" [ngClass]="(accountMetric.row | tablecolor)? 'odd':'even'"  >
+                <td class="col-md-1 verticalAlign escape-html" *ngIf="accountMetric.row" [attr.rowspan]="accountMetric.row" >{{accountMetric.goal.name}} - <b>{{accountMetric.goal.score}}</b></td>
+                <td class="col-md-2 verticalAlign escape-html" *ngIf="accountMetric.row" [attr.rowspan]="accountMetric.row" >{{accountMetric.goal.description}}</td>
+                <td class="col-md-1 verticalAlign escape-html" >{{accountMetric.metric.name}} <b *ngIf="(accountMetric.metric.assessment && !accountMetric.metric.assessment.optional)" >-{{accountMetric.metric.score}}</b></td>
+                <td class="col-md-2 verticalAlign escape-html" >{{accountMetric.metric.description}}</td>
+                <td class="col-md-2 verticalAlign escape-html appraisee-comment" *ngIf="appraiseeComments()" >{{accountMetric.appraisee_comment}}</td>
+                <td class="col-md-2 verticalAlign escape-html" *ngIf="!is_Admin && show_comments && accountMetric.status != 'released' " >{{accountMetric.appraisee_comment}}</td>
+                <td class="col-md-2 verticalAlign escape-html" *ngIf="appraiserComment()" >{{accountMetric.appraiser_comment}}</td>
+                <td class="col-md-2 verticalAlign escape-html" *ngIf="reviewerComment()" >{{accountMetric.reviewer_comment}}</td>
+                <td class="col-md-1 text-center verticalAlign" *ngIf="is_Admin && save_comments && add_comment">
+                  <a title="Comment" (click)="newMetricForm(accountMetric)" data-toggle="modal" data-target="#modal-default"><i class="glyphicon glyphicon-comment"></i></a>
+                </td>
+                <td class="col-md-3 text-center verticalAlign" *ngIf="appraiser && (release || submit_review)">
+                  <textarea type="text" class="form-control appraiser-comment" (blur)="onCommentChange($event.target.value,accountMetric.id)" [(ngModel)]="accountMetric.appraiser_comment" ></textarea>
+                </td>
+                <td class="col-md-3 text-center verticalAlign" *ngIf=" reviewer && (release || submit_review || accept)">
+                  <textarea type="text" class="form-control" (blur)="onCommentChange($event.target.value,accountMetric.id)" [(ngModel)]="accountMetric.reviewer_comment" ></textarea>
+                </td>
+                <td class="verticalAlign escape-html" *ngIf="goalScore()" >{{score[accountMetric.id]}}</td>
+                <td class="col-md-1 text-center verticalAlign" *ngIf="rating()">
+                  <select [class]="(accountMetric.metric.score && !accountMetric.metric.assessment.optional) ? 'required':''" (change)="changeScore(accountMetric.id, accountMetric.goal.id, accountMetric.metric.id)" [(ngModel)]="score[accountMetric.id]" >
+                    <option value='' >Select</option>
+                    <option *ngFor="let value of values" [value]=value>{{value}}</option>
+                  </select>
+                </td>
+                <td class="verticalAlign escape-html" *ngIf="accountMetric.row && (goalScore() || rating())" [attr.rowspan]="accountMetric.row" >{{accountMetric.goal.assessment.score}}</td>
+                <td class="col-md-1 text-center verticalAlign" *ngIf="(!is_Admin || appraiser || reviewer) && (accountMetric.status == 'new' || accountMetric.status == 'released')">
+                  <a title="Edit" [routerLink]="['/account/'+account_id+'/accountGoals/'+accountGoal_id+'/metrics/'+accountMetric.id+'/edit']"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a style="cursor:pointer" title="delete" (click)="deleteMetric(accountMetric.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <button *ngIf="submitForReview()" style="margin-top: 10px" class="pull-right" data-toggle="modal" data-target="#submit-review">Submit for Review</button>
+            <button  *ngIf="appraiser && submit_review && !noData" style="margin-top: 10px" class="pull-right" data-toggle="modal" data-target="#submit-review" >Submit for Acceptance</button>
+            <button  *ngIf="reviewer && accept && !noData" style="margin-top: 10px" class="pull-right"  data-toggle="modal" data-target="#submit-review">Accepted</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Create Metrics</h4>
+      </div>
+      <form [formGroup]="accountMetricForm" (ngSubmit)="onSubmit(accountMetricForm.value)">
+        <!-- <div class="modal-body"> -->
+            <div class="col-md-12" style="margin-top:10px">
+                <div class="col-md-6">
+                    <label>Goal Name:</label>
+                    <p>{{current_goal}}</p>
+                </div>
+                <div class="col-md-6">
+                <label>Metric Description:</label>
+                <p>{{current_description}}</p>
+                </div>
+              </div>
+            <div class="col-md-12">
+                <label >Comment</label>
+                <textarea class="form-control"  rows="5" formControlName="appraisee_comment"  placeholder="Enter Your Comment"></textarea>
+            </div>
+        <!-- </div> -->
+        <div class="modal-footer">
+          <button  style="margin:10px" type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="submit-review">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"> Do you really want to submit this changes?</h4>
+      </div>
+        <div class="modal-body">
+          <p>After Submitting, values cannot be changed.</p>
+        </div>
+        <div class="modal-footer">
+          <button  (click)="statusChange()" class="btn btn-primary">Confirm</button>
+          <button #closeModal1 data-dismiss="modal" >Cancel</button>
+        </div>
+    </div>
+  </div>
+</div>

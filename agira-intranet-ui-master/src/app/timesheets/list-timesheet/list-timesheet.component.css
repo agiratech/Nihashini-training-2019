@@ -1,0 +1,65 @@
+.filter {
+    width: 100px;
+    height: 27px;
+    font-size: 17px;
+}
+
+.formSubmit {
+    margin-top: 26px;
+}
+
+.date {
+    padding: 6px 6px;
+}
+
+canvas{
+  height:300px !important;
+}
+
+.text-left{
+    text-align: left !important
+}
+
+.zero-margin-padding{
+    margin:0;
+    padding:0;
+}
+.input-width {
+    width:133px
+}
+
+.custom-margin{
+    margin-top:15px;
+    margin-bottom:15px
+}
+
+.text-center{
+    text-align: center
+}
+
+.input-account{
+    height: 27px;
+    width: 126px;
+}
+
+.input-width{
+    width: 110px;
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+ }
+
+td{
+    vertical-align: middle !important;
+}
+
+.customPage {
+    text-align: center;
+    font-size: 18px;
+}
+
+.customPage .ngx-pagination {
+    margin-top: 15px;
+}

@@ -1,0 +1,77 @@
+<div class="content-wrapper">
+  <section style="position: relative; padding: 1px 1px 0px 10px;">
+    <ol class="breadcrumb pull-left content-header ">
+      <li *ngIf="!is_Admin" ><a [routerLink]="['/templates']" >Templates</a></li>
+      <li><a style="cursor:text; color:#333 !important">{{template_name}}</a></li>
+      <li><a [routerLink]="['/templates/'+template_id+'/metrics/']"> Metrics</a></li>
+      <li class="active">Create</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Create TemplateMetrics</h3>
+          </div>
+          <form [formGroup]="templateMetricForm" (ngSubmit)="onSubmit(templateMetricForm.value)">
+            <div formArrayName="goals" *ngFor="let goal of templateMetricForm.controls.goals.controls; let i = index;" class="box-body goal-bg">
+              <div [formGroupName]="i" >
+                <div class="col-md-12">
+                  <div  class="form-group col-md-6" style="padding-left:0px;">
+                    <label >Goal</label>
+                    <select class="form-control form-group" (click)="oldValue[i]=$event.target.value" (change)="selectGoal($event.target.value,i,oldValue[i])" formControlName="goal_id" >
+                      <option value='' >Select</option>
+                      <option  *ngFor="let goal of allGoals" [value]=goal.id>{{goal.name}}</option>
+                    </select>
+                    <p class="text-red" *ngIf="goalError[goal.controls.goal_id.value]">{{goalErrorMessage[goal.controls.goal_id.value]}}</p>
+                    <show-errors [control]="goal.controls.goal_id"></show-errors>
+                  </div>
+                  <div  class="form-group col-md-6" style="padding-right:0px;">
+                    <label >Goal Score</label>
+                    <span class="glyphicon glyphicon-remove pull-right" *ngIf="templateMetricForm.controls.goals.controls.length > 1" (click)="removeGoal(i,templateMetricForm.controls.goals.controls[i].controls.goal_id.value)"></span>
+                    <input type="integer" class="form-control"  placeholder="Enter Goal Score" formControlName="goal_score">
+                    <p class="text-red" *ngIf="goalScoreError[goal.controls.goal_id.value]">{{goalScoreErrorMessage[goal.controls.goal_id.value]}}</p>
+                    <show-errors [control]="goal.controls.goal_score"></show-errors>
+                  </div>
+                </div>
+                <div formArrayName="metrics" *ngFor="let metric of templateMetricForm.controls.goals.controls[i].controls.metrics.controls; let j=index" [hidden]=hide_metrics class="col-md-12">
+                  <div [formGroupName]="j">
+                    <div [hidden]=hide_metrics class="form-group col-md-4" style = "padding-left:0px ">
+                      <label>Metric Name</label>
+                      <select class="form-control" (click)="oldMetricValue[i][j]=$event.target.value" (change)="metricDetails($event.target.value,metric,i,j,oldMetricValue[i][j])" formControlName="metric_id" >
+                        <option value='' >Select</option>
+                        <option *ngFor="let metric of goal_metrics[goal.controls.goal_id.value]" [value]=metric.id>{{metric.name}}</option>
+                      </select>
+                      <p class="text-red" *ngIf="metricError[metric.controls.metric_id.value]">{{metricErrorMessage[metric.controls.metric_id.value]}}</p>
+                      <show-errors [control]="metric.controls.metric_id"></show-errors>
+                    </div>
+                    <div  class="form-group col-md-2" >
+                      <label >Metric Score</label>
+                      <input type="integer" class="form-control"  placeholder="Metric Score" formControlName="metric_score">
+                    </div>
+                    <div  class="form-group col-md-6" style="padding-right:0px">
+                      <label>Metric Description</label>
+                      <span class="glyphicon glyphicon-remove pull-right" *ngIf="goal.controls.metrics.controls.length > 1" (click)="removeMetric(goal,j,goal.controls.metrics.controls[j].controls.metric_id.value)"></span>
+                      <textarea class="form-control" formControlName = "metric_description"  rows="2"  placeholder="Enter Metric description"></textarea>
+                    </div>
+                    <show-errors [control]="metric.controls.metric_description"></show-errors>
+                  </div>
+                  <a class="pull-right" *ngIf="j == goal.controls.metrics.controls.length-1" (click)="addMetric(goal)" >Add Metric</a>
+                </div>
+              </div>
+            </div>
+            <div class="box-body">
+              <a class="pull-right add-goal" (click)="addGoal()" >Add Goal</a>
+            </div>
+
+            <div class="box-footer text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" (click)="locationBack()" class="btn btn-default">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

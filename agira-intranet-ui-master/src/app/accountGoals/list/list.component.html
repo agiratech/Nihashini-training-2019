@@ -1,0 +1,83 @@
+<div class="content-wrapper">
+  <section  style="position: relative; padding: 1px 1px 0px 10px;" >
+    <h1>
+     <a *ngIf="!is_Admin" class="pull-right" [routerLink]="['/account/'+account_id+'/accountGoals/new/']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+    </h1>
+    <div class="form-group pull-right filter">
+      <select class="breadcrumb  form-control"  [(ngModel)]="dateFilter" (ngModelChange)="getAccountGoals()" >
+        <option *ngFor="let date of dates" [value]="date.assessment_year">{{date.assessment_year}}</option>
+      </select>
+    </div>
+    <ol *ngIf="is_Admin || account_id === 1" class="breadcrumb pull-left content-header ">
+        <li><a [routerLink]="['/account/'+account_id+'/accountGoals/']">Assessments</a></li>
+        <li><a style="cursor:text; color: #333 !important" >{{account_name}}</a></li>
+    </ol>
+    <ol *ngIf="!is_Admin && account_id !=1" class="breadcrumb pull-left content-header ">
+      <li><a [routerLink]="['/accounts']" >Accounts</a></li>
+      <li><a style="cursor:text; color:#333 !important" >{{account_name}}</a></li>
+      <li><a [routerLink]="['/account/'+account_id+'/accountGoals/']">Assessments</a></li>
+  </ol>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Assessments detected on this duration  </p>
+            <div *ngIf="!noData" class="average_score">
+              <p *ngIf="this.average_final_score" >Overall Final Score - {{this.average_final_score | number:'1.1-2'}} <i title= "Overall final score is calculated for published assessment only" class="fa fa-question-circle"></i></p>
+            </div>
+            <table *ngIf=!noData  id="table"  class="table  table-hover">
+              <thead>
+              <tr class="even">
+                <!-- <th>Id</th> -->
+                <th>Account</th>
+                <th>Appraiser</th>
+                <th>Reviewer</th>
+                <th>Assessment Year</th>
+                <!-- <th>Start Date</th>
+                <th>End Date</th> -->
+                <th>Assessment Duration</th>
+                <th>Status</th>
+                <th>Final Score</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let accountGoal of accountGoals"  [ngClass]="(accountGoal | tablecolor)?'odd':'even'">
+                <!-- <td>{{accountGoal.id}}</td> -->
+                <td>{{accountGoal.account.name}}</td>
+                <td>{{accountGoal.appraiser.name}}</td>
+                <td>{{accountGoal.reviewer.name}}</td>
+                <td>{{accountGoal.assessment_year}}</td>
+                <!-- <td>{{accountGoal.start_date}}</td>
+                <td>{{accountGoal.end_date}}</td> -->
+                <td>{{accountGoal.assessment_duration}}</td>
+                <td *ngIf=accountGoal.is_active >{{accountGoal.status[0].toUpperCase() + accountGoal.status.substr(1).toLowerCase()}}</td>
+                <td *ngIf=!accountGoal.is_active >Deleted</td>
+                <td class="text-center" *ngIf="accountGoal.final_score  && ((is_Admin && accountGoal.publish) || !is_Admin)" >{{accountGoal.final_score}}</td>
+                <td class="text-center" *ngIf="((is_Admin && (!accountGoal.final_score || !accountGoal.publish) )  ) ||  (!accountGoal.final_score && !is_Admin)">-</td>
+                <td >
+                  <a *ngIf="!is_Admin" title="Edit" [routerLink]="['/account/'+account_id+'/accountGoals/'+accountGoal.id+'/edit']"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a *ngIf="!is_Admin && accountGoal.status == 'new' && accountGoal.is_active"  title="Release" (click)="release(accountGoal.id)"><i class="glyphicon glyphicon-registration-mark"></i></a>
+                  <a title="metrics" [routerLink]="['/accountGoals/'+accountGoal.id+'/metrics']"><i class="glyphicon glyphicon-eye-open"></i></a>
+                  <a style="cursor:pointer" title="delete" *ngIf="accountGoal.is_active && !is_Admin"  (click)="deleteAccount(account_id,accountGoal.id)" ><i class="glyphicon glyphicon-trash"></i></a>
+                  <a *ngIf="!is_Admin && accountGoal.status == 'accepted' && accountGoal.is_active && !accountGoal.publish"  title="Publish" (click)="publish(accountGoal.id)"><i class="glyphicon glyphicon-ruble"></i></a>
+                  <a *ngIf="!is_Admin" title="Duplicate" [routerLink]="['/account/'+account_id+'/accountGoals/'+accountGoal.id+'/duplicate']"><i class="glyphicon glyphicon-duplicate"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

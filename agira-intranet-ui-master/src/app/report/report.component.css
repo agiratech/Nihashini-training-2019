@@ -1,0 +1,17 @@
+.filter {
+    margin-top: 5px;
+    width: 200px;
+    margin-right: 31px;
+    margin-bottom: 0px;
+}
+
+.text-center{
+    text-align: center
+}
+
+.odd{
+    background-color:#ffffff ;
+}
+.even{
+    background-color:#e6e6e6;
+}

@@ -1,0 +1,140 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Settings
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#timeline" data-toggle="tab">Publish</a></li>
+            <li><a href="#clone" data-toggle="tab">Clone</a></li>
+            <li><a href="#configuration" data-toggle="tab">Configuration</a></li>
+            <li><a href="#freeze" data-toggle="tab">Freeze</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="timeline">
+              <!-- The timeline -->
+              <ul class="timeline timeline-inverse">
+                <!-- timeline time label -->
+                <li class="time-label">
+                  <div  class="col-md-6">
+                      <button (click)="publishAll()" class="btn btn-primary">Publish Assessments Score</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="tab-pane" id="clone">
+              <form  class="form-horizontal" [formGroup]="assessmentDurationForm" (ngSubmit)="onSubmit(assessmentDurationForm)">
+                <div  class="form-group">
+                  <label class="col-sm-3 control-label" *ngIf="!errors" >Assessment Year</label>
+                  <div class="col-sm-6">
+                    <select *ngIf="!errors" class="form-control"  formControlName="assessment_year" >
+                      <option value=''>Select</option>
+                      <option *ngFor="let ass_year of ass_years" [value]="ass_year.assessment_year">{{ass_year.assessment_year}}</option>
+                    </select>
+                    <show-errors [control]="assessmentDurationForm.controls.assessment_year"></show-errors> 
+                  </div>
+                </div> 
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" *ngIf="!errors" >Duration</label>
+                  <div class="col-sm-6">
+                    <select *ngIf="!errors" class="form-control"  formControlName="assessment_duration" >
+                      <option value=''>Select</option>
+                      <option *ngFor="let duration_val of duration" [value]="duration_val.key">{{duration_val.value}}</option>
+                    </select>
+                    <show-errors [control]="assessmentDurationForm.controls.assessment_duration"></show-errors> 
+                  </div>
+                  <div class="col-sm-12">
+                  <label  style="font-weight: 400"  *ngIf="errors">
+                    <p *ngFor="let error of errors; let i = index" >{{i+1}}. {{error}}</p>
+                    <button class="btn btn-primary" type="button" (click)="onClick()" *ngIf="errors">Close</button>
+                  </label> 
+                  </div>
+                </div>
+                <div  class="form-group">
+                  <div class="col-sm-offset-5 col-sm-6">
+                    <button *ngIf="!errors" type="submit" class="btn btn-primary">Clone All</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane" id="configuration">
+              <form class="form-horizontal" [formGroup]="assessmentForm" (ngSubmit)="onSubmitAssessment(assessmentForm.value)">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Assessment Duration</label>
+                  <div class="col-sm-6">
+                    <select class="form-control"  formControlName="assessment_duration" >
+                      <option value=''>Select</option>
+                      <option  value="quarterly">Quarterly</option>
+                      <option  value="half_yearly">Half yearly</option>
+                      <option  value="yearly">Yearly</option>
+                      <option  value="monthly">Monthly</option>
+                    </select>
+                  </div>
+                  <show-errors [control]="assessmentForm.controls.assessment_duration"></show-errors> 
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Assessment Due Days</label>
+                    <div class="col-sm-6">
+                      <input type="integer" class="form-control" formControlName= "assessment_due_days" placeholder="Enter Assessment Due Days">
+                    </div>
+                  <show-errors [control]="assessmentForm.controls.assessment_due_days"></show-errors>                  
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Current Assessment Year</label>
+                    <div class="col-sm-6">
+                      <input type="integer" class="form-control" formControlName= "current_assessment_year" placeholder="Enter Assessment Year">
+                    </div>
+                  <show-errors [control]="assessmentForm.controls.current_assessment_year"></show-errors>                  
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-5 col-sm-6">
+                    <button type="submit" class="btn btn-primary">Change</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="tab-pane" id="freeze">
+              <form  class="form-horizontal" [formGroup]="freezeForm" (ngSubmit)="onFreeze(freezeForm)">
+                <div class="form-group">
+                  <label class="col-sm-3 control-label">Assessment Year</label>
+                  <div class="col-sm-6">
+                    <select class="form-control"  formControlName="assessment_year" >
+                      <option value=''>Select</option>
+                      <option *ngFor="let ass_year of ass_years" [value]="ass_year.assessment_year">{{ass_year.assessment_year}}</option>
+                    </select>
+                    <show-errors [control]="freezeForm.controls.assessment_year"></show-errors> 
+                  </div>
+                </div> 
+                <div class="form-group">
+                  <label class="col-sm-3 control-label" >Duration</label>
+                  <div class="col-sm-6">
+                    <select class="form-control"  formControlName="assessment_duration" >
+                      <option value=''>Select</option>
+                      <option *ngFor="let duration_val of duration" [value]="duration_val.key">{{duration_val.value}}</option>
+                    </select>
+                    <div>
+                    </div>
+                    <show-errors [control]="freezeForm.controls.assessment_duration"></show-errors> 
+                  </div>
+                </div>
+
+                <div  class="form-group">
+                    <div class="col-sm-offset-5 col-sm-6">
+                      <button type="submit" class="btn btn-primary">Freeze All</button>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- /.col -->
+  </section>
+</div>
+

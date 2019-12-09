@@ -1,0 +1,15 @@
+.odd{
+    background-color:#ffffff ;
+}
+.even{
+    background-color:#e6e6e6;
+}
+
+table.bgborder, table.bgborder > thead > tr > th, table.bgborder > tbody > tr > td {
+    border: 1px solid #848a87;
+}
+
+.searchbox {
+    margin-right: 20px;
+    width: 135px;
+}

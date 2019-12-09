@@ -1,0 +1,149 @@
+<aside  class="main-sidebar">
+  <section class="sidebar">
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img [src]='profile_pic' class="img-circle" alt="User Image">
+      </div>
+      <div class="pull-left info">
+        <p>{{this.currentUser['name']}}</p>
+      </div>
+    </div>
+    <ul class="sidebar-menu" data-widget="tree">
+      <li [ngClass]="(is_Admin)?'hidden':''" >
+        <a  [routerLink]="['/accounts']">
+          <i class="fa fa-users "></i>
+          <span>Accounts</span>
+        </a>
+      </li>
+
+      <li class="treeview">
+        <a>
+          <i class="fa fa-dashboard"></i> <span>Assessments</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a [routerLink]="['/account/'+account_id+'/accountGoals']">
+            <i class="fa fa-user"></i> Self</a>
+          </li>
+          <li><a [routerLink]="['/teamGoals']">
+            <i class="fa fa-users"></i> Team Assessment</a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/goals']">
+              <i class="fa fa-graduation-cap"></i>
+              <span>Goals</span>
+            </a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/settings']">
+              <i class="glyphicon glyphicon-certificate"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/reports']">
+              <i class="glyphicon glyphicon-registration-mark"></i>
+              <span>Reports</span>
+            </a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/templates']">
+              <i class="fa fa-tasks"></i>
+              <span>Templates</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a  [routerLink]="['/calculator']">
+          <i class="fa fa-calculator"></i>
+          <span>Calculator</span>
+        </a>
+      </li>
+      <li [ngClass]="(is_Admin)?'hidden':''" >
+        <a  [routerLink]="['/projects']">
+          <i class="fa fa-tasks"></i>
+          <span>Projects</span>
+        </a>
+      </li>
+      <li [ngClass]="(is_Admin)?'hidden':''" class="treeview">
+        <a>
+          <i class="glyphicon glyphicon-briefcase"></i> <span>Master</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/clients']">
+              <i class="fa fa-user-secret"></i>
+              <span>Clients</span>
+            </a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/categories']">
+              <i class="glyphicon glyphicon-th"></i>
+              <span>Categories</span>
+            </a>
+          </li>
+          <li [ngClass]="(is_Admin)?'hidden':''" >
+            <a  [routerLink]="['/activities']">
+              <i class="glyphicon glyphicon-fullscreen"></i>
+              <span>Activities</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="treeview" >
+        <a>
+          <i class="fa fa-dashboard"></i> <span>Timesheets</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li [ngClass]="(!is_Admin)?'hidden':''" ><a [routerLink]="['/timesheet/new']">
+            <i class="fa  fa-calendar-plus-o"></i>Log Time</a>
+          </li>
+          <li><a [routerLink]="['/timesheets']">
+            <i class="fa fa-list-alt"></i>Summary</a>
+          </li>
+          <li [ngClass]="(!is_Admin)?'hidden':''" ><a [routerLink]="['/charts']">
+            <i class="fa fa-pie-chart"></i>Charts</a>
+          </li>
+          <li *ngIf="!is_Admin || is_timesheet_manager" ><a [routerLink]="['/admin-reports']">
+            <i class="glyphicon glyphicon-registration-mark"></i>Reports</a>
+          </li>
+        </ul>
+      </li>
+      <li [ngClass]="(is_manager)?'':'hidden'">
+        <a  [routerLink]="['/myTeams']">
+          <i class="fa fa-users "></i>
+          <span>Teams</span>
+        </a>
+      </li>
+      <li [ngClass]="(is_Admin)?'':'hidden'" >
+        <a  [routerLink]="['/myProjects']">
+          <i class="fa fa-tasks"></i>
+          <span>Projects</span>
+        </a>
+      </li>
+      <li>
+        <a  href=" http://ahr.agiratech.com/">
+          <i class="fa fa-university"></i>         
+          <span>aHr</span>
+        </a>
+      </li>
+      <li>
+        <a  href="http://a-meet.agiratech.com">
+          <i class="fa fa-meetup"></i>
+          <span>aMeet</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,49 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Templates List
+      <a class="pull-right" [routerLink]="['/templates/new']" ><i class="fa fa-fw fa-plus-circle" title="Create Template"></i></a>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Templates Found  </p>
+            <table *ngIf="!noData" id="table" class="table ">
+              <thead>
+                <tr class="even">
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let template of templates" [ngClass]="(template  | tablecolor)?'odd':'even'">
+                <td>{{template.name}}</td>
+                <td *ngIf=(template.is_active) >Active</td>
+                <td *ngIf=(!template.is_active) >InActive</td>
+                <td class="text-center">
+                  <a title="Assign metric" [routerLink]="['/templates/'+template.id+'/metrics']"><i class="glyphicon glyphicon-education"></i></a>
+                  <a title="Edit" [routerLink]="['/templates/'+template.id+'/edit/']"><i class="glyphicon glyphicon-edit"></i></a>
+                  <a *ngIf=(!template.is_active) title="Mark as Active Template" (click)="active(template.id)"><i class="glyphicon glyphicon-ok"></i></a>
+                  <a style="cursor:pointer" *ngIf=(template.is_active) title="Mark as InActive Template" (click)="delete(template.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

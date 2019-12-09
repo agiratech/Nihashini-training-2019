@@ -1,0 +1,87 @@
+<div class="content-wrapper">
+  <section class="content-header">
+      <h1 style="margin: 11px">
+        {{account.name}}
+      </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="invoice">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th class="col-md-2">Name</th>
+              <td>{{account.name}}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{account.email}}</td>
+            </tr>
+            <tr *ngIf="is_admin">
+              <th>Mentor</th>
+              <td>
+                <select class="breadcrumb custom-width form-control"  [(ngModel)]="mentor_id" (ngModelChange)="changeMentor()">
+                  <option *ngFor="let manager of managers" [value]="manager.id">{{manager.name}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr *ngIf="is_admin && !noData">
+              <th>Team Members</th>
+              <td><ng-container  *ngFor="let account of accounts">
+                  <span class="btn btn-default custom-team-btn">{{account.name}}</span>
+                 </ng-container>
+              </td>
+            </tr>
+            <tr>
+              <th>Active Projects</th>
+              <td>
+                <ng-container  *ngFor="let project of projects">
+                  <span *ngIf="!project.is_default && project.is_active" class="btn btn-default custom-btn">{{project.project_name}}
+                  <button type="button" (click)="add_account(project.project_id,'remove')"  class="wrong-clr btn btn-default custom-radius" ><i  class="fa fa-times custom-icon"></i>
+                  </button>
+                  </span>
+                  </ng-container>
+                  <button data-toggle="modal" data-target="#modal-default" type="button" class="btn btn-info btn-circle"><i class="glyphicon glyphicon-plus custom-glyph"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <th>InActive Projects</th>
+              <td>
+                <ng-container  *ngFor="let project of projects">
+                  <span *ngIf="!project.is_default && !project.is_active " class="btn btn-default custom-btn">{{project.project_name}}
+                  <button type="button" (click)="add_account(project.project_id,'add')" class="right-clr btn btn-default custom-radius" ><i class="fa fa-check custom-icon"></i>
+                  </button>
+                  </span>
+                  </ng-container>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>  
+  </section>
+</div>
+    
+
+<div class="modal fade" id="modal-default">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{account.name}}</h4>
+      </div>
+      <div class="modal-body" style="height:200px; text-align: -webkit-center;">
+          <select class="breadcrumb custom-width form-control"  [(ngModel)]="project_id">
+            <option value=''>Select</option>
+              <option *ngFor="let project of all_projects" [value]="project.id">{{project.name}}</option>
+            </select>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" (click)="add_account(project_id,'add')" class="btn btn-primary">Assign project</button>
+      </div>
+    </div>
+  </div>
+</div>

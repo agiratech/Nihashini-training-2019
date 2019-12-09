@@ -1,0 +1,45 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      My Teams
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Data Available </p>
+            <table *ngIf="!noData" id="table" class="table ">
+              <thead>
+                <tr class="even">
+                  <th>EmpId</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Roles</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let account of accounts" [ngClass]="(account  | tablecolor)?'odd':'even'">
+                <td>{{account.emp_id}}</td>
+                <td>{{account.name}}</td>
+                <td>{{account.email}}</td>
+                <td>{{account.roles}}</td>
+                <td *ngIf=(account.is_active) >Active</td>
+                <td *ngIf=(!account.is_active) >InActive</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

@@ -1,0 +1,49 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Goals List
+      <a class="pull-right" [routerLink]="['/goal/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="example2" class="table table-bordered">
+              <thead>
+              <tr class="even">
+                <!-- <th>Id</th> -->
+                <th class="text-center">Name</th>
+                <th class="text-center">Description</th>
+                <!-- <th class="text-center">Score</th> -->
+                <th class="text-center">Status</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let goal of goals" [ngClass]="(goal | tablecolor)?'odd':'even'" >
+                <!-- <td>{{goal.id}}</td> -->
+                <td class="escape-html" >{{goal.name}}</td>
+                <td class="escape-html" >{{goal.description}}</td>
+                <!-- <td class="col-md-1 text-center">{{goal.score}}</td> -->
+                <td class="col-md-1 text-center escape-html" *ngIf=(goal.status) >Active</td>
+                <td class="col-md-1 text-center escape-html" *ngIf=(!goal.status) >InActive</td>
+                <td class="col-md-1 text-center" ><a [routerLink]="['/goal',goal.id]"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a [routerLink]="['/goal/'+goal.id+'/edit']"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a *ngIf=goal.status style="cursor:pointer" (click)="delete(goal.id)"><i class="glyphicon glyphicon-trash"></i></a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

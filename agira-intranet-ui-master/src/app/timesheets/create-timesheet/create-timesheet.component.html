@@ -1,0 +1,79 @@
+<div class="content-wrapper">
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Create TimeSheet</h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <form [formGroup]="timesheetForm" (ngSubmit)="onSubmit(timesheetForm)">
+            <div class="box-body">
+              <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <label >Date</label>
+                <div class="col-md-12 no-padding">
+                  <input class="form-control" placeholder="Click to Select"    ngx-mydatepicker
+                  formControlName= "date" (click)="dp.toggleCalendar()" [options]="myOptions" #dp="ngx-mydatepicker"/>
+                </div>
+                <!-- <input type="date" class="form-control" formControlName= "date" > -->
+                <show-errors [control]="timesheetForm.controls.date"></show-errors>
+              </div>
+              <div class="form-group col-md-6">
+                  <label >Comment</label>
+                  <textarea class="form-control" formControlName = "comment"  rows="2"  placeholder="Enter Comment"></textarea>
+                  <show-errors [control]="timesheetForm.controls.comment"></show-errors>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                <label>Select Project</label>
+                <select class="form-control" formControlName = "project_id" (change) = "getProject($event.target.value)">
+                  <option value="">Select</option>
+                  <option *ngFor="let project of projects"
+                  [value]="project.id">{{project.name}}</option>
+                </select>
+                <show-errors [control]="timesheetForm.controls.project_id"></show-errors>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Select Activity</label>
+                <select class="form-control" formControlName = "activity_id">
+                  <option value="">Select</option>
+                  <option *ngFor="let activity of activities"
+                  [value]="activity.id">{{activity.name}}</option>
+                </select>
+                <show-errors [control]="timesheetForm.controls.activity_id"></show-errors>
+              </div>
+              </div>
+            <div class="col-md-12">
+              <div class="form-group col-md-6">
+                  <label >Worked Hours</label>
+                  <input type="number" class="form-control" formControlName= "worked_hours" placeholder="Enter Worked Hours">
+                  <show-errors [control]="timesheetForm.controls.worked_hours"></show-errors>
+                </div>
+              <div class="form-group col-md-6" *ngIf="!hideBilledHours">
+                <label >Billed Hours</label>
+                <input type="number" class="form-control" formControlName= "billed_hours" placeholder="Enter Billed Hours">
+                <show-errors [control]="timesheetForm.controls.billed_hours"></show-errors>
+              </div>
+            </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" (click)="locationBack()" class="btn btn-default">Cancel</button>
+            </div>
+          </form>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!--/.col (left) -->
+      <!-- right column -->
+      <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  </div>

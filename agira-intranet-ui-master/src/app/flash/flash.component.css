@@ -1,0 +1,9 @@
+.flash {
+    width: 100%;
+    position: absolute;
+    /* left: calc(100vw - 957px); */
+    /* top: 1%; */
+    z-index: 1040;
+    text-align: center
+}
+.flash:first-letter {text-transform:uppercase}

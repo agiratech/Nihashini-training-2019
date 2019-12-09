@@ -1,0 +1,67 @@
+<div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Accounts List
+        <a class="pull-right" [routerLink]="['/account/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+        <div class="pull-right searchbox">
+          <input [(ngModel)]="searchText" [debounce]="300" (onDebounce)="getAccounts(1)"  class="form-control" placeholder="Search Account">
+        </div>
+      </h1>
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <p class="text-center" *ngIf="noData"> No Data Available in this year  </p>
+              <table *ngIf="!noData" id="table" class="table ">
+                <thead>
+                  <tr class="even">
+                    <th>EmpId</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Manager</th>
+                    <th>Roles</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let account of accounts | paginate: {
+                  itemsPerPage: 25,
+                  currentPage: currentPageNo,
+                  totalItems: response['count'] }" [ngClass]="(account  | tablecolor)?'odd':'even'">
+                  <td>{{account.emp_id}}</td>
+                  <td>{{account.name}}</td>
+                  <td>{{account.email}}</td>
+                  <td>{{account['manager']['name']}}</td>
+                  <td>{{account.roles}}</td>
+                  <td *ngIf=(account.is_active) >Active</td>
+                  <td *ngIf=(!account.is_active) >InActive</td>
+                  <td class="text-center">
+                    <a title="Show account" [routerLink]="['/account',account.id]" ><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a title="Assign metric" [routerLink]="['/account/'+account.id+'/accountGoals']"><i class="glyphicon glyphicon-education"></i></a> 
+                    <a title="Edit" [routerLink]="['/account/'+account.id+'/edit/']"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a *ngIf=(!account.is_active) title="Active account" (click)="active(account)"><i class="glyphicon glyphicon-ok"></i></a>
+                    <a style="cursor:pointer" *ngIf=(account.is_active) title="Delete" (click)="delete(account.id)"><i class="glyphicon glyphicon-trash"></i></a>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+
+            </div>
+ 
+            <!-- /.box-body -->
+          </div>
+          <pagination-controls *ngIf="response['count'] > 1" class="customPage" (pageChange)=" getAccounts($event)" ></pagination-controls>
+          <!-- /.box -->
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+    </section>
+  </div>
+  

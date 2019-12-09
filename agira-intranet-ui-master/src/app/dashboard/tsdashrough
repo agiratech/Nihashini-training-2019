@@ -1,0 +1,67 @@
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
+import { FlashService } from '../flash/flash.service'
+import { TimesheetService } from '../services/timesheet.service';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+declare var $ :any;
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
+})
+export class DashboardComponent implements OnInit {
+
+  constructor(
+    private flashService: FlashService,
+    private timesheetService : TimesheetService,
+  ) { }
+
+  timesheets;
+  defaultTime = "between";
+  defaultUser = JSON.parse(localStorage.getItem('currentUser')).id;
+  end_date = new Date()
+  start_date = new Date(this.end_date.getTime() - (7 * 24 * 60 * 60 * 1000));
+  startDate = this.start_date.getDate()+'-'+(this.start_date.getMonth()+1)+'-'+this.start_date.getFullYear()
+  endDate = this.end_date.getDate()+'-'+(this.end_date.getMonth()+1)+'-'+this.end_date.getFullYear()
+  @ViewChild('barChart') bar_chart: ElementRef;
+  ngOnInit() {
+
+    this.timesheetService.getTimesheets(this.defaultTime, this.defaultUser,this.startDate, this.endDate).subscribe(
+      data => {
+        if(data.body['success']){
+          this.timesheets = data.body['result']
+        }
+      },
+      error => {
+      }
+    ) 
+  
+
+  var bar_data = {
+    data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 23], ['June', 9]],
+    color: '#3c8dbc'
+  }
+  $.plot('#bar-chart', [bar_data], {
+    grid  : {
+      borderWidth: 1,
+      borderColor: '#f3f3f3',
+      tickColor  : '#f3f3f3'
+    },
+    series: {
+      bars: {
+        show    : true,
+        barWidth: 0.5,
+        align   : 'center'
+      }
+    },
+    xaxis : {
+      mode      : 'categories',
+      tickLength: 0
+    }
+  })
+
+  }
+}
+
+

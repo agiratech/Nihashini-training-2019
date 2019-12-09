@@ -1,0 +1,47 @@
+.custom-padding-top{
+    padding-top: 0px
+}
+
+.custom-padding-bottom{
+    padding-bottom: 0px
+}
+
+.custom-margin-left{
+    margin-left: 15px
+}
+
+.custom-remove{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-left: #8080803d;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.custom-btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 0px 0px 0px 3px;
+
+}
+.custom-radius {
+    border-radius: 0px;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+.custom-icon{
+    cursor: pointer;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+.custom-glyph{
+    padding-right: 0px;
+}

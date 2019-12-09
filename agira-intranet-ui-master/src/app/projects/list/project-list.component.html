@@ -1,0 +1,64 @@
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Projects List
+        <a class="pull-right" [routerLink]="['/project/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+        <div class="pull-right searchbox">
+          <input [(ngModel)]="searchText" [debounce]="300" (onDebounce)="getProjects(1)"  class="form-control" placeholder="Search Project">
+        </div>
+      </h1>
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <p class="text-center" *ngIf="no_record" > No Data Yet. <a [routerLink]="['/project/new']" >Add New </a></p>
+              <table *ngIf= "!no_record"  id="example2" class="table table-bordered ">
+                <thead>
+                <tr class="even">
+                  <!-- <th>Id</th> -->
+                  <th class="sort" (click)="sortProjects('projects')">Project Name<span class="sort-icon"><i class="fa fa-sort"></i></span></th>
+                  <th class="sort" (click)="sortProjects('clients')">Client<span class="sort-icon"><i class="fa fa-sort"></i></span></th>
+                  <th class="sort" (click)="sortProjects('managers')">Manager<span class="sort-icon"><i class="fa fa-sort"></i></span></th>
+                  <th class="sort" (click)="sortProjects('categories')">Category<span class="sort-icon"><i class="fa fa-sort"></i></span></th>
+                  <th class="sort" (click)="sortProjects('statuses')">Status<span class="sort-icon"><i class="fa fa-sort"></i></span></th>
+                  <th>Project Description</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let project of projects | paginate: {
+                  itemsPerPage: 25,
+                  currentPage: currentPageNo,
+                  totalItems: count }" [ngClass]="(project  | tablecolor)?'odd':'even'">
+                  <!-- <td>{{project.id}}</td> -->
+                  <td>{{project.name}}</td>
+                  <td>{{project.client_name}}</td>
+                  <td>{{project.owner.name}}</td>
+                  <td>{{project['category']['name']}}</td>
+                  <td *ngIf=(project.is_active) >Active</td>
+                  <td *ngIf=(!project.is_active) >InActive</td>
+                  <td>{{project.description}}</td>
+                  <td><a title="show project" *ngIf=(project.is_active) [routerLink]="['/project',project.id]"><i class="glyphicon glyphicon-eye-open"></i></a>
+                    <a title="edit project" *ngIf=(project.is_active) [routerLink]="['/project/'+project.id+'/edit']"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a title="assign user" *ngIf=(project.is_active) (click)="addAccounts(project)" data-toggle="modal" data-target="#modal-default"><i class="glyphicon glyphicon-user"></i></a>
+                      <a title="delete project" style="cursor:pointer" *ngIf=(project.is_active) (click)="delete(project.id)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <pagination-controls *ngIf="count > 1" class="customPage" (pageChange)="getProjects($event)" ></pagination-controls>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+
+  <div class="modal fade" id="modal-default">
+    <app-assign-projects [project]="exis_project" [optionsModel]="optionsModel" (reload)="onReload($event)"></app-assign-projects>
+  </div>

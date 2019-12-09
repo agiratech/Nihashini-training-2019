@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+  <section style="position: relative; padding: 1px 1px 0px 10px;">
+    <ol class="breadcrumb pull-left content-header ">
+      <li><a [routerLink]="['/projects']">Projects</a></li>               
+      <li><a style="cursor:text; color: #333 !important" >Create</a></li>        
+    </ol>
+  </section>
+  <section class="content">
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <!-- form start -->
+          <form [formGroup]="projectForm" (ngSubmit)="onSubmit(projectForm)">
+            <div class="box-body">
+              <div class="form-group col-md-6">
+                <label >Project Name<span _ngcontent-c8="" class="star">*</span></label>
+                <input type="text" class="form-control" formControlName= "name" placeholder="Enter Project Name">
+                <show-errors [control]="projectForm.controls.name"></show-errors>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Select Owner<span _ngcontent-c8="" class="star">*</span></label>
+                <select class="form-control" formControlName = "owner_id">
+                  <option value="">Select</option>
+                  <option *ngFor="let manager of managers" 
+                  [value]="manager.id">{{manager.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Select Client<span _ngcontent-c8="" class="star">*</span></label>
+                <select class="form-control" formControlName = "client_id">
+                  <option value="">Select</option>
+                  <option *ngFor="let client of clients" 
+                  [value]="client.id">{{client.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Select Category<span _ngcontent-c8="" class="star">*</span></label>
+                <select class="form-control" formControlName = "category_id">
+                  <option value="">Select</option>
+                  <option *ngFor="let category of categories" 
+                  [value]="category.id">{{category.name}}</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label >Description</label>
+                <input type="text" class="form-control" formControlName= "description" placeholder="Enter Project Description">
+                <show-errors [control]="projectForm.controls.description"></show-errors>
+              </div>
+              <div class="form-group col-md-6">
+                <label >Duration</label>
+                <input type="text" class="form-control" formControlName= "duration" placeholder="Enter Project Duration">
+                <show-errors [control]="projectForm.controls.duration"></show-errors>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Budget</label>
+                <input type="text" class="form-control" formControlName= "budget" placeholder="Enter Project Budget">
+              </div>
+              <div class="col-md-6">
+                <div class="checkbox form-group ">
+                  <label >
+                    <input type="checkbox"  formControlName="is_default" > Default
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-body -->
+  
+            <div class="box-footer text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="button" (click)="locationBack()" class="btn btn-default">Cancel</button>                
+            </div>
+          </form>
+        </div>
+        <!-- /.box -->
+      </div>
+      <!--/.col (left) -->
+      <!-- right column -->
+      <!--/.col (right) -->
+    </div>
+    <!-- /.row -->
+  </section>
+  </div>

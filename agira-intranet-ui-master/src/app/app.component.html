@@ -1,0 +1,14 @@
+<body [ngClass]="(loggedIn)?'hold-transition skin-blue sidebar-mini sidebar-collapse':'login-page'">
+    <app-flash></app-flash>
+    <app-header *ngIf=loggedIn ></app-header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <app-sidenav *ngIf=loggedIn ></app-sidenav>
+    <!--The content below is only a placeholder and can be replaced.-->
+    
+    <router-outlet></router-outlet>
+    
+    <ng4-loading-spinner > </ng4-loading-spinner>
+    <!-- footer -->
+    <app-footer *ngIf=loggedIn ></app-footer>
+</body>
+    

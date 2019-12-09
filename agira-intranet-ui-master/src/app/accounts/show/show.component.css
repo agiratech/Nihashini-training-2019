@@ -1,0 +1,33 @@
+.custom-btn {
+    margin-bottom: 5px;
+    margin-right: 5px;
+    padding: 0px 0px 0px 3px;
+
+}
+
+.custom-width{
+    margin-bottom: 0px !important;
+    width:  200px !important;
+}
+
+.custom-radius {
+    border-radius: 0px;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+}
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+.custom-glyph {
+    padding-right: 0px;
+}
+.custom-team-btn {
+    padding: 4px;
+}

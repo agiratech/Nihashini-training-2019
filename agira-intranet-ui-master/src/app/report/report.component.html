@@ -1,0 +1,106 @@
+<div class="content-wrapper">
+  <section  style="position: relative; padding: 1px 1px 0px 10px;" >
+    <h1>
+    </h1>
+    <div class="col-md-12 form-group pull-right filter" style="width:900px">
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"  [(ngModel)]="current_assessment_year" (ngModelChange)="getReports()" >
+          <option value = 'all' >Select Assessment Year</option>
+          <option *ngFor="let year of years" [value]=year.assessment_year>{{year.assessment_year}}</option>
+        </select>
+      </div>
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"  [(ngModel)]="Filter" (ngModelChange)="getReports()" >
+          <option value = 'all' >All Quarters</option>
+          <option *ngFor="let dur of duration" [value]=dur.key>{{dur.value}}</option>
+        </select>
+      </div>
+      <div class="col-md-3" >
+        <select class="breadcrumb  form-control"   [(ngModel)]="user" (ngModelChange)="getReports()" >
+          <option value = 'all' >Select Account</option>
+          <option *ngFor = "let account of users" [value]=account.id >{{account.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-2" >
+          <select class="breadcrumb  form-control"  [(ngModel)]="Status" (ngModelChange)="getReports()" >
+            <option value = 'all' >Select status</option>
+            <option value = 'new' >New</option>
+            <option value = 'released' >Released</option>
+            <option value = 'submitted' >Submitted</option>
+            <option value = 'reviewed' >Reviewed</option>
+            <option value = 'accepted' >Accepted</option>
+          </select>
+      </div>
+      <div class="col-md-1" >
+        <button class="btn btn-default" (click)="downloadReport()" >EXPORT</button>
+      </div>
+    </div>
+    <ol class="breadcrumb pull-left content-header ">
+        <li><a [routerLink]="['/accounts']" >Accounts</a></li>
+    </ol>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Assessments Assigned  </p>
+            <div *ngIf="!noData" class="average_score">
+              <p *ngIf="this.average_final_score" >Overall Final Score - {{this.average_final_score | number:'1.1-2'}} <i title= "Overall final score is calculated for published assessment only" class="fa fa-question-circle"></i></p>
+            </div>
+            <table *ngIf=!noData  id="table"  class="table  table-hover">
+              <thead>
+              <tr class="even">
+                <th>EmpId</th>
+                <th>Account Name</th>
+                <th>Appraiser Name</th>
+                <th>Reviewer Name</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th class="text-center" >Score</th>
+                <th class="text-center" >Bonus</th>
+                <th class="text-center" >Net Score</th>
+                <th class="text-center" >Annual Score </th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let report of reports"  [ngClass]="(report | tablecolor)?'odd':'even'">
+                <td>{{report.account.emp_id}}</td>
+                <td>{{report.account.name}}</td>
+                <td>{{report.appraiser.name}}</td>
+                <td>{{report.reviewer.name}}</td>
+                <td>{{report.assessment_duration}}</td>
+                <td>{{report.status}}</td>
+
+                <td class="text-center" *ngIf="report.final_score && (report.status == 'reviewed' || report.status == 'accepted')" >{{report.score}}</td>
+                <td class="text-center" *ngIf="!report.final_score || (report.final_score && (report.status == 'new' || report.status == 'released' || report.status == 'submitted'))">-</td>
+
+                <td class="text-center" *ngIf="report.bonus && (report.status == 'reviewed' || report.status == 'accepted')" >{{report.bonus}}</td>
+                <td class="text-center" *ngIf="!report.bonus || (report.final_score && (report.status == 'new' || report.status == 'released' || report.status == 'submitted'))">-</td>
+
+                <td class="text-center" *ngIf="report.final_score && (report.status == 'reviewed' || report.status == 'accepted')" >{{report.final_score}}</td>
+                <td class="text-center" *ngIf="!report.final_score || (report.final_score && (report.status == 'new' || report.status == 'released' || report.status == 'submitted'))">-</td>
+
+                <td class="text-center" *ngIf="report.overall_score" >{{report.overall_score}}</td>
+                <td class="text-center" *ngIf="!report.overall_score" >-</td>
+
+                <td >
+                  <a title="metrics" [routerLink]="['/accountGoals/'+report.id+'/metrics']"><i class="glyphicon glyphicon-eye-open"></i></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

@@ -1,0 +1,14 @@
+.goal-bg{
+    background-color:#e6e6e6 ;
+    margin:7px;
+}
+
+.add-goal{
+    margin-right: 25px
+}
+.clone-template-dropdown {
+  width: 60%;
+}
+.clone-template, .create-account-metrics-head {
+  margin-top: 6px;
+}

@@ -1,0 +1,101 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{account_name}}
+      <a *ngIf=admin_manager class="pull-right" data-toggle="modal" data-target="#modal-default"><i class="fa fa-fw fa-plus-circle"></i></a>
+      <select class="filter pull-right"  [(ngModel)]="currentYear" (ngModelChange)="getMetrics()" >
+          <option *ngFor="let year of years" [value]=year>{{year}}</option>
+      </select>
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p *ngIf="emptyData">
+              No Data Yet. <a  *ngIf=admin_manager  data-toggle="modal" data-target="#modal-default" >Add Metrics</a>
+            </p>
+            <table [hidden]="emptyData" id="example2" class="table table-bordered ">
+              <thead>
+              <tr>
+                <th>Goal Name</th>
+                <th>Goal Description</th>
+                <th>Metric Name</th>
+                <th>Metric Description</th>
+                <th>Assessment Year</th>
+                <!-- <th *ngIf=!admin_manager >Details</th>                   -->
+                <th *ngIf=admin_manager >Unassign</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let metric of metrics" >
+                <td style="vertical-align: middle" *ngIf="metric.goal_name" [attr.rowspan]="metric.row" >{{metric.goal_name}}</td>
+                <td style="vertical-align: middle" *ngIf="metric.goal_description" [attr.rowspan]="metric.row" >{{metric.goal_description}}</td>
+                <td>{{metric.metric_name}}</td>
+                <td>{{metric.metric_description}}</td>
+                <td>{{metric.assessment_year}}</td>
+                <!-- <td *ngIf=!admin_manager ><a title="No Action" ><i class="fa fa-fw fa-eye"></i></a></td>                   -->
+                <td *ngIf=admin_manager ><a style="cursor:pointer" (click)="delete(metric.account_metric_id)"><i class="glyphicon glyphicon-trash"></i></a></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+  <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Assign Metrics</h4>
+          </div>
+          <div class="flash alert alert-danger alert-dismissible " *ngIf="flash_active">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{text}}
+            </div>
+          <form [formGroup]="metricForm" (ngSubmit)="onSubmit(metricForm.value)">
+          <div class="modal-body">
+            <div class="form-group col-md-12">
+              <label >Goal</label>
+              <select class="form-control" (change)="selectMetric($event.target.value)" formControlName="goal_id" >
+                  <option selected>Select</option>
+                  <option *ngFor="let goal of goals" [value]=goal.id>{{goal.name}}</option>
+                </select>
+            </div>
+            <div [hidden]=hide_metrics  class="form-group col-md-12">
+                <label >Metrics</label>
+                <select class="form-control" formControlName="metric_id" >
+                    <option value=''>Select</option>
+                    <option *ngFor="let metric of goal_metrics" [value]=metric.id>{{metric.description}}</option>
+                  </select>
+                  <show-errors [control]="metricForm.controls.metric_id"></show-errors>
+                  <div *ngIf="errors['metric']" class="text-red">Metric {{errors.metric}}</div> 
+              </div>
+              <div [hidden]=hide_metrics  class="form-group col-md-12">
+                  <label >Assessment Year</label>
+                  <select class="form-control" formControlName="assessment_year" >
+                      <option value=''>Select</option>
+                      <option *ngFor="let year of years" [value]=year>{{year}}</option>
+                    </select>
+                </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Add Metric</button>
+          </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+

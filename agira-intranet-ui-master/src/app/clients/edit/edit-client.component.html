@@ -1,0 +1,51 @@
+<div class="content-wrapper">
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Edit Client</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form [formGroup]="clientForm" (ngSubmit)="onSubmit(clientForm.value)">
+              <div class="box-body">
+                <div class="form-group col-md-6">
+                  <label >Email</label>
+                  <input type="email" class="form-control" formControlName = "email" placeholder="Enter email">
+                  <show-errors [control]="clientForm.controls.email"></show-errors>
+                </div>
+                <div class="form-group col-md-6">
+                  <label >Name</label>
+                  <input type="text" class="form-control" formControlName = "name" placeholder="name">
+                  <show-errors [control]="clientForm.controls.name"></show-errors>
+                </div>
+                <div class="form-group col-md-6">
+                  <label >Phone Number</label>
+                  <input type="text" class="form-control" formControlName = "phone_number" placeholder="name">
+                  <show-errors [control]="clientForm.controls.phone_number"></show-errors>
+                </div>
+                <div class="form-group col-md-6">
+                  <label>Country</label>
+                  <input type="text" class="form-control" formControlName = "country" placeholder="name">
+                  <show-errors [control]="clientForm.controls.country"></show-errors>
+                </div>
+              </div>
+              <!-- /.box-body -->
+    
+              <div class="box-footer text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- /.box -->
+        </div>
+        <!--/.col (left) -->
+        <!-- right column -->
+        <!--/.col (right) -->
+      </div>
+      <!-- /.row -->
+    </section>
+    </div>

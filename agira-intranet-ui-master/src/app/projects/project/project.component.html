@@ -1,0 +1,42 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      My Projects
+    </h1>
+  </section>
+
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <p class="text-center" *ngIf="noData"> No Data Available </p>
+            <table *ngIf="!noData" id="table" class="table ">
+              <thead>
+                <tr class="even">
+                  <th class="col-md-2">Name</th>
+                  <th class="col-md-2">Owner</th>
+                  <th>TeamMembers</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let project of projects" [ngClass]="(project  | tablecolor)?'odd':'even'">
+                <td>{{project.name}}</td>
+                <td>{{project.owner.name}}</td>
+                <td><ng-container  *ngFor="let account of project.accounts">
+                  <span class="btn btn-default custom-btn">{{account.account.name}}</span>
+                 </ng-container></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </section>
+</div>

@@ -1,0 +1,48 @@
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>
+        Clients List
+        <a class="pull-right" [routerLink]="['/client/new']" ><i class="fa fa-fw fa-plus-circle"></i></a>
+      </h1>
+    </section>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+              <p class="text-center" *ngIf="no_record" > No Data Yet. <a [routerLink]="['/client/new']" >Add New </a></p>
+              <table id="example2" class="table table-bordered ">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Client Name</th>
+                  <th>Email</th>
+                  <th>Phone Number</th>
+                  <th>Country</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let client of clients" >
+                  <td>{{client.id}}</td>
+                  <td>{{client.name}}</td>
+                  <td>{{client.email}}</td>
+                  <td>{{client.phone_number}}</td>
+                  <td>{{client.country}}</td>
+                  <td><a [routerLink]="['/client',client.id]"><i class="fa fa-edit"></i></a>
+                    <a style="cursor:pointer" (click)="delete(client.id)"><i class="glyphicon glyphicon-trash"></i></a></td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+          <!-- /.box -->
+        </div>
+        <!-- /.col -->
+      </div>
+    </section>
+  </div>

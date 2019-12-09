@@ -1,0 +1,67 @@
+<div class="login-box">
+    <div class="login-logo">
+      <a [routerLink]="['/']"><b>A-</b>Net</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+        <div class="form-group has-feedback">
+          <input type="email" formControlName= "email" class="form-control" placeholder="Email">
+          <show-errors [control]="loginForm.controls.email"></show-errors>
+          <!-- <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors">
+            <p class="text-red" [hidden]="!loginForm.controls['email'].errors.required">Email is required</p>
+            <p class="text-red" [hidden]="!loginForm.controls['email'].errors.pattern">Email is Invalid</p>
+          </div> -->
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" formControlName= "password" class="form-control" placeholder="Password">
+          <show-errors [control]="loginForm.controls.password"></show-errors>
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <!-- /.social-auth-links -->
+      <br>
+      <a title="forgot password" data-toggle="modal" data-target="#modal-default">Forgot Password </a>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+
+  <div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" #closeModal class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Forgot Password</h4>
+        </div>
+        <form [formGroup]="forgotPasswordForm" (ngSubmit)="forgotPassword(forgotPasswordForm.value)">
+          <div class="modal-body">
+              <div class="col-md-12">
+                <label>Email</label>
+                <input type="text" class="form-control" formControlName = "email" placeholder="Enter Email">
+                <br/>                
+              </div>
+          </div>
+          <div style="padding-left: 500px;">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <br/>
+          <!-- <br/>
+          <div class="modal-footer">
+          </div> -->
+        </form>
+      </div>
+    </div>
+  </div>
+
