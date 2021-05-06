@@ -32,7 +32,7 @@
     "core-js": "2.5.3",
     "devextreme-angular": "^18.1.4",
     "devextreme-angular2": "^16.2.1-alpha.2.deprecated",
-    "highcharts": "^6.1.1",
+    "highcharts": "^9.0.0",
     "highcharts-angular": "^2.0.1",
     "jquery": "^3.3.1",
     "ng2-charts": "^1.6.0",
